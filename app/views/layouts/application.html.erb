@@ -7,13 +7,17 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= render 'devise/shared/login_links' %>
+  <div id="wrapper">
 
-    <% flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, class: name %>
-    <% end -%>
+    <%= render 'layouts/sidebar' %>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <% flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, class: name %>
+        <% end -%>
+    </div>
 
     <%= yield %>
-
+  </div>
   </body>
 </html>
