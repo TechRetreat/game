@@ -44,16 +44,17 @@
     margin-right: -250px;
 }
 
-#main-layout-full {
-    padding-top: 50px;
+.fight-layout-full {
+    display: flex;
+    flex-flow: row;
     width:100%;
     height:100vh;
 }
 
-.box {
-  display: flex;
-  flex-flow: row;
-  height: 100%;
+.main-layout-full {
+    padding-top: 50px;
+    width:100%;
+    height:100vh;
 }
 
 #editor {

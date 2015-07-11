@@ -11,7 +11,9 @@
       <%= render 'layouts/topbar' %>
       <!-- Page Content -->
       
-      <%= yield %>
+      <div class="main-layout-full">
+        <%= yield %>
+      </div>
       <div id="page-content-wrapper">
         <% flash.each do |name, msg| -%>
           <%= content_tag :div, msg, class: name %>
