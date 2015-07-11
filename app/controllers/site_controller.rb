@@ -10,5 +10,6 @@ class SiteController < ApplicationController
     game_ctrl.add_ai_list(brain_paths)
     game_ctrl.simulate
 
+    puts "generated game"
   end
 end
