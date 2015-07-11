@@ -59,10 +59,15 @@
 
 #editor {
     flex: 1 1 auto;
+    height:100vh;
 }
 
-#game-screen {
+.game-screen {
     flex: 0 1 100vh;
+}
+
+.editor-screen {
+    height:100vh;
 }
 
 /* Navbar Styles */
