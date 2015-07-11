@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require bootstrap
+ *= require font-awesome
  */
 
 /* Toggle Styles */
@@ -68,6 +69,35 @@
 
 .editor-screen {
     height:100vh;
+}
+
+.toolbar{
+    height:50px;
+    background: #B00100;
+}
+
+.toolbar>ul{
+    list-style-type: none;
+}
+.toolbar>ul>li{
+    display: inline;
+    height:100%;
+    width:50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 2em;
+    line-height: 2em;
+
+    -o-transition:color .1s ease-out, background 0.1s ease-in;
+    -ms-transition:color .1s ease-out, background 0.1s ease-in;
+    -moz-transition:color .1s ease-out, background 0.1s ease-in;
+    -webkit-transition:color .1s ease-out, background 0.1s ease-in;
+    /* ...and now override with proper CSS property */
+    transition:color .1s ease-out, background 0.1s ease-in;
+}
+
+.toolbar>ul>li:hover{
+    background: #e90100;
 }
 
 /* Navbar Styles */
