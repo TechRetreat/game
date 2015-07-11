@@ -1,20 +1,23 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12">
-      <div id="editor">
-        def yu_chen_is_cool
-            puts false
-        end
-      </div>
-      <%= if user_signed_in?
+<div class="box" id="main-layout-full">
+    <div id="editor">
+      def yu_chen_is_cool
+        puts false
+      end
+
+      
+    </div>
+    <div id="game-screen">
+      test
+    </div>
+
+<%= if user_signed_in?
             current_user
           end
-        %>
-      <script>
-          var editor = ace.edit("editor");
-          editor.setTheme("ace/theme/monokai");
-          editor.getSession().setMode("ace/mode/ruby");
-      </script>
-    </div>
-  </div>
+    %>
+
+  <script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/ruby");
+  </script>
 </div>

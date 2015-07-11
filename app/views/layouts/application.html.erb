@@ -7,19 +7,16 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-  <div id="wrapper">
-
-    <%= render 'layouts/topbar' %>
-    <!-- Page Content -->
-    
-    <div id="inner-body">
+    <div id="wrapper">
+      <%= render 'layouts/topbar' %>
+      <!-- Page Content -->
+      
       <%= yield %>
       <div id="page-content-wrapper">
-          <% flash.each do |name, msg| -%>
-            <%= content_tag :div, msg, class: name %>
-          <% end -%>
+        <% flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, class: name %>
+        <% end -%>
       </div>
     </div>
-  </div>
   </body>
 </html>
