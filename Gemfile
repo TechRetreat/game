@@ -35,6 +35,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rtanque', github: 'TechRetreat/RTanque'
 gem 'devise'
 
+gem 'ace-rails-ap'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

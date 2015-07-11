@@ -15,6 +15,10 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require ace/ace
+//= require ace/worker-html
+//= require ace/theme-monokai
+//= require ace/mode-ruby
 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
