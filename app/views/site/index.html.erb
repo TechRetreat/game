@@ -1,21 +1,6 @@
 <div class="fight-layout-full">
-    <div id="editor">
-      def yu_chen_is_cool
-        puts false
-      end
-
-      <%= if user_signed_in?
-            current_user
-          end
-      %>
-    </div>
+    <%= render 'layouts/editor' %>
     <div id="game-screen">
       test
     </div>
-    
-  <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/ruby");
-  </script>
 </div>
