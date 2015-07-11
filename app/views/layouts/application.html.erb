@@ -9,15 +9,17 @@
   <body>
   <div id="wrapper">
 
-    <%= render 'layouts/sidebar' %>
+    <%= render 'layouts/topbar' %>
     <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <% flash.each do |name, msg| -%>
-          <%= content_tag :div, msg, class: name %>
-        <% end -%>
+    
+    <div id="inner-body">
+      <%= yield %>
+      <div id="page-content-wrapper">
+          <% flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, class: name %>
+          <% end -%>
+      </div>
     </div>
-
-    <%= yield %>
   </div>
   </body>
 </html>

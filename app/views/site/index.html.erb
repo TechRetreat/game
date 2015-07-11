@@ -1,17 +1,15 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-        <h1>TRanque Online</h1>
+      <div id="editor">
+        def yu_chen_is_cool
+            puts false
+        end
+      </div>
       <%= if user_signed_in?
             current_user
           end
         %>
-
-      <div id="editor">
-        def ruby_is_cool
-            puts true
-        end
-      </div>
       <script>
           var editor = ace.edit("editor");
           editor.setTheme("ace/theme/monokai");
