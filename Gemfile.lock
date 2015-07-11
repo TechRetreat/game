@@ -1,10 +1,11 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: d21e894edc38c5f980f2e7c605bd4c21f22afc98
+  revision: 1931335ad578e6de671dd9bb78de259cd71192d5
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
       octokit (~> 2.7.0)
+      shikashi
       thor (~> 0.18.1)
 
 GEM
@@ -73,9 +74,13 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    evalhook (0.6.0)
+      partialruby (~> 0.3)
+      sexp_processor (~> 4.0)
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    getsource (0.2.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -101,6 +106,9 @@ GEM
     octokit (2.7.2)
       sawyer (~> 0.5.2)
     orm_adapter (0.5.0)
+    partialruby (0.3.0)
+      ruby2ruby (~> 2)
+      ruby_parser (~> 3)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -136,6 +144,11 @@ GEM
       json (~> 1.4)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    ruby2ruby (2.2.0)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.7.0)
+      sexp_processor (~> 4.1)
     sass (3.4.15)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -149,6 +162,10 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sexp_processor (4.6.0)
+    shikashi (0.6.0)
+      evalhook (>= 0.6.0)
+      getsource (>= 0.1.0)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)

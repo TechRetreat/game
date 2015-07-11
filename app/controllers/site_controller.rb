@@ -6,9 +6,9 @@ class SiteController < ApplicationController
     brain_paths = []
     options = { :width => 800, :height => 600, :max_ticks => 1200 , :gui => false, :gc => true , :replay_dir => 'replays' , :seed => Kernel.srand}
 
-    game_ctrl = GameController.new(options)
-    game_ctrl.add_ai_list(brain_paths)
-    game_ctrl.simulate
+    game = GameService.new options
+    # game.add_bot bot
+    game.simulate
 
     puts 'generated game'
   end
