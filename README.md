@@ -11,6 +11,5 @@ Install ruby 2.2.2 and the DevKit from [RubyInstaller](http://rubyinstaller.org/
 
 ### Next steps
 - install dependencies with `bundle install`
-- install frontend dependencies with `bower install`
 - setup the database with `rake db:create` and `rake db:migrate`
 - run the server with `rails c`
