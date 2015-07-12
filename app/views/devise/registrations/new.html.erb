@@ -5,18 +5,18 @@
     <h2 class="form-auth-heading">Sign up</h2>
 
     <div class="field">
-      <%= f.email_field :email, autofocus: true, required: true, class: "form-control", placeholder: "Email address", type: "email" %>
+      <%= f.email_field :email, autofocus: true, required: true, class: "form-control form-auth-input-flat-bottom", placeholder: "Email address", type: "email" %>
     </div>
 
     <div class="field">
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control", placeholder: "Password", type: "password" %>
+      <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control form-auth-input-flat-top form-auth-input-flat-bottom", placeholder: "Password", type: "password" %>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "off", required: true, class: "form-control", placeholder: "Password Confirmation", type: "password" %>
+      <%= f.password_field :password_confirmation, autocomplete: "off", required: true, class: "form-control form-auth-input-flat-top", placeholder: "Password Confirmation", type: "password" %>
     </div>
 
     <div class="actions">
