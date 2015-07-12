@@ -23,9 +23,7 @@ pickle-email-*.html
 .rvmrc
 
 # if using bower-rails ignore default bower_components path bower.json files
-/vendor/assets/bower_components
-*.bowerrc
-bower.json
+/vendor/assets/components/*
 
 # Ignore pow environment settings
 .powenv

@@ -1,0 +1,20 @@
+{
+  "name": "game",
+  "version": "0.0.0",
+  "homepage": "https://github.com/TechRetreat/game",
+  "authors": [
+    "Dave Pagurek <dave@davepagurek.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "paper": "~0.9.23"
+  }
+}
