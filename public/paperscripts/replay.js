@@ -6,6 +6,7 @@ window.replay = (function() {
     r.toolbar = document.getElementById("tranque-toolbar");
     r.background = new Shape.Rectangle(new Point(0, 0), new Point(1280, 720));
     r.background.fillColor = "#444";
+    r.tanks = [];
 
     r.adjustSize = function() {
         view.viewSize.width = r.container.offsetWidth;
@@ -13,10 +14,20 @@ window.replay = (function() {
         r.background.fitBounds(view.bounds);
     };
 
-    r.adjustSize();
+    r.addTank = function(options) {
+        r.tanks.push(Tank.makeTank());
+    };
+
+    r.init = function() {
+        r.addTank();
+        r.adjustSize();
+
+        window.addEventListener("resize", function() {
+            r.adjustSize();
+        });
+    };
+
     return r;
 })();
 
-window.addEventListener("resize", function() {
-    replay.adjustSize();
-});
+replay.init();
