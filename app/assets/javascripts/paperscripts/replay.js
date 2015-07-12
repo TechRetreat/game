@@ -1,3 +1,5 @@
+//= require ./Tank
+
 window.replay = (function() {
     var r = {};
 
