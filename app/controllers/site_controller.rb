@@ -12,4 +12,7 @@ class SiteController < ApplicationController
 
     puts 'generated game'
   end
+  def tank_list
+    
+  end
 end
