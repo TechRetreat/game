@@ -67,13 +67,28 @@
     flex: 0 1 100vh;
 }
 
-.editor-screen {
+.sidepane-screen {
     height:100vh;
 }
 
 .toolbar{
     height:50px;
-    background: #B00100;
+}
+
+.toolbar-editor{
+    background: #2f0057;
+}
+
+.toolbar-side{
+    background: #571117;
+}
+
+.toolbar-editor>ul>li:hover{
+    background: #45007c;
+}
+
+.toolbar-side>ul>li:hover{
+    background: #7c1613;
 }
 
 .toolbar>ul{
@@ -87,6 +102,7 @@
     padding-right: 15px;
     font-size: 2em;
     line-height: 2em;
+    color: white;
 
     -o-transition:color .1s ease-out, background 0.1s ease-in;
     -ms-transition:color .1s ease-out, background 0.1s ease-in;
@@ -96,8 +112,9 @@
     transition:color .1s ease-out, background 0.1s ease-in;
 }
 
-.toolbar>ul>li:hover{
-    background: #e90100;
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Navbar Styles */
