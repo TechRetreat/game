@@ -11,7 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709012153) do
+ActiveRecord::Schema.define(version: 20150712183634) do
+
+  create_table "entries", force: :cascade do |t|
+    t.integer  "robot_id"
+    t.integer  "match_id"
+    t.integer  "place"
+    t.integer  "health"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "entries", ["match_id"], name: "index_entries_on_match_id"
+  add_index "entries", ["robot_id"], name: "index_entries_on_robot_id"
+
+  create_table "matches", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "public",     default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "robots", force: :cascade do |t|
+    t.string   "name"
+    t.text     "code"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "robots", ["owner_type", "owner_id"], name: "index_robots_on_owner_type_and_owner_id"
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
