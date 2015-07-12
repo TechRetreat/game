@@ -1,23 +1,42 @@
 //= require ./Tank
 
-window.replay = (function() {
+window.Replay = (function() {
     var r = {};
+
+    r.width = 1200;
+    r.height = 700;
+    r.center = new Point(r.width/2, r.height/2);
 
     r.canvas = document.getElementById("tranque-replay");
     r.container = r.canvas.parentNode;
     r.toolbar = document.getElementById("tranque-toolbar");
-    r.background = new Shape.Rectangle(new Point(0, 0), new Point(1280, 720));
-    r.background.fillColor = "#444";
+    r.arena = new Shape.Rectangle(new Point(0, 0), new Point(r.width, r.height));
+    r.arena.fillColor = "#444";
+    r.scale = 1;
     r.tanks = [];
+
+    r.transformPoint = function(point) {
+        console.log(r.arena.bounds.left);
+        return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
+    };
+
+    r.transformLength = function(l) {
+        return l*r.scale;
+    }
+
 
     r.adjustSize = function() {
         view.viewSize.width = r.container.offsetWidth;
         view.viewSize.height = r.container.offsetHeight - r.toolbar.offsetHeight;
-        r.background.fitBounds(view.bounds);
+        r.arena.fitBounds(view.bounds);
+        r.scale = r.arena.bounds.width/r.width;
+        r.tanks.forEach(function(tank) {
+            tank.scale();
+        });
     };
 
     r.addTank = function(options) {
-        r.tanks.push(Tank.makeTank());
+        r.tanks.push(Tank.makeTank(options));
     };
 
     r.animate = function() {
@@ -28,8 +47,8 @@ window.replay = (function() {
     };
 
     r.init = function() {
-        r.addTank();
         r.adjustSize();
+        r.addTank();
 
         window.addEventListener("resize", function() {
             r.adjustSize();
@@ -41,4 +60,4 @@ window.replay = (function() {
     return r;
 })();
 
-replay.init();
+Replay.init();

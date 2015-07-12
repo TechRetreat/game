@@ -40,6 +40,7 @@ window.Tank = (function() {
             heading: 0,
             turretHeading: 0,
             speed: 0,
+            scaling: 1,
             setHeading: function(angle) {
                 this.heading = angle;
                 this.body.rotation = to_deg(angle);
@@ -47,12 +48,19 @@ window.Tank = (function() {
             setTurretHeading: function(angle) {
                 this.turretHeading = angle;
                 this.gun.rotation = to_deg(angle);
+            },
+            scale: function() {
+                this.object.position = Replay.transformPoint(tank.position);
+                this.object.scale(1/this.scaling);
+                this.scaling = Replay.scale;
+                this.object.scale(this.scaling);
             }
         };
         tank.body.pivot = new Point(0, 0);
         tank.gun.pivot = new Point(0, 0);
         tank.object.pivot = new Point(0, 0);
-        tank.object.position = options.position || view.center;
+        tank.position = options.position || Replay.center;
+        tank.scale();
         return tank;
     };
 
