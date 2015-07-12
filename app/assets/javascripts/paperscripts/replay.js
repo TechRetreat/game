@@ -20,6 +20,13 @@ window.replay = (function() {
         r.tanks.push(Tank.makeTank());
     };
 
+    r.animate = function() {
+        r.tanks.forEach(function(tank) {
+            tank.setHeading(tank.heading + 0.1);
+            tank.setTurretHeading(tank.turretHeading - 0.1);
+        });
+    };
+
     r.init = function() {
         r.addTank();
         r.adjustSize();
@@ -27,6 +34,8 @@ window.replay = (function() {
         window.addEventListener("resize", function() {
             r.adjustSize();
         });
+
+        view.on("frame", r.animate);
     };
 
     return r;
