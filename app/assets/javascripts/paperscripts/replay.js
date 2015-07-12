@@ -1,3 +1,5 @@
+//= require ./helpers
+//= require ./Explosion
 //= require ./Tank
 
 window.Replay = (function() {
@@ -14,9 +16,9 @@ window.Replay = (function() {
     r.arena.fillColor = "#444";
     r.scale = 1;
     r.tanks = [];
+    r.explosions = [];
 
     r.transformPoint = function(point) {
-        console.log(r.arena.bounds.left);
         return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
     };
 
@@ -31,7 +33,7 @@ window.Replay = (function() {
         r.arena.fitBounds(view.bounds);
         r.scale = r.arena.bounds.width/r.width;
         r.tanks.forEach(function(tank) {
-            tank.scale();
+            tank.update();
         });
     };
 
@@ -39,10 +41,28 @@ window.Replay = (function() {
         r.tanks.push(Tank.makeTank(options));
     };
 
+    r.explode = function(explosion) {
+        r.explosions.push(explosion);
+    }
+
     r.animate = function() {
+        r.tanks = r.tanks.filter(function(tank) {
+            return tank.alive;
+        });
         r.tanks.forEach(function(tank) {
-            tank.setHeading(tank.heading + 0.1);
-            tank.setTurretHeading(tank.turretHeading - 0.1);
+            tank.setHeading(tank.heading + 0.05);
+            tank.setTurretHeading(tank.turretHeading - 0.025);
+            tank.setHealth(tank.health - 0.01);
+            tank.speed = Tank.MAX_SPEED;
+            tank.move();
+            tank.update();
+        });
+
+        r.explosions = r.explosions.filter(function(explosion) {
+            return explosion.alive;
+        });
+        r.explosions.forEach(function(explosion) {
+            explosion.tick();
         });
     };
 
