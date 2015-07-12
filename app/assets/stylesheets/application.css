@@ -58,17 +58,29 @@
     height:100vh;
 }
 
+#main {
+    margin:0;
+}
+
+#tranque-replay {
+    width:100%;
+}
+
 #editor {
-    flex: 1 1 auto;
-    height:100vh;
+    position:absolute;
+    top:50px;
+    left:0;
+    right:0;
+    bottom:0;
 }
 
 .game-screen {
     flex: 0 1 100vh;
 }
 
-.sidepane-screen {
-    height:100vh;
+.editor-screen, .sidepane-screen {
+    height:calc(100vh - 50px);
+    overflow:hidden;
 }
 
 .toolbar{
