@@ -1,7 +1,7 @@
 class Entry < ActiveRecord::Base
-  belongs_to :robot
+  belongs_to :tank
   belongs_to :match
 
-  validates :robot, presence: true
+  validates :tank, presence: true
   validates :match, presence: true
 end

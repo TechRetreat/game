@@ -1,4 +1,4 @@
-class Robot < ActiveRecord::Base
+class Tank < ActiveRecord::Base
   belongs_to :owner, polymorphic: true
 
   has_many :entries, class_name: 'Entry'

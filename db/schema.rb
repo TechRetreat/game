@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712183634) do
+ActiveRecord::Schema.define(version: 20150714015349) do
 
   create_table "entries", force: :cascade do |t|
-    t.integer  "robot_id"
+    t.integer  "tank_id"
     t.integer  "match_id"
     t.integer  "place"
     t.integer  "health"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150712183634) do
   end
 
   add_index "entries", ["match_id"], name: "index_entries_on_match_id"
-  add_index "entries", ["robot_id"], name: "index_entries_on_robot_id"
+  add_index "entries", ["tank_id"], name: "index_entries_on_tank_id"
 
   create_table "matches", force: :cascade do |t|
     t.string   "name"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150712183634) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "robots", force: :cascade do |t|
+  create_table "tanks", force: :cascade do |t|
     t.string   "name"
     t.text     "code"
     t.integer  "owner_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150712183634) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "robots", ["owner_type", "owner_id"], name: "index_robots_on_owner_type_and_owner_id"
+  add_index "tanks", ["owner_type", "owner_id"], name: "index_tanks_on_owner_type_and_owner_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
