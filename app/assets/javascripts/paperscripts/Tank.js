@@ -12,6 +12,8 @@ function _Tank(options) {
     // Body
     var main = new Shape.Rectangle(new Point(-20, -20), new Point(20, 20));
     main.fillColor = options.color;
+    main.strokeColor = tintedColor;
+    main.strokeWidth = 3;
 
     this.body = new Group([main]);
     this.body.pivot = new Point(0, 0);
