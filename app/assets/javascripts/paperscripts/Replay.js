@@ -1,4 +1,5 @@
 //= require ./helpers
+//= require ./Scalable
 //= require ./Explosion
 //= require ./Tank
 
@@ -38,7 +39,7 @@ window.Replay = (function() {
     };
 
     r.addTank = function(options) {
-        r.tanks.push(Tank.makeTank(options));
+        r.tanks.push(Tank.new(options));
     };
 
     r.explode = function(explosion) {
@@ -50,12 +51,11 @@ window.Replay = (function() {
             return tank.alive;
         });
         r.tanks.forEach(function(tank) {
-            tank.setHeading(tank.heading + 0.05);
-            tank.setTurretHeading(tank.turretHeading - 0.025);
-            tank.setHealth(tank.health - 0.01);
+            tank.setHeading(tank.heading + random(0, 0.1));
+            tank.setTurretHeading(tank.turretHeading + random(0, 0.025));
+            tank.setHealth(tank.health - random(0, 0.01));
             tank.speed = Tank.MAX_SPEED;
             tank.move();
-            tank.update();
         });
 
         r.explosions = r.explosions.filter(function(explosion) {
@@ -68,11 +68,26 @@ window.Replay = (function() {
 
     r.init = function() {
         r.adjustSize();
-        r.addTank();
-
-        window.addEventListener("resize", function() {
-            r.adjustSize();
+        r.addTank({
+            position: new Point(random(r.width*0.4, r.width*0.6), random(r.height*0.4, r.height*0.6)),
+            color: "#DD1100",
+            name: "YuChenBot"
         });
+
+        r.addTank({
+            position: new Point(random(r.width*0.4, r.width*0.6), random(r.height*0.4, r.height*0.6)),
+        });
+
+
+        window.addEventListener("resize", throttle(function() {
+            r.adjustSize();
+            r.tanks.forEach(function(tank) {
+                tank.transform();
+            });
+            r.explosions.forEach(function(explosion) {
+                explosion.transform();
+            });
+        }, 200));
 
         view.on("frame", r.animate);
     };
