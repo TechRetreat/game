@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714015349) do
+ActiveRecord::Schema.define(version: 20150714015941) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -37,10 +37,13 @@ ActiveRecord::Schema.define(version: 20150714015349) do
     t.text     "code"
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "public"
+    t.integer  "forked_from_id"
   end
 
+  add_index "tanks", ["forked_from_id"], name: "index_tanks_on_forked_from_id"
   add_index "tanks", ["owner_type", "owner_id"], name: "index_tanks_on_owner_type_and_owner_id"
 
   create_table "teams", force: :cascade do |t|
