@@ -1,1 +1,27 @@
-this is a list
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Tanks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tanks.each do |tank| %>
+      <tr>
+        <td><%= tank.name %></td>
+        <td><%= link_to 'Show', tank %></td>
+        <td><%= link_to 'Edit', edit_tank_path(tank) %></td>
+        <td><%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tank', new_tank_path %>

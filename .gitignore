@@ -29,3 +29,5 @@ pickle-email-*.html
 .powenv
 
 /replays
+
+.idea/
