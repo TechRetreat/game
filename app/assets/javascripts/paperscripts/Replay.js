@@ -1,6 +1,7 @@
 //= require ./helpers
 //= require ./Scalable
 //= require ./Explosion
+//= require ./Shell
 //= require ./Tank
 
 window.Replay = (function() {
@@ -9,6 +10,7 @@ window.Replay = (function() {
     r.width = 1200;
     r.height = 700;
     r.center = new Point(r.width/2, r.height/2);
+    r.tick = 0;
 
     r.canvas = document.getElementById("tranque-replay");
     r.container = r.canvas.parentNode;
@@ -18,6 +20,7 @@ window.Replay = (function() {
     r.scale = 1;
     r.tanks = [];
     r.explosions = [];
+    r.shells = [];
 
     r.transformPoint = function(point) {
         return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
@@ -25,7 +28,7 @@ window.Replay = (function() {
 
     r.transformLength = function(l) {
         return l*r.scale;
-    }
+    };
 
 
     r.adjustSize = function() {
@@ -34,7 +37,13 @@ window.Replay = (function() {
         r.arena.fitBounds(view.bounds);
         r.scale = r.arena.bounds.width/r.width;
         r.tanks.forEach(function(tank) {
-            tank.update();
+            tank.transform();
+        });
+        r.explosions.forEach(function(explosion) {
+            explosion.transform();
+        });
+        r.shells.forEach(function(shell) {
+            shell.transform();
         });
     };
 
@@ -44,9 +53,15 @@ window.Replay = (function() {
 
     r.explode = function(explosion) {
         r.explosions.push(explosion);
-    }
+    };
+
+    r.addShell = function(shell) {
+        r.shells.push(shell);
+    };
 
     r.animate = function() {
+        r.tick++;
+
         r.tanks = r.tanks.filter(function(tank) {
             return tank.alive;
         });
@@ -56,6 +71,10 @@ window.Replay = (function() {
             tank.setHealth(tank.health - random(0, 0.01));
             tank.speed = Tank.MAX_SPEED;
             tank.move();
+
+            if (int(random(0, 40)) == 0) {
+                tank.shoot(random(2,Tank.MAX_POWER));
+            }
         });
 
         r.explosions = r.explosions.filter(function(explosion) {
@@ -64,18 +83,26 @@ window.Replay = (function() {
         r.explosions.forEach(function(explosion) {
             explosion.tick();
         });
+
+        r.shells = r.shells.filter(function(shell) {
+            return shell.alive;
+        });
+        r.shells.forEach(function(shell) {
+            shell.tick();
+        });
+
     };
 
     r.init = function() {
         r.adjustSize();
         r.addTank({
-            position: new Point(random(r.width*0.4, r.width*0.6), random(r.height*0.4, r.height*0.6)),
+            position: new Point(random(r.width*0.2, r.width*0.5), random(r.height*0.4, r.height*0.6)),
             color: "#DD1100",
             name: "YuChenBot"
         });
 
         r.addTank({
-            position: new Point(random(r.width*0.4, r.width*0.6), random(r.height*0.4, r.height*0.6)),
+            position: new Point(random(r.width*0.5, r.width*0.8), random(r.height*0.4, r.height*0.6)),
         });
 
 

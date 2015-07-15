@@ -62,6 +62,9 @@ _Tank.prototype = {
     move: function() {
         this.object.addPosition(toCartesian(this.speed, this.heading));
     },
+    shoot: function(power) {
+        Replay.addShell(Shell.new(this.object.position + toCartesian(Tank.TURRET_LENGTH, this.turretHeading), this.turretHeading, power));
+    },
     setHealth: function(h) {
         this.healthBar.scale(1/this.health);
         this.healthBar.scale(h);
@@ -77,8 +80,8 @@ _Tank.prototype = {
             Replay.explode(Explosion.new(this.object.position));
         }
     },
-    update: function() {
-        this.object.update();
+    transform: function() {
+        this.object.transform();
     }
 }
 
@@ -86,6 +89,8 @@ window.Tank = (function() {
     var t = {};
 
     t.MAX_SPEED = 3;
+    t.MAX_POWER = 10;
+    t.TURRET_LENGTH = 28;
 
     t.new = function(options) {
         return new _Tank(options);

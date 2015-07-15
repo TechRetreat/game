@@ -20,6 +20,9 @@ _Scalable.prototype = {
     scale: function(factor) {
         this.shape.scale(factor);
     },
+    rotate: function(factor) {
+        this.shape.rotate(factor);
+    },
     setOpacity: function(factor) {
         this.shape.opacity = factor;
     },
