@@ -1,12 +1,10 @@
-<%- if user_signed_in? -%>
-  <li>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-  </li>
-<%- else -%>
-  <li>
-    <%= link_to 'Log in', new_user_session_path %>
-  </li>
-  <li>
-    <%= link_to 'Sign up', new_user_registration_path %>
-  </li>
-<%- end -%>
+<li class="dropdown-account">My Account
+	<div>
+		<%- if user_signed_in? -%>
+		  <a><%= link_to 'Logout', destroy_user_session_path, method: :delete %></a><br/>
+		<%- else -%>
+		  <a><%= link_to 'Log in', new_user_session_path %></a><br/>
+		  <a><%= link_to 'Sign up', new_user_registration_path %></a><br/>
+		<%- end -%>
+	</div>
+</li>
