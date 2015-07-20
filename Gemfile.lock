@@ -8,6 +8,20 @@ GIT
       shikashi
       thor (~> 0.18.1)
 
+GIT
+  remote: git://github.com/g3d/websocket-rails.git
+  revision: e5f36eb6cdf6c06d62a9eac8cf0f83dc006e6950
+  specs:
+    websocket-rails (0.7.0)
+      em-synchrony
+      faye-websocket
+      hiredis
+      rack
+      rails
+      redis
+      redis-objects
+      thin
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -65,6 +79,7 @@ GEM
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
     configuration (1.3.4)
+    daemons (1.2.3)
     debug_inspector (0.0.2)
     devise (3.5.1)
       bcrypt (~> 3.0)
@@ -73,18 +88,25 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    em-synchrony (1.0.4)
+      eventmachine (>= 1.0.0.beta.1)
     erubis (2.7.0)
     evalhook (0.6.0)
       partialruby (~> 0.3)
       sexp_processor (~> 4.0)
+    eventmachine (1.0.7)
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    faye-websocket (0.10.0)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.5.1)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     getsource (0.2.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    hiredis (0.6.0)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -101,6 +123,7 @@ GEM
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
+    mono_logger (1.1.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
@@ -112,6 +135,8 @@ GEM
       ruby2ruby (~> 2)
       ruby_parser (~> 3)
     rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.3)
@@ -145,8 +170,19 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    redis (3.2.1)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
+    redis-objects (1.2.0)
+      redis (>= 3.0.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    resque (1.25.2)
+      mono_logger (~> 1.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.3)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
     ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -169,6 +205,10 @@ GEM
     shikashi (0.6.0)
       evalhook (>= 0.6.0)
       getsource (>= 0.1.0)
+    sinatra (1.4.6)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -177,6 +217,10 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     thor (0.18.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -187,6 +231,8 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.1.3)
@@ -194,6 +240,9 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket-driver (0.6.2)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
 
 PLATFORMS
   ruby
@@ -209,6 +258,7 @@ DEPENDENCIES
   rails (= 4.2.3)
   rails-assets-bootstrap!
   rails-assets-paper!
+  resque
   rtanque!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -217,3 +267,7 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+  websocket-rails!
+
+BUNDLED WITH
+   1.10.5

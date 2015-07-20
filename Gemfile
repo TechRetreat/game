@@ -34,6 +34,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rtanque', github: 'TechRetreat/RTanque'
 gem 'devise'
+gem 'websocket-rails', github: 'g3d/websocket-rails'
+gem 'resque'
 
 gem 'ace-rails-ap'
 gem "font-awesome-rails"

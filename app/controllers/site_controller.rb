@@ -8,7 +8,7 @@ class SiteController < ApplicationController
 
     game = GameService.new options
     # game.add_bot bot
-    game.simulate
+    # game.simulate
 
     puts 'generated game'
   end

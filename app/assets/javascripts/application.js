@@ -19,6 +19,7 @@
 //= require ace/theme-monokai
 //= require ace/mode-ruby
 //= require paper
+//= require websocket_rails/main
 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
