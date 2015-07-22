@@ -1,13 +1,13 @@
 class GameService
-  def initialize(options)
-    @runner = RTanque::Recorder.create_runner(options)
-  end
+  @queue = :match_runner
 
-  def add_bot(bot, num_instances = 1)
-    @runner.add_brain_code bot.code, num_instances
-  end
+  def self.perform(match_id)
+    # match = Match.find match_id
 
-  def simulate
-    @runner.start(false)
+    # TODO: add tanks and run game
+
+    channel = WebsocketRails["match.#{match_id}"]
+    channel.make_private
+    channel.trigger :start
   end
 end
