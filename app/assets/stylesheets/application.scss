@@ -24,25 +24,26 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-}
 
-#wrapper.toggled {
-    padding-left: 250px;
-}
+  .toggled {
+    padding-left: 75px;
+    width: 75px;
+  }
 
-#wrapper.toggled {
-    width: 250px;
+  .toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -75px;
+  }
+
+  .toggled #sidebar-wrapper {
+    width: 75px;
+  }
 }
 
 #page-content-wrapper {
     width: 100%;
     position: absolute;
     padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
 }
 
 .fight-layout-full {
@@ -85,43 +86,45 @@
 
 .toolbar{
     height:50px;
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul>li {
+      display: inline;
+      height: 100%;
+      width: 50px;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 2em;
+      line-height: 2em;
+      color: white;
+
+      -o-transition: color .1s ease-out, background 0.1s ease-in;
+      -ms-transition: color .1s ease-out, background 0.1s ease-in;
+      -moz-transition: color .1s ease-out, background 0.1s ease-in;
+      -webkit-transition: color .1s ease-out, background 0.1s ease-in;
+      /* ...and now override with proper CSS property */
+      transition: color .1s ease-out, background 0.1s ease-in;
+    }
 }
 
 .toolbar-editor{
     background: #2f0057;
+
+  ul>li:hover{
+    background: #45007c;
+  }
+
+  ul>li:hover{
+    background: #7c1613;
+  }
+
 }
 
 .toolbar-side{
     background: #571117;
-}
-
-.toolbar-editor>ul>li:hover{
-    background: #45007c;
-}
-
-.toolbar-side>ul>li:hover{
-    background: #7c1613;
-}
-
-.toolbar>ul{
-    list-style-type: none;
-}
-.toolbar>ul>li{
-    display: inline;
-    height:100%;
-    width:50px;
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 2em;
-    line-height: 2em;
-    color: white;
-
-    -o-transition:color .1s ease-out, background 0.1s ease-in;
-    -ms-transition:color .1s ease-out, background 0.1s ease-in;
-    -moz-transition:color .1s ease-out, background 0.1s ease-in;
-    -webkit-transition:color .1s ease-out, background 0.1s ease-in;
-    /* ...and now override with proper CSS property */
-    transition:color .1s ease-out, background 0.1s ease-in;
 }
 
 .nopadding {
@@ -202,18 +205,6 @@
   border-bottom-left-radius: 0 !important;
 }
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#wrapper.toggled {
-    padding-left: 75px;
-}
-
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -229,20 +220,6 @@
     transition: all 0.5s ease;
 }
 
-#wrapper.toggled #sidebar-wrapper {
-    width: 75px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -75px;
-}
 
 /* Sidebar Styles */
 
