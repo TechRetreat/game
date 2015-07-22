@@ -292,6 +292,14 @@
     background: none;
 }
 
+.white{
+    color: white;
+}
+
+.white:visited{
+    color: white;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 75px;
