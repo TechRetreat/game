@@ -19,13 +19,20 @@ class TanksController < ApplicationController
 
   # GET /tanks/1/edit
   def edit
+    id = params[:id]
+    tank = Tank.find(id)
+    if tank.owner.equal? current_user
+      puts 'owned'
+    else
+      puts 'not owned'
+    end
   end
 
   # POST /tanks
   # POST /tanks.json
   def create
     @tank = Tank.new(tank_params)
-
+    @tank.owner = current_user
     respond_to do |format|
       if @tank.save
         format.html { redirect_to @tank, notice: 'Tank was successfully created.' }
