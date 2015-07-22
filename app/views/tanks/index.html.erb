@@ -13,13 +13,18 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <% @tanks.each do |tank| %>
-          <tr>
+          <div class="row">
+            <div class="col-md-2">
             <img src="http://placehold.it/150x150" alt="Preview" class="img-circle">
-            <td><%= tank.name %></td>
-            <td><%= link_to 'Show', tank %></td>
-            <td><%= link_to 'Edit', edit_tank_path(tank) %></td>
-            <td><%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
+            </div>
+            <div class="col-md-10">
+              <p><%= tank.name %></p>
+              <p><%= link_to 'Show', tank %></p>
+              <p><%= link_to 'Edit', edit_tank_path(tank) %></p>
+              <p><%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+            </div>
+
+          </div>
       <% end %>
     </div>
   </div>
