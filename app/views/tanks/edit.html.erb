@@ -1,8 +1,17 @@
+<div class="row" id="main">
+  <div class="editor-screen col-md-6 nopadding">
+    <%= render 'layouts/editor' %>
+  </div>
+  <div class="sidepane-screen col-md-6 nopadding">
+    <%= render 'layouts/sidepane' %>
+  </div>
+</div>
+
 <div class="container">
-    <h1>Editing Tank</h1>
+  <h1>Editing Tank</h1>
 
-    <%= render 'form' %>
+  <%= render 'form' %>
 
-    <%= link_to 'Show', @tank %> |
-    <%= link_to 'Back', tanks_path %>
+  <%= link_to 'Show', @tank %> |
+  <%= link_to 'Back', tanks_path %>
 </div>
