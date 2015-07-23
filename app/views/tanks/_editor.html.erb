@@ -1,24 +1,41 @@
 <div class="toolbar toolbar-editor">
   <ul>
-    <li><i class="fa fa-floppy-o"></i></li>
+    <li id="save"><i class="fa fa-floppy-o"></i></li>
     <li><i class="fa fa-undo"></i></li>
     <li><i class="fa fa-repeat"></i></li>
     <li><i class="fa fa-play"></i></li>
   </ul>
 </div>
 <div id="editor">
+  <% if @tank.code.nil? %>
+#Example code
 def yu_chen_is_cool
   puts false
 end
 
+#current user
   <%= if user_signed_in?
         current_user
       end
   %>
+  <% else %>
+  <%= @tank.code %>
+  <% end %>
+
 </div>
 
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/ruby");
+
+    $('#save').click(function(){
+        $.post( "/tanks/upload_code/" + <%= @tank.id %>, {code: editor.getValue()})
+        .done(function() {
+            console.log('saved');
+        })
+        .fail(function() {
+            console.log('error');
+        });
+    });
 </script>

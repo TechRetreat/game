@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   resources :tanks
   devise_for :users
-  root 'site#index'
+  root 'site#i≈çΩçndex'
   resources :matches
+
+  #saves code for tanks
+  post 'tanks/upload_code/:id' => 'tanks#upload_code'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
