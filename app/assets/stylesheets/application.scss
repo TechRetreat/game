@@ -117,14 +117,14 @@
     background: #45007c;
   }
 
-  ul>li:hover{
-    background: #7c1613;
-  }
-
 }
 
 .toolbar-side{
-    background: #571117;
+  background: #571117;
+
+  ul>li:hover{
+    background: #7c1613;
+  }
 }
 
 .nopadding {
