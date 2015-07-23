@@ -21,10 +21,8 @@ class TanksController < ApplicationController
   def edit
     id = params[:id]
     tank = Tank.find(id)
-    if tank.owner.equal? current_user
-      puts 'owned'
-    else
-      puts 'not owned'
+    if tank.owner.nil? or !tank.owner.id.equal? current_user.id
+      render text: 'permission error'
     end
   end
 
@@ -32,7 +30,13 @@ class TanksController < ApplicationController
   # POST /tanks.json
   def create
     @tank = Tank.new(tank_params)
-    @tank.owner = current_user
+
+    if user_signed_in?
+      @tank.owner = current_user
+    else
+
+    end
+
     respond_to do |format|
       if @tank.save
         format.html { redirect_to @tank, notice: 'Tank was successfully created.' }

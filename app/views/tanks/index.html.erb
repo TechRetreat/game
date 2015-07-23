@@ -20,7 +20,9 @@
             <div class="col-md-10">
               <p><%= tank.name %></p>
               <p><%= link_to 'Show', tank %></p>
+              <% if !tank.owner.nil? and tank.owner.id.equal? current_user.id %>
               <p><%= link_to 'Edit', edit_tank_path(tank) %></p>
+              <% end %>
               <p><%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' } %></p>
             </div>
 
