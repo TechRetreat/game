@@ -30,7 +30,12 @@ end
     editor.getSession().setMode("ace/mode/ruby");
 
     $('#save').click(function(){
-        $.post( "/tanks/upload_code/" + <%= @tank.id %>, {code: editor.getValue()})
+        $.ajax({
+                    url : "/tanks/" + <%= @tank.id %> + '.json',
+                    data : {tank: {code: editor.getValue()}},
+                    type : 'PUT'
+                }
+        )
         .done(function() {
             console.log('saved');
         })

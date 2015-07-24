@@ -71,22 +71,6 @@ class TanksController < ApplicationController
     end
   end
 
-  #POST /upload_code/:id
-  def upload_code
-    if @tank.owner.nil? or !@tank.owner.id.equal? current_user.id
-      render text: 'permission error'
-    end
-    respond_to do |format|
-      if @tank.update(:code => params[:code])
-        format.html { redirect_to @tank, notice: 'Tank was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tank }
-      else
-        format.html { render :edit }
-        format.json { render json: @tank.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tank
