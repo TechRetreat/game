@@ -1,6 +1,5 @@
 class TanksController < ApplicationController
-  before_filter :authenticate_user!
-  skip_before_filter :authenticate_user, only: [:index]
+  before_filter :authenticate_user!, except: [:index]
   before_action :set_tank, only: [:show, :edit, :update, :destroy, :upload_code]
 
   # GET /tanks
