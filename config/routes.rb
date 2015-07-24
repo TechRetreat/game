@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :tanks
   devise_for :users
-  root 'site#i≈çΩçndex'
+  #root 'site#index'
+  root to: 'site#index'
   resources :matches
 
   #saves code for tanks
