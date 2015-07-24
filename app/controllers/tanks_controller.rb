@@ -14,11 +14,13 @@ class TanksController < ApplicationController
 
   # GET /tanks/new
   def new
+    authenticate_user!
     @tank = Tank.new
   end
 
   # GET /tanks/1/edit
   def edit
+    authenticate_user!
     id = params[:id]
     tank = Tank.find(id)
     if tank.owner.nil? or !tank.owner.id.equal? current_user.id
@@ -29,12 +31,11 @@ class TanksController < ApplicationController
   # POST /tanks
   # POST /tanks.json
   def create
-    @tank = Tank.new(tank_params)
-
     if user_signed_in?
+      @tank = Tank.new(tank_params)
       @tank.owner = current_user
     else
-
+      return render text: 'You must be signed in to create a tank.'
     end
 
     respond_to do |format|
