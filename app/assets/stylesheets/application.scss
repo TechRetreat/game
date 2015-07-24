@@ -46,6 +46,39 @@
     padding: 15px;
 }
 
+#alerts {
+    position: fixed;
+    top: 0;
+    right:0;
+    left:75px;
+    padding:15px;
+    z-index:1001;
+}
+
+.alert {
+    margin:20px;
+    border-radius: 5px;
+    padding:10px;
+    color:#FFF;
+    background-color: #D66;
+    overflow:hidden;
+    max-height:300px;
+    opacity:0.8;
+    transition: all ease 0.3s;
+
+    &:hover {
+        opacity:1;
+    }
+    &.alert_hidden {
+        max-height:0;
+        margin-top:0;
+        margin-bottom:0;
+        padding-top:0;
+        padding-bottom:0;
+        border:0;
+    }
+}
+
 .fight-layout-full {
     display: flex;
     flex-flow: row;
