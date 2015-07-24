@@ -51,7 +51,7 @@ _Explosion.prototype = {
             }.bind(this));
         }
     },
-    update: function() {
+    transform: function() {
         this.flash.update();
         this.particles.forEach(function(particle) {
             particle.update();
