@@ -11,26 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714015941) do
+ActiveRecord::Schema.define(version: 20150723012959) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
     t.integer  "match_id"
     t.integer  "place"
-    t.integer  "health"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "health",     default: 100
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "entries", ["match_id"], name: "index_entries_on_match_id"
   add_index "entries", ["tank_id"], name: "index_entries_on_tank_id"
 
   create_table "matches", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       default: "Unnamed Match"
     t.boolean  "public",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
+
+  add_index "matches", ["owner_type", "owner_id"], name: "index_matches_on_owner_type_and_owner_id"
 
   create_table "tanks", force: :cascade do |t|
     t.string   "name"

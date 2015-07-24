@@ -1,0 +1,25 @@
+<%= form_for(@match) do |f| %>
+  <% if @match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+      <% @match.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name, 'Match Name' %>
+  <%= f.text_field :name %>
+  <br/>
+  <br/>
+  <%= f.label :tanks, 'Tanks Competing (at least two)' %>
+  <br/>
+  <%= f.select :tanks, options_for_select(Tank.all.collect {|t| [t.name, t.id]}), {}, multiple: true, style: 'width: 300px;' %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

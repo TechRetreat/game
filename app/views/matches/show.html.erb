@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @match.name %></h1>
+<p><%= @match.tanks.map(&:name).join ', ' %></p>
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>
