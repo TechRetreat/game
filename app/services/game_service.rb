@@ -2,13 +2,14 @@ require 'rtanque/runner'
 require 'json'
 
 class GameService
-  attr_reader :ticks_since_send, :tick_batch_data_array
+  attr_reader :tick_data_array, :shells_created, :shells_destroyed
 
   @queue = :match_runner
 
   def self.perform(match_id)
-    @ticks_since_send = 0
-    @tick_batch_data_array = Array.new
+    @tick_data_array = Array.new
+    @shells_created = Array.new
+    @shells_destroyed = Array.new
 
     # match = Match.find match_id
 
@@ -45,22 +46,32 @@ class GameService
     end
 
     runner.match.after_tick = proc do |match|
-      # TODO: batch ticks and send useful data
-      channel.trigger :tick, tick: match.ticks
+      bot_array = Array.new
+      match.bots.each { |bot|
+        bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
+                       turret_heading: bot.radar.heading.to_f, radar_heading: bot.turret.heading.to_f
+      }
 
-      @tick_batch_data_array.push ticks: match.ticks
+      @tick_data_array.push tick: match.ticks, tanks: bot_array, created: @shells_created, destroyed: @shells_destroyed
 
-      @ticks_since_send += 1
-      if @ticks_since_send > 50
-        tick_batch_data_json = @tick_batch_data_array.to_json
-        channel.trigger :tick_batch, tick_batch: tick_batch_data_json
-        @ticks_since_send = 0
-        @tick_batch_data_array = Array.new
+      if match.ticks % 5 == 4
+        channel.trigger :batch, batch: @tick_data_array
+        @tick_data_array = Array.new
       end
+      @shells_created = Array.new
+      @shells_destroyed = Array.new
     end
 
     runner.match.after_stop = proc do |match|
       channel.trigger :stop
+    end
+
+    runner.match.shell_created = proc do |shell|
+      @shells_created.push id: shell.id, x: shell.position.x, y: shell.position.y, heading: shell.heading.to_f, speed: shell.fire_power
+    end
+
+    runner.match.shell_destroyed = proc do |shell|
+      @shells_destroyed.push id: shell.id
     end
 
     runner.start false
