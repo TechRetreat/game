@@ -134,6 +134,7 @@ GEM
     partialruby (0.3.0)
       ruby2ruby (~> 2)
       ruby_parser (~> 3)
+    pg (0.18.2)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -255,6 +256,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
+  pg
   rails (= 4.2.3)
   rails-assets-bootstrap!
   rails-assets-paper!
