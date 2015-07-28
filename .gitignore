@@ -31,3 +31,5 @@ pickle-email-*.html
 /replays
 
 .idea/
+dump.rdb
+.DS_Store

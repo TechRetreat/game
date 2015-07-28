@@ -55,7 +55,7 @@
     z-index:1001;
 }
 
-.alert {
+.alert, .notice {
     margin:20px;
     border-radius: 5px;
     padding:10px;
@@ -64,6 +64,7 @@
     overflow:hidden;
     max-height:300px;
     opacity:0.8;
+    cursor:pointer;
     transition: all ease 0.3s;
 
     &:hover {
@@ -77,6 +78,9 @@
         padding-bottom:0;
         border:0;
     }
+}
+.notice {
+    background-color: #6D6;
 }
 
 .fight-layout-full {

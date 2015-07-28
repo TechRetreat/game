@@ -26,8 +26,15 @@ $("#menu-toggle").click(function(e) {
     $("#wrapper").toggleClass("toggled");
 });
 
-$(document).ready(function() {
-    $(".alert").click(function() {
+
+var manageAlerts = function() {
+    $(".alert, .notice").click(function() {
         $(this).addClass("alert_hidden");
+    }).each(function(index) {
+        setTimeout(function() {
+            $(this).addClass("alert_hidden");
+        }.bind(this), 2000 + 1000*index);
     });
-});
+}
+$(document).on('page:load', manageAlerts);
+$(document).ready(manageAlerts);
