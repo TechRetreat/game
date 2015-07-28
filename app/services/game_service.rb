@@ -11,38 +11,23 @@ class GameService
     @shells_created = Array.new
     @shells_destroyed = Array.new
 
-    # match = Match.find match_id
-
-    # TODO: add tanks and run game
+    match = Match.find match_id
 
     channel = WebsocketRails["match.#{match_id}"]
     channel.make_private
-    channel.trigger :start, {
-      width: 800,
-      height: 600,
-      tanks: {
-        YuChenBot: {
-          color: "#DD1100",
-          position: {
-            x: rand(400),
-            y: rand(600)
-          }
-        },
-        DaveBot: {
-          color: "#652FB5",
-          position: {
-            x: rand(400) + 400,
-            y: rand(600)
-          }
-        }
-      }
-    }
 
     options = { width: 800, height: 600, max_ticks: 1200, gui: false, gc: true, replay_dir: 'replays', seed: Kernel.srand }
     runner = RTanque::Recorder.create_runner options
-    runner.add_brain_path 'sample_bots/camper.rb:x2'
+    match.tanks.each do |tank|
+      runner.add_brain_code tank.code
+    end
 
     runner.match.before_start = proc do |match|
+      tanks = []
+      match.bots.each do |bot|
+        tanks.push name: bot.name, position: bot.position.to_h.slice(:x, :y), color: '#BADA55' # TODO: actual colours
+      end
+      channel.trigger :start, width: match.arena.width, height: match.arena.height, tanks: tanks
     end
 
     runner.match.after_tick = proc do |match|
