@@ -22,5 +22,5 @@ test:
 
 production:
   <<: *default
-  database: my_database_production
+  database: staging
   url: <%= ENV['DATABASE_URL'] %>
