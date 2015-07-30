@@ -1,4 +1,6 @@
 class TanksController < ApplicationController
+  include AuthorizationHelper
+
   before_filter :authenticate_user!, except: [:index]
   before_action :set_tank, only: [:show, :edit, :update, :destroy, :upload_code]
 
@@ -22,7 +24,7 @@ class TanksController < ApplicationController
   def edit
     id = params[:id]
     tank = Tank.find(id)
-    if tank.owner.nil? or !tank.owner.id.equal? current_user.id
+    unless user_can_edit current_user, tank
       render text: 'permission error'
     end
   end

@@ -16,7 +16,8 @@ class GameService
     channel = WebsocketRails["match.#{match_id}"]
     channel.make_private
 
-    options = { width: 800, height: 600, max_ticks: 1200, gui: false, gc: true, replay_dir: 'replays', seed: Kernel.srand }
+    Kernel.srand # The first time this is run it returns zero, anything after is fine
+    options = { width: 800, height: 600, max_ticks: 5000, gui: false, gc: true, replay_dir: 'replays', seed: Kernel.srand }
     runner = RTanque::Recorder.create_runner options
     match.tanks.each do |tank|
       runner.add_brain_code tank.code
