@@ -10,18 +10,18 @@ window.Replay = (function() {
     r.width = 1200;
     r.height = 700;
     r.center = new Point(r.width/2, r.height/2);
+    r.id = 0;
     r.lastTick = 0;
     r.incoming = [];
 
     r.canvas = document.getElementById("tranque-replay");
     r.container = r.canvas.parentNode;
+    console.log(r.container);
     r.toolbar = document.getElementById("tranque-toolbar");
-    r.arena = new Shape.Rectangle(new Point(0, 0), new Point(r.width, r.height));
-    r.arena.fillColor = "#444";
     r.scale = 1;
-    r.tanks = [];
+    r.tanks = {};
     r.explosions = [];
-    r.shells = [];
+    r.shells = {};
 
     r.transformPoint = function(point) {
         return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
@@ -34,22 +34,26 @@ window.Replay = (function() {
 
     r.adjustSize = function() {
         view.viewSize.width = r.container.offsetWidth;
-        view.viewSize.height = r.container.offsetHeight - r.toolbar.offsetHeight;
+        view.viewSize.height = r.container.offsetHeight;
         r.arena.fitBounds(view.bounds);
         r.scale = r.arena.bounds.width/r.width;
-        r.tanks.forEach(function(tank) {
-            tank.transform();
-        });
+        console.log(r.arena.bounds);
+        console.log(r.scale);
+        for (tank in r.tanks) {
+            r.tanks[tank].transform();
+            console.log(r.tanks[tank].object.position);
+            console.log(r.tanks[tank].object.shape.position);
+        };
         r.explosions.forEach(function(explosion) {
             explosion.transform();
         });
-        r.shells.forEach(function(shell) {
-            shell.transform();
-        });
+        for (shell in r.shells) {
+            r.shells[shell].transform();
+        }
     };
 
     r.addTank = function(options) {
-        r.tanks.push(Tank.new(options));
+        r.tanks[options.name] = Tank.new(options);
     };
 
     r.explode = function(explosion) {
@@ -57,65 +61,72 @@ window.Replay = (function() {
     };
 
     r.addShell = function(shell) {
-        r.shells.push(shell);
+        r.shells[shell.id] = shell;
     };
 
     r.animate = function() {
-        r.tanks = r.tanks.filter(function(tank) {
-            return tank.alive;
-        });
+        for (tank in r.tanks) {
+            if (!r.tanks[tank].alive) {
+                delete r.tanks[tank]
+            }
+        }
         r.explosions = r.explosions.filter(function(explosion) {
             return explosion.alive;
         });
-        r.shells = r.shells.filter(function(shell) {
-            return shell.alive;
-        });
+        for (shell in r.shells) {
+            if (!r.shells[shell].alive) {
+                delete r.shells[shell]
+            }
+        }
         if (r.incoming.length > 0 && r.incoming[0].tick <= r.lastTick+1) {
             data = r.incoming.shift();
             r.lastTick = data.tick;
-
-            console.log("Applying incoming data:", data);
+            data.tanks.forEach(function(tankData) {
+                var tank = r.tanks[tankData.name];
+                //TODO: use radar heading
+                if (tankData.hasOwnProperty("health")) tank.setHealth(tankData.health/100);
+                if (tankData.hasOwnProperty("heading")) tank.setHeading(tankData.heading);
+                if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(tankData.turret_heading);
+                if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
+                //console.log(view.viewSize.width-tank.object.shape.position.x, view.viewSize.height-tank.object.shape.position.y);
+            });
 
             //TODO: update positions and such with data from sockets
 
         //Interpolate!
         } else {
             r.lastTick++;
-            console.log("Interpolating");
 
-            r.tanks.forEach(function(tank) {
-                tank.setHeading(tank.heading + random(0, 0.1));
-                tank.setTurretHeading(tank.turretHeading + random(0, 0.025));
-                tank.setHealth(tank.health - random(0, 0.01));
-                tank.speed = Tank.MAX_SPEED;
-                tank.move();
+            //r.tanks.forEach(function(tank) {
+                //tank.setHeading(tank.heading + random(0, 0.1));
+                //tank.setTurretHeading(tank.turretHeading + random(0, 0.025));
+                //tank.setHealth(tank.health - random(0, 0.01));
+                //tank.speed = Tank.MAX_SPEED;
+                //tank.move();
 
-                if (int(random(0, 40)) == 0) {
-                    tank.shoot(random(2,Tank.MAX_POWER));
-                }
-            });
+                //if (int(random(0, 40)) == 0) {
+                    //tank.shoot(random(2,Tank.MAX_POWER));
+                //}
+            //});
 
-            r.shells.forEach(function(shell) {
-                shell.tick();
-            });
+            //r.shells.forEach(function(shell) {
+                //shell.tick();
+            //});
         }
 
         r.explosions.forEach(function(explosion) {
             explosion.tick();
         });
+        paper.view.update();
     };
 
     r.setup = function() {
-        r.adjustSize();
-        window.addEventListener("resize", throttle(function() {
-            r.adjustSize();
-            r.tanks.forEach(function(tank) {
-                tank.transform();
-            });
-            r.explosions.forEach(function(explosion) {
-                explosion.transform();
-            });
-        }, 200));
+        var matches = /tanks\/(\d+)/.exec(window.location.href);
+        if (matches) {
+            r.id = parseInt(matches[1]);
+        } else {
+            console.log("Couldn't match id in url:", window.location.href)
+        }
     };
 
     r.init = function(setup) {
@@ -127,17 +138,24 @@ window.Replay = (function() {
 
         r.width = setup.width || r.width;
         r.height = setup.height || r.height;
+        r.center = new Point(r.width/2, r.height/2);
 
-        for (tank in setup.tanks) {
+        r.arena = new Shape.Rectangle(new Point(0, 0), new Point(r.width, r.height));
+        r.arena.fillColor = "#444";
+
+
+        setup.tanks.forEach(function(tank) {
             r.addTank({
-                position: setup.tanks[tank].position ? new Point(setup.tanks[tank].position.x, setup.tanks[tank].position.y) : undefined,
-                color: setup.tanks[tank].color,
-                name: tank
+                position: tank.position ? new Point(tank.position.x, tank.position.y) : undefined,
+                color: tank.color,
+                name: tank.name
             });
-        }
-        console.log("Made tanks:", r.tanks);
+        });
 
         r.adjustSize();
+        window.addEventListener("resize", throttle(function() {
+            r.adjustSize();
+        }, 200));
 
         view.on("frame", r.animate);
     };
@@ -146,27 +164,50 @@ window.Replay = (function() {
          console.log("End transmission");
     };
 
-    r.tick = function(tick) {
-        r.incoming.push(tick);
+    r.batch = function(data) {
+        r.incoming = r.incoming.concat(data.batch);
     };
 
-    r.listen = function(id) {
+    r.listen = function() {
+        console.log("Initializing replays");
         r.setup();
-        r.dispatcher = new WebSocketRails("localhost:3000/websocket");
-        r.channel = r.dispatcher.subscribe_private("match." + id);
-        r.channel.bind("start", r.init);
-        r.channel.bind("stop", r.end);
-        r.channel.bind("tick", r.tick);
-
         r.loadingText = new PointText(view.center);
         r.loadingText.justification = "center";
         r.loadingText.fillColor = "#FFF";
         r.loadingText.fontSize = 18;
         r.loadingText.content = "Loading match...";
+
+        $.ajax("/matches.json", {
+            type: "POST",
+            data: {
+                match: {
+                    tanks: [5, 6] //r.id
+                }
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                r.dispatcher = new WebSocketRails("localhost:3000/websocket");
+                r.dispatcher.on_open = function() {
+                    r.channel = r.dispatcher.subscribe_private("match."+data.id);
+                    r.channel.bind("start", r.init);
+                    r.channel.bind("stop", r.end);
+                    r.channel.bind("batch", r.batch);
+                };
+            }
+        });
+
+
+    };
+
+    r.destruct = function() {
+
     };
 
     return r;
 })();
 
-Replay.listen(123);
-
+$(document).ready(function() {
+    Replay.destruct();
+    Replay.listen();
+});

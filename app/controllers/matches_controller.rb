@@ -84,7 +84,7 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params[:match].permit :name, :public
+      params[:match].permit :name, :public if params[:match]
     end
 
     def check_permissions

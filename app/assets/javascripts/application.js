@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
@@ -36,5 +37,4 @@ var manageAlerts = function() {
         }.bind(this), 2000 + 1000*index);
     });
 }
-$(document).on('page:load', manageAlerts);
 $(document).ready(manageAlerts);

@@ -52,9 +52,9 @@ _Explosion.prototype = {
         }
     },
     transform: function() {
-        this.flash.update();
+        this.flash.transform();
         this.particles.forEach(function(particle) {
-            particle.update();
+            particle.shape.transform();
         });
     }
 }

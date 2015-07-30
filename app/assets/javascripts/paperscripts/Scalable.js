@@ -9,7 +9,7 @@ function _Scalable(shape) {
 _Scalable.prototype = {
     setPosition: function(position) {
         if (position) {
-            this.position = position;
+            this.position = new Point(position.x, position.y);
         }
         this.shape.position = Replay.transformPoint(this.position);
     },

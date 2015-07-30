@@ -15,8 +15,9 @@ function _Tank(options) {
     main.strokeColor = tintedColor;
     main.strokeWidth = 3;
 
-    this.body = new Group([main]);
+    this.body = new Group([]);
     this.body.pivot = new Point(0, 0);
+    this.body.addChildren([main]);
 
     // Gun
     var hatch = new Shape.Circle(new Point(0, 0), 10);
@@ -25,8 +26,9 @@ function _Tank(options) {
     var barrel = new Shape.Rectangle(new Point(0, -2), new Point(30, 2));
     barrel.fillColor = tintedColor;
 
-    this.gun = new Group([hatch, barrel]);
+    this.gun = new Group([]);
     this.gun.pivot = new Point(0, 0);
+    this.gun.addChildren([hatch, barrel]);
 
     this.nameTag = new PointText(new Point(0, 65));
     this.nameTag.justification = "center";
@@ -40,8 +42,8 @@ function _Tank(options) {
     this.healthBar.strokeWidth = 3;
 
     var obj = new Group([]);
-    obj.pivot = new Point(0, 0);
     obj.addChildren([this.body, this.gun, this.healthBar, this.nameTag]);
+    obj.pivot = new Point(0, 0);
 
     this.object = Scalable.new(obj);
     this.object.setPosition(options.position || Replay.center);
