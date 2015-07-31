@@ -7,7 +7,7 @@
   </ul>
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code
-class <%= @tank.name %> < RTanque::Bot::Brain
+class <%= @tank.name.gsub(/\s+/, '_').camelize %> < RTanque::Bot::Brain
   def name
     '<%= @tank.name %>'
   end
