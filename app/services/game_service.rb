@@ -26,7 +26,8 @@ class GameService
     runner.match.before_start = proc do |match|
       tanks = []
       match.bots.each do |bot|
-        tanks.push name: bot.name, position: bot.position.to_h.slice(:x, :y), color: '#BADA55' # TODO: actual colours
+        tanks.push name: bot.name, position: bot.position.to_h.slice(:x, :y), heading: bot.heading.to_f,
+                   turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, color: '#BADA55' # TODO: actual colours
       end
       channel.trigger :start, width: match.arena.width, height: match.arena.height, tanks: tanks
     end
@@ -35,7 +36,7 @@ class GameService
       bot_array = Array.new
       match.bots.each { |bot|
         bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
-                       turret_heading: bot.radar.heading.to_f, radar_heading: bot.turret.heading.to_f
+                       turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f
       }
 
       @tick_data_array.push tick: match.ticks, tanks: bot_array, created: @shells_created, destroyed: @shells_destroyed

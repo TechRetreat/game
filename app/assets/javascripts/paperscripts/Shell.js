@@ -1,11 +1,13 @@
-function _Shell(location, heading, power) {
+function _Shell(options) {
+    options = options || {};
+    this.id = options.id || -1;
     this.object = Scalable.new(Shell.symbol.place());
-    this.object.setPosition(location);
-    this.object.rotate(toDegrees(heading));
+    this.object.setPosition(options.position);
+    this.object.rotate(toDegrees(options.heading));
 
     this.alive = true;
 
-    this.velocity = toCartesian(power, heading);
+    this.velocity = toCartesian(options.speed*Shell.SPEED_FACTOR, options.heading);
 }
 
 _Shell.prototype = {
@@ -14,6 +16,9 @@ _Shell.prototype = {
         if (!this.object.position.isInside(new Rectangle(0, 0, Replay.width, Replay.height))) {
             this.die();
         }
+    },
+    setPosition: function(position) {
+        this.object.setPosition(position);
     },
     die: function() {
         this.object.remove();
@@ -26,6 +31,8 @@ _Shell.prototype = {
 
 window.Shell = (function() {
     var s = {};
+
+    s.SPEED_FACTOR = 4.5;
 
     var path = new Path({
         segments: [

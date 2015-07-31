@@ -16,7 +16,6 @@ window.Replay = (function() {
 
     r.canvas = document.getElementById("tranque-replay");
     r.container = r.canvas.parentNode;
-    console.log(r.container);
     r.toolbar = document.getElementById("tranque-toolbar");
     r.scale = 1;
     r.tanks = {};
@@ -37,12 +36,8 @@ window.Replay = (function() {
         view.viewSize.height = r.container.offsetHeight;
         r.arena.fitBounds(view.bounds);
         r.scale = r.arena.bounds.width/r.width;
-        console.log(r.arena.bounds);
-        console.log(r.scale);
         for (tank in r.tanks) {
             r.tanks[tank].transform();
-            console.log(r.tanks[tank].object.position);
-            console.log(r.tanks[tank].object.shape.position);
         };
         r.explosions.forEach(function(explosion) {
             explosion.transform();
@@ -75,12 +70,24 @@ window.Replay = (function() {
         });
         for (shell in r.shells) {
             if (!r.shells[shell].alive) {
-                delete r.shells[shell]
+                delete r.shells[shell];
+            } else {
+                r.shells[shell].tick();
             }
         }
         if (r.incoming.length > 0 && r.incoming[0].tick <= r.lastTick+1) {
             data = r.incoming.shift();
             r.lastTick = data.tick;
+            if (data.hasOwnProperty("created")) {
+                data.created.forEach(function(shell) {
+                    Replay.addShell(Shell.new({
+                        id: shell.id,
+                        heading: shell.heading,
+                        speed: shell.speed,
+                        position: new Point(shell.x, shell.y)
+                    }));
+                });
+            }
             data.tanks.forEach(function(tankData) {
                 var tank = r.tanks[tankData.name];
                 //TODO: use radar heading
@@ -88,7 +95,6 @@ window.Replay = (function() {
                 if (tankData.hasOwnProperty("heading")) tank.setHeading(tankData.heading);
                 if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(tankData.turret_heading);
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
-                //console.log(view.viewSize.width-tank.object.shape.position.x, view.viewSize.height-tank.object.shape.position.y);
             });
 
             //TODO: update positions and such with data from sockets
@@ -150,6 +156,8 @@ window.Replay = (function() {
                 color: tank.color,
                 name: tank.name
             });
+            if (tank.hasOwnProperty("heading")) r.tanks[tank.name].setHeading(tank.heading);
+            if (tank.hasOwnProperty("turret_heading")) r.tanks[tank.name].setTurretHeading(tank.turret_heading);
         });
 
         r.adjustSize();
@@ -161,10 +169,11 @@ window.Replay = (function() {
     };
 
     r.end = function() {
-         console.log("End transmission");
+        console.log("End transmission");
     };
 
     r.batch = function(data) {
+        if (r.incoming.length == 0) console.log(data.batch);
         r.incoming = r.incoming.concat(data.batch);
     };
 
@@ -181,7 +190,7 @@ window.Replay = (function() {
             type: "POST",
             data: {
                 match: {
-                    tanks: [5, 6] //r.id
+                    tanks: [5, 6, r.id]
                 }
             },
             dataType: "json",

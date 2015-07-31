@@ -8,6 +8,7 @@ end
 
 task :resque => :environment do
   ENV['QUEUE'] = '*'
+  ENV['VVERBOSE'] = '1'
   Rake::Task['resque:work'].invoke
 end
 

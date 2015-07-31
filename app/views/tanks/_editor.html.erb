@@ -6,23 +6,24 @@
     <li><i class="fa fa-play"></i></li>
   </ul>
 </div>
-<div id="editor">
-  <% if @tank.code.nil? %>
-#Example code
-def yu_chen_is_cool
-  puts false
-end
+<div id="editor"><% if @tank.code.nil? %>#Example code
+class <%= @tank.name %> < RTanque::Bot::Brain
+  def name
+    '<%= @tank.name %>'
+  end
 
-#current user
-  <%= if user_signed_in?
-        current_user
-      end
-  %>
-  <% else %>
-  <%= @tank.code %>
-  <% end %>
+  def tick!
+    make_circles
+    command.fire 0.25
+  end
 
-</div>
+  def make_circles
+    command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+    command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
+    command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
+  end
+end<% else %><%= @tank.code %><% end %></div>
+<%# Extra spacing above gets added to the code %>
 
 <script>
     var editor = ace.edit("editor");
