@@ -8,6 +8,7 @@ function _Tank(options) {
     this.turretHeading = 0;
     this.speed = 0;
     this.health = 1;
+    this.name =  options.name || "TestTank";
 
     // Body
     var main = new Shape.Rectangle(new Point(-20, -20), new Point(20, 20));
@@ -15,7 +16,10 @@ function _Tank(options) {
     main.strokeColor = tintedColor;
     main.strokeWidth = 3;
 
-    this.body = new Group([]);
+    this.body = new Group({
+        transformContent: false,
+        children: []
+    });
     this.body.pivot = new Point(0, 0);
     this.body.addChildren([main]);
 
@@ -26,7 +30,10 @@ function _Tank(options) {
     var barrel = new Shape.Rectangle(new Point(0, -2), new Point(30, 2));
     barrel.fillColor = tintedColor;
 
-    this.gun = new Group([]);
+    this.gun = new Group({
+        transformContent: false,
+        children: []
+    });
     this.gun.pivot = new Point(0, 0);
     this.gun.addChildren([hatch, barrel]);
 
@@ -34,14 +41,17 @@ function _Tank(options) {
     this.nameTag.justification = "center";
     this.nameTag.fillColor = "#FFF";
     this.nameTag.fontSize = 18;
-    this.nameTag.content = options.name || "TestTank";
+    this.nameTag.content = this.name;
 
     this.healthBar = new Path.Line(new Point(-50, 40), new Point(50, 40));
     this.healthBar.pivot = this.healthBar.bounds.leftCenter;
     this.healthBar.strokeColor = "#0F0";
     this.healthBar.strokeWidth = 3;
 
-    var obj = new Group([]);
+    var obj = new Group({
+        transformContent: false,
+        children: []
+    });
     obj.addChildren([this.body, this.gun, this.healthBar, this.nameTag]);
     obj.pivot = new Point(0, 0);
 
@@ -55,7 +65,9 @@ _Tank.prototype = {
         this.heading = angle;
     },
     setTurretHeading: function(angle) {
-        this.gun.rotation = toDegrees(angle - this.turretHeading);
+        //if (this.name == "TestBot") console.log(angle - this.turretHeading);
+        //this.gun.rotation = toDegrees(angle - this.turretHeading);
+        this.gun.rotation = toDegrees(angle);
         this.turretHeading = angle;
     },
     setPosition: function(point) {

@@ -82,7 +82,7 @@ window.Replay = (function() {
                 data.created.forEach(function(shell) {
                     Replay.addShell(Shell.new({
                         id: shell.id,
-                        heading: shell.heading,
+                        heading: -shell.heading + Math.PI/2,
                         speed: shell.speed,
                         position: new Point(shell.x, shell.y)
                     }));
@@ -92,9 +92,10 @@ window.Replay = (function() {
                 var tank = r.tanks[tankData.name];
                 //TODO: use radar heading
                 if (tankData.hasOwnProperty("health")) tank.setHealth(tankData.health/100);
-                if (tankData.hasOwnProperty("heading")) tank.setHeading(tankData.heading);
-                if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(tankData.turret_heading);
+                if (tankData.hasOwnProperty("heading")) tank.setHeading(-tankData.heading + Math.PI/2);
+                if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(-tankData.turret_heading + Math.PI/2);
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
+                //if (tankData.name == "TestBot") console.log(tank.gun.rotation);
             });
 
             //TODO: update positions and such with data from sockets
