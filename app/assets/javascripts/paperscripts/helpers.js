@@ -21,6 +21,10 @@ window.throttle = function(fn, threshhold, scope) {
     };
 }
 
+window.fixAngle = function(rads) {
+    return -rads + Math.PI/2; //but why? :(
+}
+
 window.toDegrees = function(angle) {
     return angle / Math.PI * 180;
 };

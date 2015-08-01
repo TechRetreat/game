@@ -6,9 +6,35 @@ function _Tank(options) {
     this.alive = true;
     this.heading = 0;
     this.turretHeading = 0;
+    this.radarHeading = 0;
     this.speed = 0;
     this.health = 1;
-    this.name =  options.name || "TestTank";
+    this.name = options.name || "TestTank";
+    this.current = options.current || false;
+
+    var sweep = new Path({
+        segments: [
+            [0, 0],
+            [200, (200/Math.cos(10/180 * Math.PI))*Math.sin(10/180 * Math.PI)],
+            [200, -(200/Math.cos(10/180 * Math.PI))*Math.sin(10/180 * Math.PI)]
+        ],
+        fillColor: new Color(
+            new Gradient([
+                new Color(0.5, 1, 0.5, 0.3),
+                new Color(0.5, 1, 0.5, 0)
+            ]),
+            new Point(0, 0),
+            new Point(200, 0)
+        ),
+        closed: true
+    });
+
+    this.radar = new Group({
+        transformContent: false,
+        children: []
+    });
+    this.radar.pivot = new Point(0, 0);
+    this.radar.addChildren([sweep]);
 
     // Body
     var main = new Shape.Rectangle(new Point(-20, -20), new Point(20, 20));
@@ -52,7 +78,7 @@ function _Tank(options) {
         transformContent: false,
         children: []
     });
-    obj.addChildren([this.body, this.gun, this.healthBar, this.nameTag]);
+    obj.addChildren([this.radar, this.body, this.gun, this.healthBar, this.nameTag]);
     obj.pivot = new Point(0, 0);
 
     this.object = Scalable.new(obj);
@@ -65,10 +91,12 @@ _Tank.prototype = {
         this.heading = angle;
     },
     setTurretHeading: function(angle) {
-        //if (this.name == "TestBot") console.log(angle - this.turretHeading);
-        //this.gun.rotation = toDegrees(angle - this.turretHeading);
         this.gun.rotation = toDegrees(angle);
         this.turretHeading = angle;
+    },
+    setRadarHeading: function(angle) {
+        this.radar.rotation = toDegrees(angle);
+        this.radarHeading = angle;
     },
     setPosition: function(point) {
         this.object.setPosition(point);

@@ -82,21 +82,34 @@ window.Replay = (function() {
                 data.created.forEach(function(shell) {
                     Replay.addShell(Shell.new({
                         id: shell.id,
-                        heading: -shell.heading + Math.PI/2,
+                        heading: fixAngle(shell.heading),
                         speed: shell.speed,
                         position: new Point(shell.x, shell.y)
                     }));
                 });
             }
+            if (data.hasOwnProperty("destroyed")) {
+                data.destroyed.forEach(function(shell) {
+                    if (!r.shells[shell.id]) return;
+                    r.shells[shell.id].die();
+                    delete r.shells[shell.id];
+                });
+            }
+            for (tank in r.tanks) {
+                r.tanks[tank].updated = false;
+            }
             data.tanks.forEach(function(tankData) {
                 var tank = r.tanks[tankData.name];
-                //TODO: use radar heading
+                tank.updated = true;
                 if (tankData.hasOwnProperty("health")) tank.setHealth(tankData.health/100);
-                if (tankData.hasOwnProperty("heading")) tank.setHeading(-tankData.heading + Math.PI/2);
-                if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(-tankData.turret_heading + Math.PI/2);
+                if (tankData.hasOwnProperty("heading")) tank.setHeading(fixAngle(tankData.heading));
+                if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(fixAngle(tankData.turret_heading));
+                if (tankData.hasOwnProperty("radar_heading")) tank.setRadarHeading(fixAngle(tankData.radar_heading));
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
-                //if (tankData.name == "TestBot") console.log(tank.gun.rotation);
             });
+            for (tank in r.tanks) {
+                if (!r.tanks[tank].updated) r.tanks[tank].setHealth(0);
+            }
 
             //TODO: update positions and such with data from sockets
 
@@ -155,7 +168,8 @@ window.Replay = (function() {
             r.addTank({
                 position: tank.position ? new Point(tank.position.x, tank.position.y) : undefined,
                 color: tank.color,
-                name: tank.name
+                name: tank.name,
+                current: tank.id == r.id
             });
             if (tank.hasOwnProperty("heading")) r.tanks[tank.name].setHeading(tank.heading);
             if (tank.hasOwnProperty("turret_heading")) r.tanks[tank.name].setTurretHeading(tank.turret_heading);
