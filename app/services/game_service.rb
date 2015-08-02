@@ -56,9 +56,10 @@ class GameService
     end
 
     runner.match.after_stop = proc do |rmatch|
-      channel.trigger :stop
+      remaining_tanks = []
 
       rmatch.bots.each do |tank|
+        remaining_tanks.push name: bot.name
         entry = entry_map[tank.__id__]
         entry.health = tank.health
       end
@@ -70,6 +71,8 @@ class GameService
 
       match.duration = rmatch.ticks
       match.save
+
+      channel.trigger :stop, tanks: remaining_tanks, ended: true
     end
 
     runner.match.shell_created = proc do |shell|

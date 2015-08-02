@@ -13,6 +13,7 @@ window.Replay = (function() {
     r.id = 0;
     r.lastTick = 0;
     r.incoming = [];
+    r.running = false;
 
     r.canvas = document.getElementById("tranque-replay");
     r.container = r.canvas.parentNode;
@@ -60,6 +61,11 @@ window.Replay = (function() {
     };
 
     r.animate = function() {
+        if (r.running == false && r.explosions.length == 0) {
+            view.off("frame");
+            return;
+        }
+
         for (tank in r.tanks) {
             if (!r.tanks[tank].alive) {
                 delete r.tanks[tank]
@@ -75,9 +81,11 @@ window.Replay = (function() {
                 r.shells[shell].tick();
             }
         }
-        if (r.incoming.length > 0 && r.incoming[0].tick <= r.lastTick+1) {
+
+        var lastTickUsed = 0;
+        while (r.incoming.length > 0 && r.incoming[0].tick <= r.lastTick+1) {
             data = r.incoming.shift();
-            r.lastTick = data.tick;
+            lastTickUsed = data.tick;
             if (data.hasOwnProperty("created")) {
                 data.created.forEach(function(shell) {
                     Replay.addShell(Shell.new({
@@ -111,33 +119,25 @@ window.Replay = (function() {
                 if (!r.tanks[tank].updated) r.tanks[tank].setHealth(0);
             }
 
-            //TODO: update positions and such with data from sockets
-
-        //Interpolate!
+            if (data.ended) {
+                r.running = false;
+            }
+        }
+        if (lastTickUsed > r.lastTick) {
+            r.lastTick = data.tick;
         } else {
+
+            //Interpolate!
             r.lastTick++;
 
-            //r.tanks.forEach(function(tank) {
-                //tank.setHeading(tank.heading + random(0, 0.1));
-                //tank.setTurretHeading(tank.turretHeading + random(0, 0.025));
-                //tank.setHealth(tank.health - random(0, 0.01));
-                //tank.speed = Tank.MAX_SPEED;
-                //tank.move();
-
-                //if (int(random(0, 40)) == 0) {
-                    //tank.shoot(random(2,Tank.MAX_POWER));
-                //}
-            //});
-
-            //r.shells.forEach(function(shell) {
-                //shell.tick();
-            //});
+            for (tank in r.tanks) {
+                r.tanks[tank].move();
+            }
         }
 
         r.explosions.forEach(function(explosion) {
             explosion.tick();
         });
-        paper.view.update();
     };
 
     r.setup = function() {
@@ -180,15 +180,16 @@ window.Replay = (function() {
             r.adjustSize();
         }, 200));
 
+        r.running = true;
         view.on("frame", r.animate);
     };
 
-    r.end = function() {
+    r.end = function(data) {
+        r.incoming = r.incoming.concat(data);
         console.log("End transmission");
     };
 
     r.batch = function(data) {
-        if (r.incoming.length == 0) console.log(data.batch);
         r.incoming = r.incoming.concat(data.batch);
     };
 
