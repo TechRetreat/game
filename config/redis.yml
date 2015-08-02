@@ -3,5 +3,5 @@ development:
   :port: 6379
 
 production:
-  :host: <%= ENV['REDIS_HOST'] %>
+  :host: <%= ENV['REDIS_IP'] %>
   :port: <%= ENV['REDIS_PORT'] %>
