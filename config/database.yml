@@ -22,6 +22,6 @@ test:
 
 production:
   <<: *default
-  adapter: pg
+  adapter: postgresql
   database: staging
   url: <%= ENV['DATABASE_URL'] %>
