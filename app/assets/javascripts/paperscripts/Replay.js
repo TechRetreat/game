@@ -15,9 +15,6 @@ window.Replay = (function() {
     r.incoming = [];
     r.running = false;
 
-    r.canvas = document.getElementById("tranque-replay");
-    r.container = r.canvas.parentNode;
-    r.toolbar = document.getElementById("tranque-toolbar");
     r.scale = 1;
     r.tanks = {};
     r.explosions = [];
@@ -31,6 +28,27 @@ window.Replay = (function() {
         return l*r.scale;
     };
 
+    r.addNotice = function(text) {
+        var notice = $("<div class='notice'></div>")
+            .text(text)
+            .click(function() {
+                $(this).fadeOut(500,function(){
+                    $(this).css({"visibility":"hidden"}).slideUp(function(){
+                        $(this).remove();
+                    });
+                });
+            })
+            .prependTo("#replay-notices");
+        setTimeout(function() {
+            if ($.contains(document.documentElement, notice[0])) notice.click();
+        }, 2000);
+    };
+
+    r.clearNotices = function() {
+        $("#replay-notices .notice").each(function() {
+            $(this).click();
+        });
+    };
 
     r.adjustSize = function() {
         view.viewSize.width = r.container.offsetWidth;
@@ -63,6 +81,7 @@ window.Replay = (function() {
     r.animate = function() {
         if (r.running == false && r.explosions.length == 0) {
             view.off("frame");
+            r.addNotice("End of simulation - press play again to run another!");
             return;
         }
 
@@ -83,7 +102,7 @@ window.Replay = (function() {
         }
 
         var lastTickUsed = 0;
-        while (r.incoming.length > 0 && r.incoming[0].tick <= r.lastTick+1) {
+        while (r.incoming.length > 0 && (!r.incoming[0].tick || r.incoming[0].tick <= r.lastTick+1)) {
             data = r.incoming.shift();
             lastTickUsed = data.tick;
             if (data.hasOwnProperty("created")) {
@@ -127,7 +146,6 @@ window.Replay = (function() {
             r.lastTick = data.tick;
         } else {
 
-            //Interpolate!
             r.lastTick++;
 
             for (tank in r.tanks) {
@@ -140,7 +158,7 @@ window.Replay = (function() {
         });
     };
 
-    r.setup = function() {
+    r.getIDFromURL = function() {
         var matches = /tanks\/(\d+)/.exec(window.location.href);
         if (matches) {
             r.id = parseInt(matches[1]);
@@ -154,7 +172,7 @@ window.Replay = (function() {
         if (r.loadingText) {
             r.loadingText.remove();
         }
-        console.log("Setting up", setup);
+        r.clearNotices();
 
         r.width = setup.width || r.width;
         r.height = setup.height || r.height;
@@ -185,23 +203,38 @@ window.Replay = (function() {
     };
 
     r.end = function(data) {
+        console.log(data);
         r.incoming = r.incoming.concat(data);
-        console.log("End transmission");
     };
 
     r.batch = function(data) {
         r.incoming = r.incoming.concat(data.batch);
     };
 
-    r.listen = function() {
-        console.log("Initializing replays");
-        r.setup();
-        r.loadingText = new PointText(view.center);
-        r.loadingText.justification = "center";
-        r.loadingText.fillColor = "#FFF";
-        r.loadingText.fontSize = 18;
-        r.loadingText.content = "Loading match...";
+    r.clear = function() {
+        for (shell in r.shells) {
+            r.shells[shell].die();
+            delete r.shells[shell];
+        }
+        for (tank in r.tanks) {
+            r.tanks[tank].object.remove();
+            delete r.tanks[tank];
+        }
+        r.lastTick = 0;
+        view.update();
+    };
 
+    r.setup = function() {
+        r.getIDFromURL();
+        r.canvas = document.getElementById("tranque-replay");
+        r.container = r.canvas.parentNode;
+        r.toolbar = document.getElementById("tranque-toolbar");
+        r.addNotice("Press the play button to start a simulation!");
+    };
+
+    r.simulate = function() {
+        r.clear();
+        r.addNotice("Running simulation...");
         $.ajax("/matches.json", {
             type: "POST",
             data: {
@@ -211,7 +244,7 @@ window.Replay = (function() {
             },
             dataType: "json",
             success: function(data) {
-                console.log(data);
+                r.addNotice("Sending simulation data...");
                 r.dispatcher = new WebSocketRails("localhost:3000/websocket");
                 r.dispatcher.on_open = function() {
                     r.channel = r.dispatcher.subscribe_private("match."+data.id);
@@ -221,18 +254,9 @@ window.Replay = (function() {
                 };
             }
         });
-
-
-    };
-
-    r.destruct = function() {
-
     };
 
     return r;
 })();
 
-$(document).ready(function() {
-    Replay.destruct();
-    Replay.listen();
-});
+Replay.setup();

@@ -59,7 +59,7 @@ class GameService
       remaining_tanks = []
 
       rmatch.bots.each do |tank|
-        remaining_tanks.push name: bot.name
+        remaining_tanks.push name: tank.name if tank.health > 0
         entry = entry_map[tank.__id__]
         entry.health = tank.health
       end
