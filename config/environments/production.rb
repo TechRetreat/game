@@ -79,8 +79,19 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mail settings
-  config.action_mailer.default_url_options = { :host => 'staging. techtanks.techretreat.ca' }
+  config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
 
   # Default Mailer Host
   Rails.application.routes.default_url_options[:host] = 'staging.techtanks.techretreat.ca'
+
+  # Sendgrid config
+  config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
+  ActionMailer::Base.smtp_settings = {
+      :address        => "smtp.sendgrid.net",
+      :port           => "25",
+      :authentication => :plain,
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :domain         => ENV['SENDGRID_DOMAIN']
+  }
 end
