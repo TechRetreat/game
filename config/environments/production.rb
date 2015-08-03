@@ -79,7 +79,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mail settings
-  config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
+  config.action_mailer.default_url_options = { :host => 'staging. techtanks.techretreat.ca' }
 
   # Default Mailer Host
   Rails.application.routes.default_url_options[:host] = 'staging.techtanks.techretreat.ca'
