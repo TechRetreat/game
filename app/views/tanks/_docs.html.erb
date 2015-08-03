@@ -1,0 +1,26 @@
+<div class="container" id="documentation">
+  <h1>Bot Structure</h1>
+  <pre><code> class Sample < RTanque::Bot::Brain
+    NAME = 'Sample'
+    include RTanque::Bot::BrainHelper
+
+    def tick!
+    ## main logic goes here
+
+    # use self.sensors to detect things
+    # See http://rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Sensors
+
+    # use self.command to control tank
+    # See http://rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Command
+
+    # self.arena contains the dimensions of the arena
+    # See http://rubydoc.info/github/awilliams/RTanque/master/frames/RTanque/Arena
+    end
+ end</code></pre>
+
+  <h1>More Info</h1>
+  <ul>
+    <li><a href="https://github.com/awilliams/RTanque">Github page</a></li>
+    <li><a href="http://robowiki.net/wiki/Melee_Strategy">Melee Strategy Guide from Robocode wiki</a></li>
+  </ul>
+</div>
