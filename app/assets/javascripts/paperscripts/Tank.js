@@ -37,7 +37,7 @@ function _Tank(options) {
     this.radar.addChildren([sweep]);
 
     // Body
-    var main = new Shape.Rectangle(new Point(-20, -20), new Point(20, 20));
+    var main = new Shape.Rectangle(new Point(-15, -15), new Point(15, 15));
     main.fillColor = options.color;
     main.strokeColor = tintedColor;
     main.strokeWidth = 3;
@@ -50,7 +50,7 @@ function _Tank(options) {
     this.body.addChildren([main]);
 
     // Gun
-    var hatch = new Shape.Circle(new Point(0, 0), 10);
+    var hatch = new Shape.Circle(new Point(0, 0), 8);
     hatch.fillColor = tintedColor;
 
     var barrel = new Shape.Rectangle(new Point(0, -2), new Point(30, 2));
