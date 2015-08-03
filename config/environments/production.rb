@@ -80,4 +80,7 @@ Rails.application.configure do
 
   # Mail settings
   config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
+
+  # Default Mailer Host
+  Rails.application.routes.default_url_options[:host] = 'staging.techtanks.techretreat.ca'
 end
