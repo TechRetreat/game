@@ -38,15 +38,16 @@ class GameService
         return
       end
 
-      tank = runner.add_brain_code(entry.tank.code)[0]
+      tank = runner.add_brain_code(entry.tank.code, 1, entry.tank.name)[0]
       entry_map[tank.__id__] = entry
     end
 
     runner.match.before_start = proc do |match|
       tanks = []
       match.bots.each do |bot|
+        tank = entry_map[bot.__id__].tank
         tanks.push name: bot.name, position: bot.position.to_h.slice(:x, :y), heading: bot.heading.to_f,
-                   turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, color: '#BADA55' # TODO: actual colours
+          turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, color: tank.color
       end
 
       channel.trigger :start, width: match.arena.width, height: match.arena.height, tanks: tanks
@@ -71,6 +72,8 @@ class GameService
     end
 
     runner.match.after_stop = proc do |rmatch|
+      channel.trigger :batch, batch: tick_data_array if tick_data_array.length > 0 # Send any leftover ticks
+
       remaining_tanks = []
 
       rmatch.bots.each do |tank|
