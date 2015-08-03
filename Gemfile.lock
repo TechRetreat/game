@@ -210,6 +210,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sendgrid (1.2.0)
+      json
     sexp_processor (4.6.0)
     shikashi (0.6.0)
       evalhook (>= 0.6.0)
@@ -274,6 +276,7 @@ DEPENDENCIES
   rtanque!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  sendgrid
   spring
   sqlite3
   turbolinks

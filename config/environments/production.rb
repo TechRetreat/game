@@ -81,17 +81,15 @@ Rails.application.configure do
   # Mail settings
   config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
 
-  # Default Mailer Host
-  Rails.application.routes.default_url_options[:host] = 'staging.techtanks.techretreat.ca'
-
   # Sendgrid config
-  config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
+  ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
       :address        => "smtp.sendgrid.net",
-      :port           => "25",
+      :port           => "587",
       :authentication => :plain,
       :user_name      => ENV['SENDGRID_USERNAME'],
       :password       => ENV['SENDGRID_PASSWORD'],
-      :domain         => ENV['SENDGRID_DOMAIN']
+      :domain         => ENV['SENDGRID_DOMAIN'],
+      enable_starttls_auto: true
   }
 end
