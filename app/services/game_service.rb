@@ -18,7 +18,10 @@ class GameService
     channel.make_private
 
     Kernel.srand # The first time this is run it returns zero, anything after is fine
-    options = { width: 800, height: 600, max_ticks: match.max_ticks || 5000, gui: false, gc: true, replay_dir: 'replays', seed: match.seed || Kernel.srand }
+
+    random_val = Kernel.srand % 36028797018963967 # So our random value fits in a bigint (8 bytes)
+
+    options = { width: 800, height: 600, max_ticks: match.max_ticks || 5000, gui: false, gc: true, replay_dir: 'replays', seed: match.seed || random_val }
     runner = RTanque::Recorder.create_runner options
 
     match.attributes = options.slice(:max_ticks, :seed)

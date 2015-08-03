@@ -92,7 +92,4 @@ Rails.application.configure do
       :domain         => ENV['SENDGRID_DOMAIN'],
       enable_starttls_auto: true
   }
-  puts ENV['SENDGRID_USERNAME']
-  puts ENV['SENDGRID_PASSWORD']
-  puts ENV['SENDGRID_DOMAIN']
 end
