@@ -87,7 +87,7 @@ function _Tank(options) {
 
 _Tank.prototype = {
     setHeading: function(angle) {
-        this.body.rotation = toDegrees(angle - this.heading);
+        this.body.rotation = toDegrees(angle);
         this.heading = angle;
     },
     setTurretHeading: function(angle) {
@@ -99,6 +99,7 @@ _Tank.prototype = {
         this.radarHeading = angle;
     },
     setPosition: function(point) {
+        this.speed = (this.object.position - point).length
         this.object.setPosition(point);
     },
     move: function() {

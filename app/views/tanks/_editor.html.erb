@@ -3,7 +3,7 @@
     <li id="save"><i class="fa fa-floppy-o"></i></li>
     <li><i class="fa fa-undo"></i></li>
     <li><i class="fa fa-repeat"></i></li>
-    <li><i class="fa fa-play"></i></li>
+    <li id="play-btn"><i class="fa fa-play"></i></li>
   </ul>
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code
@@ -30,18 +30,31 @@ end<% else %><%= @tank.code %><% end %></div>
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/ruby");
 
+    var saveCode = function() {
+        return $.ajax({
+            url : "/tanks/" + <%= @tank.id %> + '.json',
+            data : {tank: {code: editor.getValue()}},
+            type : 'PUT'
+        })
+    };
+
     $('#save').click(function(){
-        $.ajax({
-                    url : "/tanks/" + <%= @tank.id %> + '.json',
-                    data : {tank: {code: editor.getValue()}},
-                    type : 'PUT'
-                }
-        )
+        saveCode()
         .done(function() {
-            console.log('saved');
+            Replay.addNotice("Code saved!");
         })
         .fail(function() {
-            console.log('error');
+            Replay.addNotice("Error saving, try again later.");
+        });
+    });
+
+    $('#play-btn').click(function(){
+        saveCode()
+        .done(function() {
+            Replay.simulate();
+        })
+        .fail(function() {
+            Replay.addNotice("Error saving, try again later.");
         });
     });
 </script>

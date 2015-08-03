@@ -103,6 +103,27 @@
     width:100%;
     background-color:#000;
 }
+#play {
+    background-color:#000;
+}
+#replay-notices {
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:50%;
+    z-index: 2000;
+
+    & .notice {
+        display:block;
+        box-sizing: content-box;
+        padding: 20px;
+        border-radius: 5px;
+        background-color:rgba(255, 200, 100, 0.5);
+        color: #000;
+        cursor:pointer;
+    }
+}
+
 
 #editor {
     position:absolute;
