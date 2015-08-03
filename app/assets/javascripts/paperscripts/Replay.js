@@ -28,26 +28,23 @@ window.Replay = (function() {
         return l*r.scale;
     };
 
-    r.addNotice = function(text) {
-        var notice = $("<div class='notice'></div>")
-            .text(text)
-            .click(function() {
-                $(this).fadeOut(500,function(){
-                    $(this).css({"visibility":"hidden"}).slideUp(function(){
-                        $(this).remove();
-                    });
-                });
-            })
-            .prependTo("#replay-notices");
-        setTimeout(function() {
-            if ($.contains(document.documentElement, notice[0])) notice.click();
-        }, 2000);
+    r.addNotice = function(text, backtrace) {
+        var notice = $("<div class='replay-notice'></div>").text(text)
+        if (backtrace) {
+            var stack = $("<ol></ol>");
+            backtrace.forEach(function(line) {
+                var listItem = $("<li></li>").text(line);
+                stack = stack.append(listItem);
+            });
+            notice = notice.append(stack);
+        }
+        $("#replay-notices").addClass("visible")
+        notice.appendTo("#replay-notices #console")
+        $("#replay-notices #console").animate({ scrollTop: $("#replay-notices #console")[0].scrollHeight}, 300);
     };
 
     r.clearNotices = function() {
-        $("#replay-notices .notice").each(function() {
-            $(this).click();
-        });
+        $("#replay-notices").removeClass("visible");
     };
 
     r.adjustSize = function() {
@@ -207,6 +204,11 @@ window.Replay = (function() {
         r.incoming = r.incoming.concat(data);
     };
 
+    r.die = function(data) {
+        r.running = false;
+        r.addNotice("Simulation aborted: " + data.error, data.backtrace);
+    }
+
     r.batch = function(data) {
         r.incoming = r.incoming.concat(data.batch);
     };
@@ -229,6 +231,14 @@ window.Replay = (function() {
         r.canvas = document.getElementById("tranque-replay");
         r.container = r.canvas.parentNode;
         r.toolbar = document.getElementById("tranque-toolbar");
+
+        $("#replay-notices #toolbar").click(function() {
+            $("#replay-notices").toggleClass("visible");
+        });
+        $("#replay-notices #clear-console").click(function() {
+            $("#replay-notices #console .replay-notice").remove();
+        });
+
         r.addNotice("Press the play button to start a simulation!");
     };
 
@@ -251,6 +261,7 @@ window.Replay = (function() {
                     r.channel.bind("start", r.init);
                     r.channel.bind("stop", r.end);
                     r.channel.bind("batch", r.batch);
+                    r.channel.bind("error", r.die);
                 };
             }
         });

@@ -108,19 +108,71 @@
 }
 #replay-notices {
     position:fixed;
+    transition: all 0.3s ease;
+    padding:0;
     bottom:0;
     right:0;
-    left:50%;
+    width: 200px;
     z-index: 2000;
+    border-left: 2px solid #555;
+    background-color: #999;
+    opacity:0.7;
 
-    & .notice {
-        display:block;
-        box-sizing: content-box;
-        padding: 20px;
-        border-radius: 5px;
-        background-color:rgba(255, 200, 100, 0.5);
-        color: #000;
+    &.visible {
+        width:50%;
+        opacity:1;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+        & #toolbar a {
+            opacity:1;
+        }
+        & #console {
+            max-height:150px;
+        }
+    }
+
+    & #toolbar {
         cursor:pointer;
+        height:50px;
+        line-height: 30px;
+        color: #FFF;
+        font-weight: bold;
+        background-color: #555;
+        padding: 10px;
+
+        &:hover {
+            background-color:#666;
+        }
+
+        & a {
+            transition: all ease 0.3s;
+            color: #FFF;
+            font-weight: normal;
+            float:right;
+            cursor: pointer;
+            opacity:0;
+
+            &:hover {
+                background: none;
+                color: #FAA;
+            }
+        }
+    }
+
+    & #console {
+        transition: all 0.3s ease;
+        max-height:0;
+        overflow-y:auto;
+
+        & .replay-notice {
+            display:block;
+            padding: 5px;
+            color: #000;
+
+            &:nth-child(even) {
+                background-color:#888;
+            }
+        }
     }
 }
 

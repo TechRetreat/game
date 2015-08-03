@@ -90,4 +90,13 @@ class GameService
 
     runner.start false
   end
+
+  def self.on_failure(e, match_id)
+    channel = WebsocketRails["match.#{match_id}"]
+    channel.make_private
+    channel.trigger :error,
+      error: "#{e}",
+      backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.sub(/sandbox-\d+:/, "")}
+    puts "Sent error: #{e}"
+  end
 end
