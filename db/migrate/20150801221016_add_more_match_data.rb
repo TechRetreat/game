@@ -4,7 +4,7 @@ class AddMoreMatchData < ActiveRecord::Migration
     add_reference :entries, :killer, index: true
 
     add_column :matches, :max_ticks, :integer
-    add_column :matches, :seed, :integer, limit: 32
+    add_column :matches, :seed, :integer, limit: 8
     add_column :matches, :duration, :integer
   end
 end
