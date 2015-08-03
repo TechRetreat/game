@@ -2,6 +2,7 @@ rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/../..'
 rails_env = ENV['RAILS_ENV'] || 'development'
 
 redis_config = YAML.load(ERB.new(File.read("#{rails_root}/config/redis.yml")).result)[rails_env]
+redis_config[:driver] = :ruby
 
 WebsocketRails.setup do |config|
 
@@ -33,8 +34,7 @@ WebsocketRails.setup do |config|
   # Uncomment and edit to point to a different redis instance.
   # Will not be used unless standalone or synchronization mode
   # is enabled.
-  # config.redis_options = redis_config
-  config.redis_options = {driver: :ruby}
+  config.redis_options = redis_config
 
   # By default, all subscribers in to a channel will be removed
   # when that channel is made private. If you don't wish active
