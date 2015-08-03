@@ -96,7 +96,7 @@ class GameService
     channel.make_private
     channel.trigger :error,
       error: "#{e}",
-      backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.sub(/sandbox-\d+:/, "")}
+      backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
     puts "Sent error: #{e}"
   end
 end
