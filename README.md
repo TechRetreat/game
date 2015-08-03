@@ -6,6 +6,7 @@ An online AI game using RTanque
 ### OS X Setup
 - Any version of ruby from 2.0 up should be fine, tested with version 2.0 system ruby and version 2.2.2 from rvm
 - Install redis `brew install redis`
+- Install postgres `brew install postgres`
 
 ### Windows Setup
 - Install ruby 2.2.2 and the DevKit from [RubyInstaller](http://rubyinstaller.org/downloads/)
