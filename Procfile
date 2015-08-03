@@ -1,2 +1,2 @@
 web: bundle exec rails server -p $PORT -e $RACK_ENV
-worker: QUEUE=* rake environment resque:work
+worker: QUEUE=* COUNT='10' rake environment resque:work
