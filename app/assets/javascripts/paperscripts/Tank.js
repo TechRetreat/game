@@ -113,12 +113,15 @@ _Tank.prototype = {
         } else {
             this.healthBar.strokeColor = lerpColor("#FF0000", "#FFFF00", map(h, 0, 0.5, 0, 1));
         }
-        this.health = h;
+
         if (h <= 0) {
             this.alive = false;
             this.object.remove();
-            Replay.explode(Explosion.new(this.object.position));
+            Replay.explode(Explosion.new(this.object.position, "death"));
+        } else if (this.health - h > 0.01) {
+            Replay.explode(Explosion.new(this.object.position, "damage"))
         }
+        this.health = h;
     },
     transform: function() {
         this.object.transform();
