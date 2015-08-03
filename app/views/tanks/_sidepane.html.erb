@@ -42,4 +42,7 @@
       setVisible('#edit');
   });
   setVisible('#play');
+
+  //Env variables
+  window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
 </script>

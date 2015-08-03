@@ -259,7 +259,8 @@ window.Replay = (function() {
             dataType: "json",
             success: function(data) {
                 r.addNotice("Sending simulation data...");
-                r.dispatcher = new WebSocketRails("/websocket");
+                console.log(window.WEBSOCKETS_HOST);
+                r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
                 r.dispatcher.on_open = function() {
                     r.channel = r.dispatcher.subscribe_private("match."+data.id);
                     r.channel.bind("start", r.init);
