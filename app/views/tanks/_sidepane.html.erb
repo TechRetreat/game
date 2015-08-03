@@ -47,4 +47,8 @@
 
   //Env variables
   window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
+  window.DEFAULT_TANKS = [
+      <%= Tank.where(owner: nil, public: true).map{|tank| "#{tank.id}"}.join(", ").html_safe %>
+  ];
+  window.TANK_ID = <%= @tank.id %>;
 </script>

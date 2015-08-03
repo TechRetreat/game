@@ -159,15 +159,6 @@ window.Replay = (function() {
         });
     };
 
-    r.getIDFromURL = function() {
-        var matches = /tanks\/(\d+)/.exec(window.location.href);
-        if (matches) {
-            r.id = parseInt(matches[1]);
-        } else {
-            console.log("Couldn't match id in url:", window.location.href)
-        }
-    };
-
     r.init = function(setup) {
         setup = setup || {};
         if (r.loadingText) {
@@ -231,7 +222,7 @@ window.Replay = (function() {
     };
 
     r.setup = function() {
-        r.getIDFromURL();
+        r.id = window.TANK_ID;
         r.canvas = document.getElementById("tranque-replay");
         r.container = r.canvas.parentNode;
         r.toolbar = document.getElementById("tranque-toolbar");
@@ -253,13 +244,12 @@ window.Replay = (function() {
             type: "POST",
             data: {
                 match: {
-                    tanks: [5, 6, r.id]
+                    tanks: window.DEFAULT_TANKS.concat([r.id])
                 }
             },
             dataType: "json",
             success: function(data) {
                 r.addNotice("Sending simulation data...");
-                console.log(window.WEBSOCKETS_HOST);
                 r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
                 r.dispatcher.on_open = function() {
                     r.channel = r.dispatcher.subscribe_private("match."+data.id);
