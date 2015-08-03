@@ -1,5 +1,6 @@
 require 'rtanque/runner'
 require 'json'
+require 'open3'
 
 class GameService
 
@@ -23,6 +24,17 @@ class GameService
     match.attributes = options.slice(:max_ticks, :seed)
 
     match.entries.each do |entry|
+      # Check syntax
+      code_to_check = entry.tank.code.gsub("^#!.+$", "") # Make sure the script doesn't actually get executed from a shebang line
+      check_result = ""
+      Open3.popen2e("ruby", "-c", "-e", code_to_check) { |i,o|
+        check_result = o.read()
+      }
+      unless check_result =~ /Syntax OK/
+        channel.trigger :error, error: "Syntax error", output: check_result
+        return
+      end
+
       tank = runner.add_brain_code(entry.tank.code)[0]
       entry_map[tank.__id__] = entry
     end
@@ -97,6 +109,7 @@ class GameService
     channel.trigger :error,
       error: "#{e}",
       backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
-    puts "Sent error: #{e}"
+    puts "Sent error: #{e.inspect}"
+    puts e.backtrace
   end
 end

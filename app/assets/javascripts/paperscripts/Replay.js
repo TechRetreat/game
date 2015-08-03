@@ -28,7 +28,7 @@ window.Replay = (function() {
         return l*r.scale;
     };
 
-    r.addNotice = function(text, backtrace) {
+    r.addNotice = function(text, backtrace, output) {
         var notice = $("<div class='replay-notice'></div>").text(text)
         if (backtrace) {
             var stack = $("<ol></ol>");
@@ -37,6 +37,10 @@ window.Replay = (function() {
                 stack = stack.append(listItem);
             });
             notice = notice.append(stack);
+        }
+        if (output) {
+            var pre = $("<pre></pre>").text(output);
+            notice = notice.append(pre);
         }
         $("#replay-notices").addClass("visible")
         notice.appendTo("#replay-notices #console")
@@ -206,7 +210,7 @@ window.Replay = (function() {
 
     r.die = function(data) {
         r.running = false;
-        r.addNotice("Simulation aborted: " + data.error, data.backtrace);
+        r.addNotice("Simulation aborted: " + data.error, data.backtrace, data.output);
     }
 
     r.batch = function(data) {
