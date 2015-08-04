@@ -53,4 +53,17 @@ self.command.turret_heading = heading  # Heading: sets Turrets heading
 
 self.command.fire(power)
     # Float: Shoots with given power (Defaults to fire_power)</code></pre>
+
+  <h3>Enemies</h3>
+  <pre><code># Enemy information is found through the radar
+enemies = self.sensors.radar
+
+# self.sensors.radar gives an Enumerator holding Reflections
+# An Enumerator is an object that allows you to iterate through a list of
+# objects, in this case reflections, which hold locations, headings, and
+# names of visible enemy tanks
+# http://ruby-doc.org/core-2.2.0/Enumerator.html
+
+enemies.min { |a,b| a.distance <=> b.distance }
+    # This returns the closest enemy</code></pre>
 </div>
