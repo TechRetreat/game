@@ -8,11 +8,13 @@ class TanksController < ApplicationController
   # GET /tanks.json
   def index
     @tanks = Tank.all
+    @title = 'Listing tanks'
   end
 
   # GET /tanks/1
   # GET /tanks/1.json
   def show
+    @title = 'Showing tank'
   end
 
   # GET /tanks/new
@@ -27,6 +29,7 @@ class TanksController < ApplicationController
     unless user_can_edit current_user, tank
       render text: 'permission error'
     end
+    @title = 'Editing ' + tank.name
   end
 
   # POST /tanks
@@ -34,6 +37,7 @@ class TanksController < ApplicationController
   def create
     @tank = Tank.new(tank_params)
     @tank.owner = current_user
+    @title = 'Creating new tank'
 
     respond_to do |format|
       if @tank.save
