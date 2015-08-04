@@ -1,26 +1,56 @@
 <div class="container" id="documentation">
-  <h1>Bot Structure</h1>
-  <pre><code> class Sample < RTanque::Bot::Brain
-    NAME = 'Sample'
-    include RTanque::Bot::BrainHelper
+  <h1>Getting started</h1>
+  <p>If you havent worked with ruby before, you may want to take a look at
+    <a href="http://www.codecademy.com/tracks/ruby" target="_blank">Codecademy</a> or
+    <a href="http://tryruby.org" target="_blank">TryRuby</a> for a quick start.</p>
 
+  <p>For full RTanque reference you can take a look at
+    <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque" target="_blank">RTanque Documentation</a></p>
+
+  <h3>Bot Structure</h3>
+  <pre><code>class Sample < RTanque::Bot::Brain
+
+    # The tick! function gets executed every tick.
+    # This is where you read your sensors and control your bot.
     def tick!
-    ## main logic goes here
+        # Use self.sensors to detect things
+        health = self.sensors.health
 
-    # use self.sensors to detect things
-    # See http://rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Sensors
-
-    # use self.command to control tank
-    # See http://rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Command
-
-    # self.arena contains the dimensions of the arena
-    # See http://rubydoc.info/github/awilliams/RTanque/master/frames/RTanque/Arena
+        # and self.command to control tank
+        self.command.fire(5)
     end
- end</code></pre>
+end</code></pre>
 
-  <h1>More Info</h1>
-  <ul>
-    <li><a href="https://github.com/awilliams/RTanque">Github page</a></li>
-    <li><a href="http://robowiki.net/wiki/Melee_Strategy">Melee Strategy Guide from Robocode wiki</a></li>
-  </ul>
+  <h3>Sensors</h3>
+  <p>See full documentation <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Sensors" target="_blank">Here</a></p>
+  <pre><code># Sensors contains information about your bot, and the enemies
+
+self.sensors.ticks      # Integer: Ticks since the match began
+
+self.sensors.heading    # Heading:  Direction of your Bot
+self.sensors.health     # Float:    Health of your Bot
+self.sensors.position   # Point:    Location of your Bot
+self.sensors.speed      # Float:    Speed of your Bot
+
+self.sensors.gun_energy        # Float:    Energy of your Turret
+self.sensors.turret_heading    # Heading:  Direction of your Turret
+
+self.sensors.radar_heading  # Heading:  Direction of your Radar
+
+enemy_bots = self.sensors.radar
+    # Well go over this in the 'Enemies' section</code></pre>
+
+  <h3>Commands</h3>
+  <p>See full documentation <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Command" target="_blank">Here</a></p>
+  <pre><code># Command allows you to tell your bot what to do
+
+self.command.fire_power = power  # Float: sets Bots fire power
+self.command.speed = speed       # Float: sets Bots speed
+
+self.command.heading = heading         # Heading: sets Bots heading
+self.command.radar_heading = heading   # Heading: sets Radars heading
+self.command.turret_heading = heading  # Heading: sets Turrets heading
+
+self.command.fire(power)
+    # Float: Shoots with given power (Defaults to fire_power)</code></pre>
 </div>
