@@ -1,3 +1,5 @@
+require "resque_web"
+
 Rails.application.routes.draw do
   resources :matches
   resources :tanks
@@ -5,6 +7,17 @@ Rails.application.routes.draw do
   #root 'site#index'
   root to: 'site#index'
   resources :matches
+
+  # resque-web config
+  resque_web_constraint = lambda do |request|
+    current_user = request.env['warden'].user
+    current_user.present? && current_user.respond_to?(:is_admin?) && current_user.is_admin?
+  end
+
+  constraints resque_web_constraint do
+    mount ResqueWeb::Engine => "/resque_web"
+    ResqueWeb::Engine.eager_load!
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
