@@ -42,7 +42,7 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
-        Resque.enqueue GameService, @match.id
+        GameService.create @match.id
         format.html { redirect_to @match, notice: 'Match was successfully created and queued.' }
         format.json { render :show, status: :created, location: @match }
       else

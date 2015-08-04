@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20150803231242) do
   add_index "entries", ["tank_id"], name: "index_entries_on_tank_id"
 
   create_table "matches", force: :cascade do |t|
-    t.string   "name",                  default: "Unnamed Match"
-    t.boolean  "public",                default: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "name",                 default: "Unnamed Match"
+    t.boolean  "public",               default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "owner_id"
     t.string   "owner_type"
     t.integer  "max_ticks"
-    t.integer  "seed",       limit: 32
+    t.integer  "seed",       limit: 8
     t.integer  "duration"
   end
 

@@ -3,10 +3,11 @@ require 'json'
 require 'open3'
 
 class GameService
+  include Resque::Plugins::Status
 
   @queue = :match_runner
 
-  def self.perform(match_id)
+  def perform(match_id)
     tick_data_array = []
     shells_created = []
     shells_destroyed = []
