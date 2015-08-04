@@ -274,6 +274,8 @@ DEPENDENCIES
   rails-assets-bootstrap!
   rails-assets-paper!
   rails_12factor
+  redis
+  redis-namespace
   resque
   resque-status
   rtanque!

@@ -42,11 +42,23 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
+
+        # check if the user has a currently running match
+        current_match_id = $user_matches.get(current_user.id)
+
+        unless current_match_id.nil?
+          # if yes kill it
+          Resque::Plugins::Status::Hash.kill(current_match_id)
+          puts 'killed match uuid: ' + current_match_id
+        end
+
         job_id = GameService.create(match_id:@match.id)
         status = Resque::Plugins::Status::Hash.get(job_id)
 
-        puts status
-        
+        $user_matches.set(current_user.id, status['uuid'])
+
+        puts 'saved match uuid: ' + status['uuid'] + ' to user ' + current_user.id.to_s
+
         format.html { redirect_to @match, notice: 'Match was successfully created and queued.' }
         format.json { render :show, status: :created, location: @match }
       else
