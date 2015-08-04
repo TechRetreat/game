@@ -6,4 +6,5 @@ class Tank < ActiveRecord::Base
   has_many :matches, through: :entries
 
   validates :name, presence: true
+  validates_format_of :name, :with => /\A\w+\z/
 end
