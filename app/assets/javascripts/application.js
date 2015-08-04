@@ -36,5 +36,9 @@ var manageAlerts = function() {
             $(this).addClass("alert_hidden");
         }.bind(this), 2000 + 1000*index);
     });
-}
-$(document).ready(manageAlerts);
+};
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    manageAlerts();
+});
