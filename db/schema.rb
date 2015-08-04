@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803231242) do
+ActiveRecord::Schema.define(version: 20150804022916) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150803231242) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.boolean  "admin"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
