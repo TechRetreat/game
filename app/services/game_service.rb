@@ -7,7 +7,11 @@ class GameService
 
   @queue = :match_runner
 
-  def perform(match_id)
+  def perform
+    match_id = options['match_id'].to_i
+
+    puts match_id
+
     tick_data_array = []
     shells_created = []
     shells_destroyed = []

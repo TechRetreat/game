@@ -42,7 +42,11 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
-        GameService.create @match.id
+        job_id = GameService.create(match_id:@match.id)
+        status = Resque::Plugins::Status::Hash.get(job_id)
+
+        puts status
+        
         format.html { redirect_to @match, notice: 'Match was successfully created and queued.' }
         format.json { render :show, status: :created, location: @match }
       else
