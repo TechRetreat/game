@@ -15,7 +15,7 @@ window.addEventListener("beforeunload", function (e) {
 
 
 function setVisible(id){
-    $('#editor').css("display", "none");
+    $('#play').css("display", "none");
     $('#info').css("display", "none");
     $('#edit').css("display", "none");
 
@@ -56,6 +56,7 @@ $('#save').click(function(){
 });
 
 $('#play-btn').click(function(){
+    setVisible('#play');
     saveCode()
         .done(function() {
             Replay.simulate();
@@ -64,3 +65,4 @@ $('#play-btn').click(function(){
             Replay.addNotice("Error saving, try again later.");
         });
 });
+setVisible('#info');
