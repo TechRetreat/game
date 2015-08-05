@@ -1,10 +1,10 @@
 <div class="toolbar toolbar-editor">
   <ul>
-    <li id="save"><i class="fa fa-floppy-o"></i></li>
-    <li id="open_editor"><i class="fa fa-terminal"></i></li>
-    <li id="open_edit"><i class="fa fa-cogs"></i></li>
-    <li id="open_info"><i class="fa fa-question"></i></li>
-    <li id="play-btn"><i class="fa fa-play"></i></li>
+    <li id="save"><i class="fa fa-floppy-o"></i><div class="label">Save</a></li>
+    <li id="open_editor"><i class="fa fa-terminal"></i><div class="label">Edit Code</a></li>
+    <li id="open_edit"><i class="fa fa-cogs"></i><div class="label">Tank Settings</a></li>
+    <li id="open_info"><i class="fa fa-question"></i><div class="label">Help</a></li>
+    <li id="play-btn"><i class="fa fa-play"></i><div class="label">Run Code</a></li>
   </ul>
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code

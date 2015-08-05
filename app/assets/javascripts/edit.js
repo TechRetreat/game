@@ -21,17 +21,28 @@ function setVisible(id){
 
     $(id).css("display", "block");
 }
+function setTab(id){
+    $('#open_editor').removeClass("selected");
+    $('#open_info').removeClass("selected");
+    $('#open_edit').removeClass("selected");
+
+    $(id).addClass("selected");
+}
 setVisible('#editor');
 $('#open_editor').click(function(){
     setVisible('#editor');
+    setTab('#open_editor');
 });
 $('#open_info').click(function(){
     setVisible('#info');
+    setTab('#open_info');
 });
 $('#open_edit').click(function(){
     setVisible('#edit');
+    setTab('#open_edit');
 });
 setVisible('#editor');
+setTab('#open_editor');
 
 
 $('#save').click(function(){
