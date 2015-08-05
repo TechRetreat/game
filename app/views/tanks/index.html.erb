@@ -3,26 +3,50 @@
         <h1>Tanks</h1>
         <%= link_to 'New Tank', new_tank_path, class:"button" %>
     </div>
-
+  
+  <h3>My tanks</h3>
     <div class="panel panel-default">
         <div class="panel-body">
             <% @tanks.each do |tank| %>
+              <% if user_owns_tank tank %>
                 <div class="row list-item" data-no-turbolink>
                     <div class="tank-color" style="background-color:<%= tank.color.html_safe %>"></div>
                     <div class="tank-data">
                         <h3><%= tank.name %></h3>
                         <p>
                         <%= link_to 'Info', tank, class:"button" %>
-                        <% if !tank.owner.nil? and !current_user.nil? and tank.owner.id.equal? current_user.id %>
                             <%= link_to 'Code', edit_tank_path(tank), class:"button" %>
                             <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
-                        <% end %>
                         </p>
                     </div>
                   <div class="rank">
                     #42
                   </div>
                 </div>
+              <% end %>
+            <% end %>
+        </div>
+      </div>
+
+  <h3>Other tanks</h3>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <% @tanks.each do |tank| %>
+                <% unless user_owns_tank tank %>
+                    <div class="row list-item" data-no-turbolink>
+                      <div class="tank-color" style="background-color:<%= tank.color.html_safe %>"></div>
+                      <div class="tank-data">
+                        <h3><%= tank.name %></h3>
+                        <p>
+                          <%= link_to 'Info', tank, class:"button" %>
+                        </p>
+                      </div>
+                      <div class="rank">
+                        #42
+                      </div>
+                    </div>
+                <% end %>
             <% end %>
         </div>
     </div>
