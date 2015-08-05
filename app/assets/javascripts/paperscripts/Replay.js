@@ -134,6 +134,11 @@ window.Replay = (function() {
                 if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(fixAngle(tankData.turret_heading));
                 if (tankData.hasOwnProperty("radar_heading")) tank.setRadarHeading(fixAngle(tankData.radar_heading));
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
+                if (tankData.hasOwnProperty("logs") && tankData.logs.length > 0) {
+                  tankData.logs.forEach(function(log){
+                    r.addNotice(tankData.name + ": " + log);
+                  });
+                }
             });
             for (tank in r.tanks) {
                 if (!r.tanks[tank].updated) r.tanks[tank].setHealth(0);

@@ -62,7 +62,7 @@ class GameService
       bot_array = []
       match.bots.each do |bot|
         bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
-                       turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f
+          turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs
       end
 
       tick_data_array.push tick: match.ticks, tanks: bot_array, created: shells_created, destroyed: shells_destroyed
@@ -114,8 +114,8 @@ class GameService
     runner.start false
   end
 
-  def self.on_failure(e, match_id)
-    channel = WebsocketRails["match.#{match_id}"]
+  def self.on_failure(e, uuid, options)
+    channel = WebsocketRails["match.#{options[:match_id]}"]
     channel.make_private
     channel.trigger :error,
       error: "#{e}",
