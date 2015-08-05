@@ -1,7 +1,12 @@
 <div class="row" id="main">
   <div class="section" id="header">
-    <h1>TechTank</h1>
-    <h4>by Tech Retreat</h4>
+    <h1>TechTanks</h1>
+    <h4>Code. Fight. Win.</h4>
+    <% if current_user.nil? %>
+        <a href="">Get Started</a>
+    <% else %>
+        <a href="">Create a Tank</a>
+    <% end %>
   </div>
   <div class="section">
     <h2>Program the brain of a tank. Face off against other tanks.</h2>

@@ -1,0 +1,61 @@
+#header {
+  background: linear-gradient(rgba(#333, .86) 0%, rgba(#333, .4) 78%), url(/assets/images/tank-header.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+  color: #FFF;
+
+  h1 {
+    margin-top: 100px;
+    font-family: 'Open Sans', mono;
+    font-size: 80px;
+    text-align: center;
+  }
+  h4 {
+    font-family: 'Open Sans', mono;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+
+.example {
+  background-color: #002b36;
+  border-radius: 8px;
+  overflow:hidden;
+  font-size:0;
+  position:relative;
+
+  .half {
+    padding:0;
+  }
+  pre {
+    width:50%;
+    display:inline-block;
+    font-size:13px;
+  }
+  code {
+    border-radius: 0;
+  }
+  .player {
+    position:absolute;
+    top:0;
+    left:50%;
+    right:0;
+    bottom:0;
+    background-size:cover;
+    background-position:center;
+  }
+
+  @media all and (max-width:700px) {
+    pre {
+      display:block;
+    }
+    .player {
+      position:static;
+      height:300px;
+    }
+  }
+}
