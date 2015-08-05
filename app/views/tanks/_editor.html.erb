@@ -1,5 +1,6 @@
 <div class="toolbar toolbar-editor">
   <ul>
+    <li id="open_edit"><i class="fa fa-cogs"></i><div class="label">Tank Settings</div></li>
     <li id="save"><i class="fa fa-floppy-o"></i><div class="label">Save</div></li>
     <li id="open_editor"><i class="fa fa-terminal"></i><div class="label">Edit Code</div></li>
   </ul>
@@ -19,6 +20,13 @@ class <%= @tank.name.gsub(/\s+/, '_').camelize %> < RTanque::Bot::Brain
 end<% else %><%= @tank.code %><% end %></div>
 <%# Extra spacing above gets added to the code %>
 
+
+<div id="edit">
+  <div class="container">
+    <h1>Editing Tank</h1>
+    <%= render 'form' %>
+  </div>
+</div>
 
 <script>
 

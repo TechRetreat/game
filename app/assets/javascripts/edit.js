@@ -14,9 +14,14 @@ window.addEventListener("beforeunload", function (e) {
 });
 
 
-function setVisible(id){
-    $('#play').css("display", "none");
+function setVisibleLeft(id){
+    $('#editor').css("display", "none");
     $('#info').css("display", "none");
+
+    $(id).css("display", "block");
+}
+function setVisibleRight(id){
+    $('#play').css("display", "none");
     $('#edit').css("display", "none");
 
     $(id).css("display", "block");
@@ -28,20 +33,20 @@ function setTab(id){
 
     $(id).addClass("selected");
 }
-setVisible('#editor');
 $('#open_editor').click(function(){
-    setVisible('#editor');
+    setVisibleLeft('#editor');
     setTab('#open_editor');
 });
 $('#open_info').click(function(){
-    setVisible('#info');
+    setVisibleRight('#info');
     setTab('#open_info');
 });
 $('#open_edit').click(function(){
-    setVisible('#edit');
+    setVisibleLeft('#edit');
     setTab('#open_edit');
 });
-setVisible('#editor');
+setVisibleLeft('#editor');
+setVisibleRight('#info');
 setTab('#open_editor');
 
 
@@ -56,7 +61,7 @@ $('#save').click(function(){
 });
 
 $('#play-btn').click(function(){
-    setVisible('#play');
+    setVisibleRight('#play');
     saveCode()
         .done(function() {
             Replay.simulate();
@@ -65,4 +70,3 @@ $('#play-btn').click(function(){
             Replay.addNotice("Error saving, try again later.");
         });
 });
-setVisible('#info');
