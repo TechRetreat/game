@@ -7,4 +7,5 @@ class Tank < ActiveRecord::Base
 
   validates :name, presence: true
   validates_format_of :name, :with => /\A\w+\z/
+  validates_format_of :color, :with => /\A#?([a-f\d]{3})|([a-f\d]{6})\z/i
 end

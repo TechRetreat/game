@@ -47,7 +47,15 @@ window.random = function(low, high) {
 }
 
 window.hexToRGB = function(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var result;
+    if (/^#?[a-f\d]{3}$/i.exec(hex)) {
+        result = /^#?([a-f\d])([a-f\d])([a-f\d])$/i.exec(hex);
+        for (var i=1; i<=3; i++) {
+            result[i] += result[i];
+        }
+    } else {
+        result = /^#?([a-f\d]{1,2})([a-f\d]{1,2})([a-f\d]{1,2})$/i.exec(hex);
+    }
     return result ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
