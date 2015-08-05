@@ -12,10 +12,10 @@
                     <div class="tank-data">
                         <h3><%= tank.name %></h3>
                         <p>
-                        <%= link_to 'Show', tank %>
+                        <%= link_to 'Show', tank, class:"button" %>
                         <% if !tank.owner.nil? and !current_user.nil? and tank.owner.id.equal? current_user.id %>
-                            <%= link_to 'Edit', edit_tank_path(tank) %>
-                            <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' } %>
+                            <%= link_to 'Edit', edit_tank_path(tank), class:"button" %>
+                            <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
                         <% end %>
                         </p>
                     </div>
