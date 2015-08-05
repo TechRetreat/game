@@ -1,29 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="tr-container">
+  <div class="header-row">
+    <h1>Matches</h1>
+      <%= link_to 'New Match', new_match_path, class:"button" %>
+  </div>
 
-<h1>Listing Matches</h1>
+  <h3>My matches</h3>
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <% @matches.each do |match| %>
+          <% if user_owns_match match %>
+            <div class="row list-item" data-no-turbolink>
+              <h3><%= match.name %></h3>
+              <p><%= match.tanks.map(&:name).join ', ' %></p>
+              <p>
+                <%= link_to 'Show', match, class:"button" %>
+                <%= link_to 'Edit', edit_match_path(match), class:"button" %>
+                <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+              </p>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Tanks</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @matches.each do |match| %>
-      <tr>
-        <td><%= match.name %></td>
-        <td><%= match.tanks.map(&:name).join ',' %></td>
-        <td><%= link_to 'Show', match %></td>
-        <td><%= link_to 'Edit', edit_match_path(match) %></td>
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Match', new_match_path %>
+  <h3>Other matches</h3>
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <% @matches.each do |match| %>
+          <% unless user_owns_match match %>
+            <div class="row list-item" data-no-turbolink>
+              <h3><%= match.name %></h3>
+              <p><%= match.tanks.map(&:name).join ', ' %></p>
+              <p>
+                <%= link_to 'Show', match, class:"button" %>
+              </p>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>
