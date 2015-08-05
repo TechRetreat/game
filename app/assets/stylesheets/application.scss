@@ -20,6 +20,11 @@
 
 @import url(http://fonts.googleapis.com/css?family=Audiowide);
 
+/* Variables */
+$button_color: #268bd2;
+$button_hover_color: #2aa198;
+$button_text_color: #FFF;
+
 /* Toggle Styles */
 
 #wrapper {
@@ -217,8 +222,108 @@ img.full {
     margin:0;
 }
 
+.tr-container {
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    padding:40px;
+}
+
+.button {
+    cursor:pointer;
+    background-color: $button_color;
+    color: $button_text_color;
+    padding:10px;
+    display:inline-block;
+    vertical-align:middle;
+    transition: all ease 0.3s;
+    text-decoration:none;
+    border-radius:5px;
+    font-size:15px;
+    text-align:center;
+    margin:0;
+    &:hover {
+        background-color: $button_hover_color;
+        text-decoration:none;
+        color: $button_text_color;
+    }
+}
+
+.header-row {
+    margin-bottom:20px;
+    h1 {
+        display:inline-block;
+        margin:0;
+        vertical-align:middle;
+    }
+    .button {
+        float:right;
+        margin-left: 10px;
+    }
+    @media all and (max-width:700px) {
+        h1 {
+            margin: 20px 0;
+            text-align:center;
+        }
+        .button {
+            float:none;
+            display:block;
+            margin:10px 0;
+        }
+    }
+}
+
+
 .row {
     margin: 0;
+}
+
+.panel {
+    background-color: #93a1a1;
+
+    .panel-body {
+        padding:0;
+    }
+
+    .row {
+        padding:20px;
+
+        &:nth-child(even) {
+            background-color:#839496;
+        }
+
+        .tank-color {
+            width:75px;
+            height:75px;
+            vertical-align:middle;
+            display:inline-block;
+            margin-right:20px;
+            border-radius:50%;
+        }
+
+        .tank-data {
+            display:inline-block;
+            vertical-align:middle;
+        }
+
+        h3 {
+            color: #FFF;
+            margin-bottom:20px;
+            margin-top:0;
+        }
+
+        p a {
+            background-color:$button_color;
+            color:$button_text_color;
+            padding:8px;
+            text-decoration:none;
+            border-radius:5px;
+            margin-right:8px;
+            &:hover {
+                background-color: $button_hover_color;
+            }
+        }
+    }
 }
 
 #tranque-replay {
