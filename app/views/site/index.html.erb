@@ -1,3 +1,34 @@
 <div class="row" id="main">
-  Splash page goes here
+  <div class="section" id="header">
+    <h1>TechTank</h1>
+    <h4>by Tech Retreat</h4>
+  </div>
+  <div class="section">
+    <h2>Program the brain of a tank. Face off against other tanks.</h2>
+    <p>
+    Tank brains are written in the <strong>Ruby programming language</strong> with a simple API to let you control interactions. Tanks can scan for other tanks using a radar, control their heading and their gun's heading, and can shoot at variable strengths and speeds. The more frequently shots are fired, the less powerful the shot.
+    </p>
+  </div>
+  <div class="section">
+    <h2>Getting started</h2>
+    <p>
+    First, <a href="/users/sign_up">sign up</a> and then <a href="/tanks/new">create a tank</a> to edit.
+    </p>
+    <div class="example">
+      <pre><code class="code">#Example code
+class Circle &lt; RTanque::Bot::Brain
+  def tick!
+    make_circles
+    command.fire 0.25
+  end
+
+  def make_circles
+    command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+    command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
+    command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
+  end
+end</code></pre>
+      <div class="player" style="background:url(/assets/images/tank1.gif)"></div>
+    </div>
+  </div>
 </div>

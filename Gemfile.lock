@@ -156,6 +156,7 @@ GEM
       sprockets-rails
     rails-assets-bootstrap (3.3.5)
       rails-assets-jquery (>= 1.9.1)
+    rails-assets-highlightjs (8.6.0)
     rails-assets-jquery (2.1.4)
     rails-assets-paper (0.9.23)
     rails-deprecated_sanitizer (1.0.3)
@@ -283,6 +284,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.3)
   rails-assets-bootstrap!
+  rails-assets-highlightjs
   rails-assets-paper!
   rails_12factor
   redis

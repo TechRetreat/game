@@ -10,11 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  *= require bootstrap
  *= require font-awesome
+ *= require highlightjs
+ *= require highlightjs/solarized_dark
+ *= require_tree .
+ *= require_self
  */
+
+@import url(http://fonts.googleapis.com/css?family=Audiowide);
 
 /* Toggle Styles */
 
@@ -93,13 +97,128 @@
     height:100vh;
 }
 
+a {
+    color:#dc322f;
+    &:hover {
+        background-color:none;
+        color:#cb4b16;
+    }
+}
 .main-layout-full {
     width:100%;
     height:100vh;
 }
 
-#main {
+#header {
+    background: linear-gradient(rgba(#333, .86) 0%, rgba(#333, .4) 78%), url(/assets/images/tank-header.jpg);
+    background-position:center;
+    background-size:cover;
+    height:400px;
+    color:#FFF;
+
+    h1 {
+        margin-top:100px;
+        font-family: 'Audiowide', mono;
+        font-size:80px;
+        text-align:center;
+    }
+    h4 {
+        font-weight: normal;
+        font-style: italic;
+        font-size: 20px;
+        text-align:center;
+    }
+}
+
+.section {
+    padding: 40px;
+    background-color:#fdf6e3;
+
+    &:nth-of-type(even) {
+        background-color:#eee8d5;
+    }
+
+    pre {
+        padding: 0;
+        border: 0;
+        background: none;
+        border-radius: 0;
+    }
+
+    code {
+        padding: 20px;
+        border-radius:8px;
+    }
+}
+
+.half {
+    width:49%;
+    display:inline-block;
+    vertical-align:middle;
+    padding-right:10px;
+    &:nth-of-type(even) {
+        padding-right:0;
+        padding-left:10px;
+    }
+    @media all and (max-width: 700px) {
+        display:block;
+        padding:0;
+    }
+}
+
+img.full {
+    display:block;
+    margin: 20px auto;
+    width:100%;
+    max-width: 500px;
+    height:auto;
+}
+
+.example {
+    background-color: #002b36;
+    border-radius: 8px;
+    overflow:hidden;
+    font-size:0;
+    position:relative;
+
+    .half {
+        padding:0;
+    }
+    pre {
+        width:50%;
+        display:inline-block;
+        font-size:13px;
+    }
+    code {
+        border-radius: 0;
+    }
+    .player {
+        position:absolute;
+        top:0;
+        left:50%;
+        right:0;
+        bottom:0;
+        background-size:cover;
+        background-position:center;
+    }
+
+    @media all and (max-width:700px) {
+        pre {
+            display:block;
+        }
+        .player {
+            position:static;
+            height:300px;
+        }
+    }
+}
+
+.main-layout-full {
     margin:0;
+}
+
+.row {
+    margin: 0;
 }
 
 #tranque-replay {
@@ -126,10 +245,10 @@
         opacity:1;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
-        & #toolbar a {
+        #toolbar a {
             opacity:1;
         }
-        & #console {
+        #console {
             max-height:150px;
         }
     }
@@ -147,7 +266,7 @@
             background-color:#666;
         }
 
-        & a {
+        a {
             transition: all ease 0.3s;
             color: #FFF;
             font-weight: normal;
@@ -167,7 +286,7 @@
         max-height:0;
         overflow-y:auto;
 
-        & .replay-notice {
+        .replay-notice {
             display:block;
             padding: 5px;
             color: #000;

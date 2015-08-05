@@ -39,6 +39,7 @@ gem 'resque'
 
 gem 'ace-rails-ap'
 gem "font-awesome-rails"
+gem 'rails-assets-highlightjs'
 gem 'sendgrid'
 
 gem 'resque-status'

@@ -21,6 +21,13 @@
 //= require ace/mode-ruby
 //= require paper
 //= require websocket_rails/main
+//= require highlightjs
+
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
