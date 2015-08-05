@@ -29,11 +29,6 @@ $(document).ready(function() {
   });
 });
 
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
-
 
 var manageAlerts = function() {
     $(".alert, .notice").click(function() {
@@ -46,6 +41,8 @@ var manageAlerts = function() {
 };
 
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
+    $("#open-menu").click(function() {
+        $("#sidebar-wrapper").toggleClass("opened");
+    });
     manageAlerts();
 });

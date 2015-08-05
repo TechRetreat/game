@@ -367,6 +367,25 @@ img.full {
 
 /* Sidebar Styles */
 
+a#open-menu {
+    display:none;
+    @media all and (max-width: 767px) {
+        display:block;
+        padding:10px;
+        height:50px;
+        line-height:30px;
+        cursor:pointer;
+        text-align:center;
+        text-decoration:none;
+        color:#FFF;
+        background-color:#002b36;
+
+        &:hover {
+            background-color: #073642;
+        }
+    }
+}
+
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -383,6 +402,19 @@ img.full {
     overflow:hidden;
     background-color: #002b36;
 
+    @media all and (max-width: 767px) {
+        margin-top:-50px;
+    }
+
+    &.opened {
+        width: 175px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+
+        .sidebar-nav {
+            width:75px;
+        }
+    }
+
     .sidebar-nav {
         margin: 0;
         padding: 0;
@@ -390,7 +422,7 @@ img.full {
         display:block;
     }
 
-    &:hover {
+    &:hover, &.opened:hover {
         width: 175px;
         box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
