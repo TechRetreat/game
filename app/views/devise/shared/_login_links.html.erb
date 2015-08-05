@@ -1,12 +1,12 @@
 <%- if user_signed_in? -%>
   <li>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete, data:{toggle: "tooltip", placement:"right"}, title:"Logout" %>
+      <%= link_to '<i class="fa fa-sign-out"></i><div class="label">Logout</div>'.html_safe, destroy_user_session_path, method: :delete %>
   </li>
 <%- else -%>
   <li>
-    <%= link_to 'Log in', new_user_session_path, data:{toggle: "tooltip", placement:"right"}, title:"Log in" %>
+    <%= link_to '<i class="fa fa-key"></i><div class="label">Log in</div>'.html_safe, new_user_session_path %>
   </li>
   <li>
-    <%= link_to 'Sign up', new_user_registration_path, data:{toggle: "tooltip", placement:"right"}, title:"Sign up" %>
+      <%= link_to '<i class="fa fa-user-plus"></i><div class="label">Sign Up</div>'.html_safe, new_user_registration_path %>
   </li>
 <%- end -%>
