@@ -17,7 +17,7 @@
 //= require bootstrap
 //= require ace/ace
 //= require ace/worker-html
-//= require ace/theme-monokai
+//= require ace/theme-solarized_light
 //= require ace/mode-ruby
 //= require paper
 //= require websocket_rails/main
@@ -41,7 +41,7 @@ var manageAlerts = function() {
     }).each(function(index) {
         setTimeout(function() {
             $(this).addClass("alert_hidden");
-        }.bind(this), 2000 + 1000*index);
+        }.bind(this), 3000 + 1000*index);
     });
 };
 

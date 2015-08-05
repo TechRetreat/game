@@ -1,10 +1,3 @@
-<div class="toolbar toolbar-side" id="tranque-toolbar">
-  <ul>
-    <li><i id="open_game" class="fa fa-smile-o"></i></li>
-    <li><i id="open_info" class="fa fa-info"></i></li>
-    <li><i id="open_edit" class="fa fa-cogs"></i></li>
-  </ul>
-</div>
 <div id="play">
   <canvas id="tranque-replay"></canvas>
   <div id="replay-notices">
@@ -13,38 +6,8 @@
   </div>
   <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
 </div>
-<div id="info">
-
-  <%= render 'docs' %>
-</div>
-
-<div id="edit">
-  <div class="container">
-    <h1>Editing Tank</h1>
-
-    <%= render 'form' %>
-  </div>
-</div>
 
 <script>
-  function setVisible(id){
-      $('#play').css("display", "none");
-      $('#info').css("display", "none");
-      $('#edit').css("display", "none");
-
-      $(id).css("display", "block");
-  }
-  $('#open_game').click(function(){
-      setVisible('#play');
-  });
-  $('#open_info').click(function(){
-      setVisible('#info');
-  });
-  $('#open_edit').click(function(){
-      setVisible('#edit');
-  });
-  setVisible('#play');
-
   //Env variables
   window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
   window.DEFAULT_TANKS = [

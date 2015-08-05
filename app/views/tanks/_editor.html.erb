@@ -1,8 +1,9 @@
 <div class="toolbar toolbar-editor">
   <ul>
     <li id="save"><i class="fa fa-floppy-o"></i></li>
-    <li><i class="fa fa-undo"></i></li>
-    <li><i class="fa fa-repeat"></i></li>
+    <li><i id="open_editor" class="fa fa-terminal"></i></li>
+    <li><i id="open_edit" class="fa fa-cogs"></i></li>
+    <li><i id="open_info" class="fa fa-question"></i></li>
     <li id="play-btn"><i class="fa fa-play"></i></li>
   </ul>
 </div>
@@ -20,10 +21,40 @@ class <%= @tank.name.gsub(/\s+/, '_').camelize %> < RTanque::Bot::Brain
   end
 end<% else %><%= @tank.code %><% end %></div>
 <%# Extra spacing above gets added to the code %>
+<div id="info">
+  <%= render 'docs' %>
+</div>
+
+<div id="edit">
+  <div class="container">
+    <h1>Editing Tank</h1>
+    <%= render 'form' %>
+  </div>
+</div>
+
 
 <script>
+    function setVisible(id){
+        $('#editor').css("display", "none");
+        $('#info').css("display", "none");
+        $('#edit').css("display", "none");
+
+        $(id).css("display", "block");
+    }
+    setVisible('#editor');
+    $('#open_editor').click(function(){
+        setVisible('#editor');
+    });
+    $('#open_info').click(function(){
+        setVisible('#info');
+    });
+    $('#open_edit').click(function(){
+        setVisible('#edit');
+    });
+    setVisible('#editor');
+
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/solarized_light");
     editor.getSession().setMode("ace/mode/ruby");
 
     var saveCode = function() {

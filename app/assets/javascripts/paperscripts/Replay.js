@@ -171,7 +171,7 @@ window.Replay = (function() {
         r.center = new Point(r.width/2, r.height/2);
 
         r.arena = new Shape.Rectangle(new Point(0, 0), new Point(r.width, r.height));
-        r.arena.fillColor = "#444";
+        r.arena.fillColor = "#073642";
 
 
         setup.tanks.forEach(function(tank) {
