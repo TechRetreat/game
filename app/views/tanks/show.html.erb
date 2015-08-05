@@ -6,7 +6,10 @@
         </h1>
 
         <div class="links">
-            <%= link_to 'Edit', edit_tank_path(@tank), class:"button" %>
+            <% if !@tank.owner.nil? and !current_user.nil? and @tank.owner.id.equal? current_user.id %>
+                <%= link_to 'Edit', edit_tank_path(@tank), class:"button" %>
+                <%= link_to 'Destroy', @tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+            <% end %>
             <%= link_to 'Back', tanks_path, class:"button" %>
         </div>
     </div>
