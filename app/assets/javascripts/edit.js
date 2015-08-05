@@ -1,13 +1,18 @@
 /**
  * Created by yuchen.hou on 15-08-05.
  */
-window.onbeforeunload = function(){
-    // Do something
-};
-// OR
-window.addEventListener("beforeunload", function(e){
-    // Do something
-}, false);
+var unsaved = false;
+
+window.addEventListener("beforeunload", function (e) {
+    if(unsaved){
+        var confirmationMessage = 'It looks like you have unsaved code.';
+        confirmationMessage += 'If you leave before saving, your changes will be lost.';
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    }
+});
+
 
 function setVisible(id){
     $('#editor').css("display", "none");
@@ -48,5 +53,3 @@ $('#play-btn').click(function(){
             Replay.addNotice("Error saving, try again later.");
         });
 });
-
-console.log('hi')

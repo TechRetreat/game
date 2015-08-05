@@ -38,12 +38,18 @@ end<% else %><%= @tank.code %><% end %></div>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/solarized_light");
     editor.getSession().setMode("ace/mode/ruby");
+    editor.on("change", function(e){
+        unsaved = true;
+    });
 
     var saveCode = function() {
         return $.ajax({
             url : "/tanks/" + <%= @tank.id %> + '.json',
             data : {tank: {code: editor.getValue()}},
-            type : 'PUT'
+            type : 'PUT',
+            complete: function(a, status){
+                unsaved = false;
+            }
         })
     };
 </script>
