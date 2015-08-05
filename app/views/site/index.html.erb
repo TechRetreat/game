@@ -1,7 +1,7 @@
 <div class="row" id="main">
   <div class="section" id="header">
     <h1>TechTanks</h1>
-    <h4>Code. Fight. Win.</h4>
+    <h4>Play a game and learn to code!</h4>
     <div class="header-buttons">
         <% if current_user.nil? %>
           <%= link_to 'Get Started', new_user_session_path, class:'button' %>
@@ -11,15 +11,15 @@
     </div>
   </div>
   <div class="section">
-    <h2>Program the brain of a tank. Face off against other tanks.</h2>
+    <h2>Code. Fight. Win.</h2>
     <p>
-    Tank brains are written in the <strong>Ruby programming language</strong> with a simple API to let you control interactions. Tanks can scan for other tanks using a radar, control their heading and their gun's heading, and can shoot at variable strengths and speeds. The more frequently shots are fired, the less powerful the shot.
+      TechTanks is a programming game where you get to code your own tank and fight others! It's a great way to get started with programming and learn Ruby.
     </p>
   </div>
   <div class="section">
     <h2>Getting started</h2>
     <p>
-    First, <a href="/users/sign_up">sign up</a> and then <a href="/tanks/new">create a tank</a> to edit.
+      Tank brains are written in the <strong>Ruby programming language</strong> with simple commands to let you control interactions. Tanks can scan for other tanks using a radar, control their heading and their gun's heading, and can shoot at variable strengths and speeds. The more frequently shots are fired, the less powerful the shot.
     </p>
     <div class="example">
       <pre><code class="code">#Example code
@@ -37,5 +37,9 @@ class Circle &lt; RTanque::Bot::Brain
 end</code></pre>
       <div class="player" style="background:url(/assets/images/tank1.gif)"></div>
     </div>
+    <h2>The Game</h2>
+    <p>
+      Rules of the game are simple: Last bot standing wins. Gameplay is also pretty simple. Each tank has a base, turret and radar, each of which rotate independently. The base moves the tank, the turret has a gun mounted to it which can fire at other tanks, and the radar detects other tanks in its field of vision.
+    </p>
   </div>
 </div>
