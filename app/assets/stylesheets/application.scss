@@ -318,18 +318,6 @@ img.full {
             margin-bottom:20px;
             margin-top:0;
         }
-
-        p a {
-            background-color:$button_color;
-            color:$button_text_color;
-            padding:8px;
-            text-decoration:none;
-            border-radius:5px;
-            margin-right:8px;
-            &:hover {
-                background-color: $button_hover_color;
-            }
-        }
     }
 }
 
