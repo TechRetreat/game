@@ -16,13 +16,13 @@ window.addEventListener("beforeunload", function (e) {
 
 function setVisibleLeft(id){
     $('#editor').css("display", "none");
-    $('#info').css("display", "none");
+    $('#edit').css("display", "none");
 
     $(id).css("display", "block");
 }
 function setVisibleRight(id){
     $('#play').css("display", "none");
-    $('#edit').css("display", "none");
+    $('#info').css("display", "none");
 
     $(id).css("display", "block");
 }
