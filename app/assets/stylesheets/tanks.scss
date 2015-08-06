@@ -133,6 +133,7 @@
     ul {
         list-style-type: none;
         padding-left:0;
+        font-size:0;
     }
 
     ul>li {
@@ -142,8 +143,7 @@
         padding-left: 15px;
         padding-right: 15px;
         line-height:50px;
-        font-size: 2em;
-        line-height: 2em;
+        font-size: 25px;
         color: white;
         cursor:pointer;
         transition: all 0.3s ease;
