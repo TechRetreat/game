@@ -4,8 +4,12 @@
 
     <h2 class="form-auth-heading">Sign up</h2>
 
+      <div class="field">
+        <%= f.text_field :username, autofocus: true, required: false, class: "form-control form-auth-input-flat-bottom", placeholder: "Username", type: "text" %>
+      </div>
+
     <div class="field">
-      <%= f.email_field :email, autofocus: true, required: true, class: "form-control form-auth-input-flat-bottom", placeholder: "Email address", type: "email" %>
+      <%= f.email_field :email, required: true, class: "form-control form-auth-input-flat-bottom", placeholder: "Email address", type: "email" %>
     </div>
 
     <div class="field">
