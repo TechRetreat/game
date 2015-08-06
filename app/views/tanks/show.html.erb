@@ -10,7 +10,7 @@
           </h3>
       <% else %>
         <h3>
-            By: <%= @tank.owner.email %>
+            By: <%= @tank.owner.username %>
         </h3>
         <h4>
             Last updated <%= distance_of_time_in_words(@tank.updated_at, Time.now) %> ago
