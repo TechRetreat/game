@@ -18,6 +18,8 @@
 //= require bootstrap-toggle
 //= require ace/ace
 //= require ace/worker-html
+//= require bootstrap-sweetalert
+//= require sweet-alert-confirm
 //= require ace/theme-solarized_dark
 //= require ace/theme-solarized_light
 //= require ace/mode-ruby

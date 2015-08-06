@@ -47,6 +47,8 @@ gem 'resque-status'
 gem 'redis'
 gem 'redis-namespace'
 
+gem 'sweet-alert-confirm'
+
 # web interface to debug resque workers
 gem 'resque-web', require: 'resque_web'
 
@@ -75,5 +77,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-paper'
   gem 'rails-assets-bootstrap-toggle'
+  gem 'rails-assets-bootstrap-sweetalert'
 end
 

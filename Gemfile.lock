@@ -157,6 +157,7 @@ GEM
       sprockets-rails
     rails-assets-bootstrap (3.3.5)
       rails-assets-jquery (>= 1.9.1)
+    rails-assets-bootstrap-sweetalert (0.4.5)
     rails-assets-bootstrap-toggle (2.2.0)
     rails-assets-highlightjs (8.6.0)
     rails-assets-jquery (2.1.4)
@@ -239,6 +240,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+    sweet-alert-confirm (0.3.0)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -287,6 +289,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.3)
   rails-assets-bootstrap!
+  rails-assets-bootstrap-sweetalert!
   rails-assets-bootstrap-toggle!
   rails-assets-highlightjs
   rails-assets-paper!
@@ -302,6 +305,7 @@ DEPENDENCIES
   sendgrid
   spring
   sqlite3
+  sweet-alert-confirm
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
