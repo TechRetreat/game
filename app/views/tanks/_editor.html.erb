@@ -37,6 +37,7 @@ end<% else %><%= @tank.code %><% end %></div>
     editor.setTheme("ace/theme/solarized_light");
     <% end %>
     editor.getSession().setMode("ace/mode/ruby");
+    editor.getSession().setOptions({useSoftTabs: true, tabSize: 2});
     editor.on("change", function(e){
         unsaved = true;
     });
