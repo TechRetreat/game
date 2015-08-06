@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require bootstrap-toggle
 //= require ace/ace
 //= require ace/worker-html
 //= require ace/theme-solarized_dark

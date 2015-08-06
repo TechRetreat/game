@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806012232) do
+ActiveRecord::Schema.define(version: 20150806033322) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150806012232) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.string   "username"
+    t.boolean  "dark_theme",             default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
