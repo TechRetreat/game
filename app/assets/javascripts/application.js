@@ -19,6 +19,7 @@
 //= require ace/ace
 //= require ace/worker-html
 //= require ace/theme-solarized_dark
+//= require ace/theme-solarized_light
 //= require ace/mode-ruby
 //= require paper
 //= require websocket_rails/main

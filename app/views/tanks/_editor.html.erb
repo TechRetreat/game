@@ -31,7 +31,11 @@ end<% else %><%= @tank.code %><% end %></div>
 <script>
 
     var editor = ace.edit("editor");
+    <% if current_user.dark_theme %>
     editor.setTheme("ace/theme/solarized_dark");
+    <% else %>
+    editor.setTheme("ace/theme/solarized_light");
+    <% end %>
     editor.getSession().setMode("ace/mode/ruby");
     editor.on("change", function(e){
         unsaved = true;
