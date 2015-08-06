@@ -76,5 +76,14 @@ enemies = self.sensors.radar
 enemies.min { |a,b| a.distance <=> b.distance }
 # This returns the closest enemy</code></pre>
     </div>
+
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#arena-code">Arena</div>
+      <pre id="arena-code" class="panel-collapse collapse"><code class="ruby"># Arena holds the width and height of the stage
+self.arena.width   # ..?: Width of arena
+self.arena.height   # ..?: Height of arena</code></pre>
+    </div>
+
+    <%= render 'docs_sample_tanks' %>
   </div>
 </div>

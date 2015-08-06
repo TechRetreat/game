@@ -1,0 +1,153 @@
+<div class="panel">
+  <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#sample-code">Sample Bots</div>
+  <div id="sample-code" class="panel-collapse collapse">
+    <div class="list-group panel-heading" data-toggle="collapse" data-target="#camper-code">Camper</div>
+    <pre id="camper-code" class="panel-collapse collapse"><code class="ruby"># Camper: Sample Bot
+#
+# Enjoys sitting in the corners and firing powerful shots
+class Camper < RTanque::Bot::Brain
+    def name
+        'Camper'
+    end
+
+    def corners
+        [:NE, :NE, :SE, :SW]
+    end
+
+    def turret_fire_range
+        RTanque::Heading::ONE_DEGREE * 1.0
+    end
+
+    def switch_corner_tick_range
+        (600..1000)
+    end
+
+    def tick!
+        self.hide_in_corners
+        if (target = self.nearest_target)
+            self.fire_upon(target)
+        else
+            self.detect_targets
+        end
+    end
+
+    def fire_upon(target)
+        self.command.radar_heading = target.heading
+        self.command.turret_heading = target.heading
+        if self.sensors.turret_heading.delta(target.heading).abs < turret_fire_range
+            self.command.fire(MAX_FIRE_POWER)
+        end
+    end
+
+    def nearest_target
+        self.sensors.radar.min { |a,b| a.distance <=> b.distance }
+    end
+
+    def detect_targets
+        self.command.radar_heading = self.sensors.radar_heading + MAX_RADAR_ROTATION
+        self.command.turret_heading = self.sensors.heading + RTanque::Heading::HALF_ANGLE
+    end
+
+    def hide_in_corners
+        @corner_cycle ||= corners.shuffle.cycle
+        if self.sensors.ticks % self.camp_interval == 0
+            self.corner = @corner_cycle.next
+            self.reset_camp_interval
+        end
+        self.corner ||= @corner_cycle.next
+        self.move_to_corner
+    end
+
+    def move_to_corner
+        if self.corner
+            command.heading = self.sensors.position.heading(RTanque::Point.new(*self.corner, self.arena))
+            command.speed = MAX_BOT_SPEED
+        end
+    end
+
+    def corner=(corner_name)
+        @corner = case corner_name
+        when :NE
+            [self.arena.width, self.arena.height]
+        when :SE
+            [self.arena.width, 0]
+        when :SW
+            [0, 0]
+        else
+            [0, self.arena.height]
+        end
+    end
+
+    def corner
+        @corner
+    end
+
+    def camp_interval
+        @camp_interval ||= self.reset_camp_interval
+    end
+
+    def reset_camp_interval
+        @camp_interval = rand(switch_corner_tick_range.max - switch_corner_tick_range.min) + switch_corner_tick_range.min
+    end
+end</code></pre>
+
+    <div class="list-group panel-heading" data-toggle="collapse" data-target="#seek-and-destroy-code">Seek and Destroy</div>
+    <pre id="seek-and-destroy-code" class="panel-collapse collapse"><code class="ruby"># Seek&Destroy: Sample Bot
+#
+# Enjoys following and target and firing many shots
+class SeekAndDestroy < RTanque::Bot::Brain
+    NAME = 'Seek&Destroy'
+    include RTanque::Bot::BrainHelper
+
+    TURRET_FIRE_RANGE = RTanque::Heading::ONE_DEGREE * 5.0
+
+    def tick!
+        @desired_heading ||= nil
+        if (lock = self.get_radar_lock)
+            self.destroy_lock(lock)
+            @desired_heading = nil
+        else
+            self.seek_lock
+        end
+    end
+
+    def destroy_lock(reflection)
+        command.heading = reflection.heading
+        command.radar_heading = reflection.heading
+        command.turret_heading = reflection.heading
+        command.speed = reflection.distance > 200 ? MAX_BOT_SPEED : MAX_BOT_SPEED / 2.0
+        if (reflection.heading.delta(sensors.turret_heading)).abs < TURRET_FIRE_RANGE
+            command.fire(reflection.distance > 200 ? MAX_FIRE_POWER : MIN_FIRE_POWER)
+        end
+    end
+
+    def seek_lock
+        if sensors.position.on_wall?
+            @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
+        end
+        command.radar_heading = sensors.radar_heading + MAX_RADAR_ROTATION
+        command.speed = 1
+        if @desired_heading
+            command.heading = @desired_heading
+            command.turret_heading = @desired_heading
+        end
+    end
+
+    def get_radar_lock
+        @locked_on ||= nil
+        lock = if @locked_on
+            sensors.radar.find { |reflection| reflection.name == @locked_on } || sensors.radar.first
+        else
+            sensors.radar.first
+        end
+        @locked_on = lock.name if lock
+        lock
+    end
+end</code></pre>
+
+    <div class="list-group panel-heading" data-toggle="collapse" data-target="#circle-code">Circle</div>
+    <pre id="circle-code" class="panel-collapse collapse"><code class="ruby"># Arena holds the width and height of the stage
+          self.arena.width   # ..?: Width of arena
+          self.arena.height   # ..?: Height of arena</code></pre>
+  </div>
+</div>

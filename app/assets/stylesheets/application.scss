@@ -539,5 +539,10 @@ a#open-menu {
   code {
     border-radius: 0;
   }
+  .collapse {
+    .panel-heading {
+      background-color: #5bc0de;
+    }
+  }
   margin-bottom: 10px;
 }
