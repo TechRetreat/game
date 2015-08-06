@@ -70,3 +70,34 @@ $('#play-btn').click(function(){
             Replay.addNotice("Error saving, try again later.");
         });
 });
+
+//resize editor width
+
+var isResizing = false,
+    lastDownX = 0;
+
+$(function () {
+    var container = $('#main'),
+        left = $('#left'),
+        right = $('#right'),
+        handle = $('#handle');
+
+    handle.on('mousedown', function (e) {
+        isResizing = true;
+        lastDownX = e.clientX;
+    });
+
+    $(document).on('mousemove', function (e) {
+        // we don't want to do anything if we aren't resizing.
+        if (!isResizing)
+            return;
+
+        var offsetRight = container.width() - (e.clientX - container.offset().left);
+
+        left.css('right', offsetRight);
+        right.css('width', offsetRight);
+    }).on('mouseup', function (e) {
+        // stop resizing
+        isResizing = false;
+    });
+});

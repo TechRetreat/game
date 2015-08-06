@@ -191,3 +191,34 @@
 .right{
   text-align: right;
 }
+
+/* resizing editor */
+
+#main #handle {
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: rgba(43, 43, 43, 0.11);
+  z-index: 999;
+  cursor: w-resize;
+}
+
+#container{
+  position: relative;
+}
+#left {
+  position: absolute;
+  top: 0;
+  left: 75px;
+  right: 50%;
+  bottom: 0;
+}
+#right {
+  position: absolute;
+  top: 0;
+  width:50%;
+  right: 0;
+  bottom: 0;
+}
