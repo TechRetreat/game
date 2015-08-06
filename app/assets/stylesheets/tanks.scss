@@ -147,6 +147,7 @@
         color: white;
         cursor:pointer;
         transition: all 0.3s ease;
+        position:relative;
 
         i {
             width: 30px;
@@ -155,24 +156,37 @@
         .label {
             font-weight:normal;
             font-size:12px;
-            display:inline-block;
-            vertical-align:middle;
-            max-width:0;
-            padding:0;
+            padding: 0 10px;
+            height:0;
             overflow:hidden;
+            position:absolute;
+            z-index:1000;
+            background-color:#839496;
+            bottom:0;
+            line-height:30px;
+            text-align:center;
+            min-width:50px;
+            border-radius: 0 0 4px 4px;
             transition: all ease 0.3s;
         }
 
         &:hover {
             .label {
-                max-width:200px;
-                padding: 0 0 0 15px;
+                height:30px;
+                margin-bottom:-30px;
             }
         }
         &.selected {
             background: #073642;
         }
     }
+}
+
+#left .label {
+    left:0;
+}
+#right .label {
+    right:0;
 }
 
 .toolbar-editor{
