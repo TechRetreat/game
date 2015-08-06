@@ -44,7 +44,7 @@ window.Replay = (function() {
         }
         $("#replay-notices").addClass("visible")
         notice.appendTo("#replay-notices #console")
-        $("#replay-notices #console").animate({ scrollTop: $("#replay-notices #console")[0].scrollHeight}, 300);
+        $("#replay-notices #console").scrollTop($("#replay-notices #console")[0].scrollHeight);
     };
 
     r.clearNotices = function() {
@@ -138,6 +138,9 @@ window.Replay = (function() {
                   tankData.logs.forEach(function(log){
                     r.addNotice(tankData.name + ": " + log);
                   });
+                }
+                if (tankData.hasOwnProperty("error") && tankData.error !== null) {
+                  r.addNotice(tankData.name + ": Health penalty from error '" + tankData.error.message + "'", tankData.error.backtrace);
                 }
             });
             for (tank in r.tanks) {

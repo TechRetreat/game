@@ -61,8 +61,14 @@ class GameService
     runner.match.after_tick = proc do |match|
       bot_array = []
       match.bots.each do |bot|
+        error = nil
+        if bot.error
+          e = bot.error
+          error = {message: e.message, backtrace: e.backtrace.select{|line| line.starts_with?('sandbox')}.map{|line| line.gsub(/sandbox\-\d+:/, 'Line ')}}
+        end
+
         bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
-          turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs
+          turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs, error: error
       end
 
       tick_data_array.push tick: match.ticks, tanks: bot_array, created: shells_created, destroyed: shells_destroyed

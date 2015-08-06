@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: 36941cc19a7f8326e63c80075a50d81b8011d949
+  revision: 9e0f5bcec314b2e754c2df67dc61760ff7a41bbc
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
