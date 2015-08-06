@@ -51,7 +51,7 @@
     opacity:0.7;
 
     &.visible {
-        width:50%;
+        width:60%;
         opacity:1;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
@@ -221,4 +221,14 @@
   width:50%;
   right: 0;
   bottom: 0;
+}
+@media all and (max-width:900px) {
+    #left, #right {
+        width: auto !important;
+        position:relative;
+        left:0;
+        right:0;
+        bottom:0;
+        top:0;
+    }
 }
