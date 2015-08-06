@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806004112) do
+ActiveRecord::Schema.define(version: 20150806011413) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -29,17 +29,17 @@ ActiveRecord::Schema.define(version: 20150806004112) do
   add_index "entries", ["tank_id"], name: "index_entries_on_tank_id"
 
   create_table "matches", force: :cascade do |t|
-    t.string   "name",                   default: "Unnamed Match"
-    t.boolean  "public",                 default: false
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.string   "name",                  default: "Unnamed Match"
+    t.boolean  "public",                default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "owner_id"
     t.string   "owner_type"
     t.integer  "max_ticks"
-    t.integer  "seed",        limit: 32
+    t.integer  "seed",        limit: 8
     t.integer  "duration"
     t.text     "replay_data"
-    t.boolean  "test",                   default: false,           null: false
+    t.boolean  "test",                  default: false,           null: false
   end
 
   add_index "matches", ["owner_type", "owner_id"], name: "index_matches_on_owner_type_and_owner_id"
