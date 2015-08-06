@@ -30,6 +30,7 @@ class MatchesController < ApplicationController
   def create
     @match = Match.new(match_params)
     @match.owner = current_user
+    @match.test = params[:match][:test] || false;
 
     params[:match][:tanks].each do |tank_id|
       unless tank_id.empty? # get around strange rails thing with multi selects

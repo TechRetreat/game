@@ -1,7 +1,37 @@
-<p id="notice"><%= notice %></p>
+<% if @match.status == "done" && @match.replay_data %>
+  <div class="toolbar toolbar-editor right">
+    <ul>
+    </ul>
+  </div>
+  <div id="play">
+    <canvas id="tranque-replay"></canvas>
+    <div id="replay-notices">
+      <div id="toolbar">TechTanks Console <a id="clear-console">Clear</a></div>
+      <div id="console"></div>
+    </div>
+    <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
+  </div>
+  <script>
+    //Env variables
+    window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
+    window.REPLAY_DATA = <%= @match.replay_data.html_safe %>;
+  </script>
+<% else %>
+  <div class="tr-container">
+    <div class="card" data-no-turbolink>
+      <h1><%= @match.name %></h1>
+      <h2>Status: <%= @match.status %></h2>
 
-<h1><%= @match.name %></h1>
-<p><%= @match.tanks.map(&:name).join ', ' %></p>
-
-<%= link_to 'Edit', edit_match_path(@match) %> |
-<%= link_to 'Back', matches_path %>
+      <div class="actions">
+        <%= link_to 'Match List', matches_path, class:"button" %>
+      </div>
+    </div>
+  </div>
+  <% if @match.status == "running" %>
+    <script>
+setTimeout(function() {
+  window.location.reload(true);
+}, 5000);
+    </script>
+  <% end %>
+<% end %>

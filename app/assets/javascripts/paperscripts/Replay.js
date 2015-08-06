@@ -10,7 +10,6 @@ window.Replay = (function() {
     r.width = 1200;
     r.height = 700;
     r.center = new Point(r.width/2, r.height/2);
-    r.id = 0;
     r.lastTick = 0;
     r.incoming = [];
     r.running = false;
@@ -187,7 +186,6 @@ window.Replay = (function() {
                 position: tank.position ? new Point(tank.position.x, tank.position.y) : undefined,
                 color: tank.color,
                 name: tank.name,
-                current: tank.id == r.id
             });
             if (tank.hasOwnProperty("heading")) r.tanks[tank.name].setHeading(tank.heading);
             if (tank.hasOwnProperty("turret_heading")) r.tanks[tank.name].setTurretHeading(tank.turret_heading);
@@ -230,7 +228,6 @@ window.Replay = (function() {
     };
 
     r.setup = function() {
-        r.id = window.TANK_ID;
         r.canvas = document.getElementById("tranque-replay");
         r.container = r.canvas.parentNode;
         r.toolbar = document.getElementById("tranque-toolbar");
@@ -242,7 +239,11 @@ window.Replay = (function() {
             $("#replay-notices #console .replay-notice").remove();
         });
 
-        r.addNotice("Press the play button to start a simulation!");
+        if (window.REPLAY_DATA) {
+            r.rerun();
+        } else {
+            r.addNotice("Press the play button to start a simulation!");
+        }
     };
 
     r.simulate = function() {
@@ -252,8 +253,9 @@ window.Replay = (function() {
             type: "POST",
             data: {
                 match: {
-                    tanks: window.DEFAULT_TANKS.concat([r.id])
-                }
+                    tanks: window.MATCH_TANKS
+                },
+                test: true
             },
             dataType: "json",
             success: function(data) {
@@ -268,6 +270,13 @@ window.Replay = (function() {
                 };
             }
         });
+    };
+
+    r.rerun = function() {
+        r.clear();
+        r.addNotice("Running simulation...");
+        r.init(window.REPLAY_DATA.start);
+        r.batch(window.REPLAY_DATA);
     };
 
     return r;

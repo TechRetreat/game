@@ -19,8 +19,12 @@ class GameService
 
     match = Match.find match_id
 
-    channel = WebsocketRails["match.#{match_id}"]
-    channel.make_private
+    channel = nil
+    replay_data = {}
+    if match.test
+      channel = WebsocketRails["match.#{match_id}"]
+      channel.make_private
+    end
 
     Kernel.srand # The first time this is run it returns zero, anything after is fine
 
@@ -39,7 +43,12 @@ class GameService
         check_result = o.read()
       }
       unless check_result =~ /Syntax OK/
-        channel.trigger :error, error: "Syntax error", output: check_result
+        if match.test
+          channel.trigger :error, error: "Syntax error", output: check_result
+        else
+          match.status = "syntax_error"
+          match.save
+        end
         return
       end
 
@@ -47,20 +56,24 @@ class GameService
       entry_map[tank.__id__] = entry
     end
 
-    runner.match.before_start = proc do |match|
+    runner.match.before_start = proc do |rt_match|
       tanks = []
-      match.bots.each do |bot|
+      rt_match.bots.each do |bot|
         tank = entry_map[bot.__id__].tank
         tanks.push name: bot.name, position: bot.position.to_h.slice(:x, :y), heading: bot.heading.to_f,
           turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, color: tank.color
       end
 
-      channel.trigger :start, width: match.arena.width, height: match.arena.height, tanks: tanks
+      if match.test
+        channel.trigger :start, width: rt_match.arena.width, height: rt_match.arena.height, tanks: tanks
+      else
+        replay_data["start"] = {width: rt_match.arena.width, height: rt_match.arena.height, tanks: tanks}
+      end
     end
 
-    runner.match.after_tick = proc do |match|
+    runner.match.after_tick = proc do |rt_match|
       bot_array = []
-      match.bots.each do |bot|
+      rt_match.bots.each do |bot|
         error = nil
         if bot.error
           e = bot.error
@@ -71,9 +84,9 @@ class GameService
           turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs, error: error
       end
 
-      tick_data_array.push tick: match.ticks, tanks: bot_array, created: shells_created, destroyed: shells_destroyed
+      tick_data_array.push tick: rt_match.ticks, tanks: bot_array, created: shells_created, destroyed: shells_destroyed
 
-      if match.ticks % 5 == 4
+      if rt_match.ticks % 5 == 4 && match.test
         channel.trigger :batch, batch: tick_data_array
         tick_data_array = []
       end
@@ -83,7 +96,7 @@ class GameService
     end
 
     runner.match.after_stop = proc do |rmatch|
-      channel.trigger :batch, batch: tick_data_array if tick_data_array.length > 0 # Send any leftover ticks
+      channel.trigger :batch, batch: tick_data_array if tick_data_array.length > 0 && match.test # Send any leftover ticks
 
       remaining_tanks = []
 
@@ -99,9 +112,16 @@ class GameService
       end
 
       match.duration = rmatch.ticks
-      match.save
 
-      channel.trigger :stop, tanks: remaining_tanks, ended: true
+      if match.test
+        channel.trigger :stop, tanks: remaining_tanks, ended: true
+      else
+        replay_data["batch"] = tick_data_array
+        match.replay_data = replay_data.to_json
+        match.status = "done"
+      end
+
+      match.save
     end
 
     runner.match.shell_created = proc do |shell|
@@ -121,12 +141,17 @@ class GameService
   end
 
   def self.on_failure(e, uuid, options)
-    channel = WebsocketRails["match.#{options[:match_id]}"]
-    channel.make_private
-    channel.trigger :error,
-      error: "#{e}",
-      backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
-    puts "Sent error: #{e.inspect}"
-    puts e.backtrace
+    match_id = options['match_id'].to_i
+    match = Match.find match_id
+    if match.test
+      channel = WebsocketRails["match.#{options[:match_id]}"]
+      channel.make_private
+      channel.trigger :error,
+        error: "#{e}",
+        backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
+    else
+      match.status = "runtime_error"
+      match.save
+    end
   end
 end

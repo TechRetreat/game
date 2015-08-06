@@ -7,7 +7,7 @@
   <%
     my_matches = []
     other_matches = []
-    @matches.sort_by(&:created_at).each do |match|
+    @matches.sort_by(&:created_at).reverse.each do |match|
       if user_owns_match match
         my_matches << match
       else
@@ -22,6 +22,7 @@
         <% my_matches.each do |match| %>
           <div class="row list-item" data-no-turbolink>
             <h3><%= match.name %></h3>
+            <h4><%= match.status %></h4>
             <p><%= match.tanks.map(&:name).join ', ' %></p>
             <p>
               <%= link_to 'Watch', match, class:"button primary" %>
@@ -39,6 +40,7 @@
         <% other_matches.each do |match| %>
           <div class="row list-item" data-no-turbolink>
             <h3><%= match.name %></h3>
+            <h4><%= match.status %></h4>
             <p><%= match.tanks.map(&:name).join ', ' %></p>
             <p>
               <%= link_to 'Watch', match, class:"button primary" %>
