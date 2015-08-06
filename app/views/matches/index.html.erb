@@ -1,24 +1,34 @@
 <div class="tr-container">
   <div class="header-row">
     <h1>Matches</h1>
-      <%= link_to 'New Match', new_match_path, class:"button" %>
+    <%= link_to 'New Match', new_match_path, class:"button primary" %>
   </div>
+
+  <%
+    my_matches = []
+    other_matches = []
+    @matches.sort_by(&:created_at).each do |match|
+      if user_owns_match match
+        my_matches << match
+      else
+        other_matches << match
+      end
+    end
+  %>
 
   <h3>My matches</h3>
   <div class="panel panel-default">
     <div class="panel-body">
-        <% @matches.each do |match| %>
-          <% if user_owns_match match %>
-            <div class="row list-item" data-no-turbolink>
-              <h3><%= match.name %></h3>
-              <p><%= match.tanks.map(&:name).join ', ' %></p>
-              <p>
-                <%= link_to 'Show', match, class:"button" %>
-                <%= link_to 'Edit', edit_match_path(match), class:"button" %>
-                <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
-              </p>
-            </div>
-          <% end %>
+        <% my_matches.each do |match| %>
+          <div class="row list-item" data-no-turbolink>
+            <h3><%= match.name %></h3>
+            <p><%= match.tanks.map(&:name).join ', ' %></p>
+            <p>
+              <%= link_to 'Watch', match, class:"button primary" %>
+              <%= link_to 'Edit', edit_match_path(match), class:"button" %>
+              <%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+            </p>
+          </div>
         <% end %>
     </div>
   </div>
@@ -26,16 +36,14 @@
   <h3>Other matches</h3>
   <div class="panel panel-default">
     <div class="panel-body">
-        <% @matches.each do |match| %>
-          <% unless user_owns_match match %>
-            <div class="row list-item" data-no-turbolink>
-              <h3><%= match.name %></h3>
-              <p><%= match.tanks.map(&:name).join ', ' %></p>
-              <p>
-                <%= link_to 'Show', match, class:"button" %>
-              </p>
-            </div>
-          <% end %>
+        <% other_matches.each do |match| %>
+          <div class="row list-item" data-no-turbolink>
+            <h3><%= match.name %></h3>
+            <p><%= match.tanks.map(&:name).join ', ' %></p>
+            <p>
+              <%= link_to 'Watch', match, class:"button primary" %>
+            </p>
+          </div>
         <% end %>
     </div>
   </div>

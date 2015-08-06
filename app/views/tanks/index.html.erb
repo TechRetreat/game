@@ -1,7 +1,7 @@
 <div class="tr-container">
   <div class="header-row">
     <h1>Tanks</h1>
-    <%= link_to 'New Tank', new_tank_path, class:"button" %>
+    <%= link_to 'New Tank', new_tank_path, class:"button primary" %>
     </div>
 
   <%
@@ -26,8 +26,8 @@
           <div class="tank-data">
             <h3><%= tank.name %></h3>
             <p>
+              <%= link_to 'Code', edit_tank_path(tank), class:"button primary" %>
               <%= link_to 'Info', tank, class:"button" %>
-              <%= link_to 'Code', edit_tank_path(tank), class:"button" %>
               <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
             </p>
           </div>
