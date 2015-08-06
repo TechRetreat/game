@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806001514) do
+ActiveRecord::Schema.define(version: 20150806003327) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -91,5 +91,6 @@ ActiveRecord::Schema.define(version: 20150806001514) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
