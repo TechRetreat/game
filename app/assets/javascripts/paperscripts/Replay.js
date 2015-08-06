@@ -78,13 +78,7 @@ window.Replay = (function() {
         r.shells[shell.id] = shell;
     };
 
-    r.animate = function() {
-        if (r.running == false && r.explosions.length == 0) {
-            view.off("frame");
-            r.addNotice("End of simulation - press play again to run another!");
-            return;
-        }
-
+    r.interpolateObjects = function() {
         for (tank in r.tanks) {
             if (!r.tanks[tank].alive) {
                 delete r.tanks[tank]
@@ -100,9 +94,21 @@ window.Replay = (function() {
                 r.shells[shell].tick();
             }
         }
+        r.explosions.forEach(function(explosion) {
+            explosion.tick();
+        });
+    };
+
+    r.animate = function() {
+        if (r.running == false && r.explosions.length == 0) {
+            view.off("frame");
+            r.addNotice("End of simulation - press play again to run another!");
+            return;
+        }
 
         var lastTickUsed = 0;
         while (r.incoming.length > 0 && (!r.incoming[0].tick || r.incoming[0].tick <= r.lastTick+1)) {
+            r.interpolateObjects();
             data = r.incoming.shift();
             lastTickUsed = data.tick;
             if (data.hasOwnProperty("created")) {
@@ -156,14 +162,12 @@ window.Replay = (function() {
 
             r.lastTick++;
 
+            r.interpolateObjects();
+
             for (tank in r.tanks) {
                 r.tanks[tank].move();
             }
         }
-
-        r.explosions.forEach(function(explosion) {
-            explosion.tick();
-        });
     };
 
     r.init = function(setup) {

@@ -103,7 +103,7 @@ _Tank.prototype = {
         this.object.setPosition(point);
     },
     move: function() {
-        this.object.addPosition(toCartesian(this.speed, this.heading));
+        if (this.object.shape.position.isInside(Replay.arena.bounds)) this.object.addPosition(toCartesian(this.speed, this.heading));
     },
     setHealth: function(h) {
         this.healthBar.scale(1/this.health);
