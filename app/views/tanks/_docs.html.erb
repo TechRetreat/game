@@ -7,9 +7,10 @@
   <p>For full RTanque reference you can take a look at
     <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque" target="_blank">RTanque Documentation</a></p>
 
-  <h3>Bot Structure</h3>
-  <pre><code>class Sample < RTanque::Bot::Brain
 
+  <h3 data-toggle="collapse" data-target="#bot-structure-code">Bot Structure</h3>
+  <div id="bot-structure-code" class="collapse">
+    <pre ><code>class Sample < RTanque::Bot::Brain
     # The tick! function gets executed every tick.
     # This is where you read your sensors and control your bot.
     def tick!
@@ -20,10 +21,11 @@
         self.command.fire(5)
     end
 end</code></pre>
+  </div>
 
-  <h3>Sensors</h3>
-  <p>See full documentation <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Sensors" target="_blank">Here</a></p>
-  <pre><code># Sensors contains information about your bot, and the enemies
+  <h3 data-toggle="collapse" data-target="#sensor-code">Sensors</h3>
+  <div id="sensor-code" class="collapse">
+    <pre><code># Sensors contains information about your bot, and the enemies
 
 self.sensors.ticks      # Integer: Ticks since the match began
 
@@ -39,10 +41,11 @@ self.sensors.radar_heading  # Heading:  Direction of your Radar
 
 enemy_bots = self.sensors.radar
     # Well go over this in the 'Enemies' section</code></pre>
+  </div>
 
-  <h3>Commands</h3>
-  <p>See full documentation <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque/Bot/Command" target="_blank">Here</a></p>
-  <pre><code># Command allows you to tell your bot what to do
+  <h3 data-toggle="collapse" data-target="#commands-code">Commands</h3>
+  <div id="commands-code" class="collapse">
+    <pre><code># Command allows you to tell your bot what to do
 
 self.command.fire_power = power  # Float: sets Bots fire power
 self.command.speed = speed       # Float: sets Bots speed
@@ -53,9 +56,11 @@ self.command.turret_heading = heading  # Heading: sets Turrets heading
 
 self.command.fire(power)
     # Float: Shoots with given power (Defaults to fire_power)</code></pre>
+  </div>
 
-  <h3>Enemies</h3>
-  <pre><code># Enemy information is found through the radar
+  <h3 data-toggle="collapse" data-target="#enemies-code">Enemies</h3>
+  <div id="enemies-code" class="collapse">
+    <pre><code># Enemy information is found through the radar
 enemies = self.sensors.radar
 
 # self.sensors.radar gives an Enumerator holding Reflections
@@ -66,4 +71,5 @@ enemies = self.sensors.radar
 
 enemies.min { |a,b| a.distance <=> b.distance }
     # This returns the closest enemy</code></pre>
+  </div>
 </div>
