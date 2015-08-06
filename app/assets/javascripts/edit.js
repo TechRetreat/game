@@ -103,6 +103,9 @@ $(function () {
 
         left.css('right', offsetRight);
         right.css('width', offsetRight);
+        Replay.adjustSize();
+        e.preventDefault();
+        return false;
     }).on('mouseup', function (e) {
         // stop resizing
         isResizing = false;
