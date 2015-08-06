@@ -50,6 +50,8 @@ gem 'redis-namespace'
 # web interface to debug resque workers
 gem 'resque-web', require: 'resque_web'
 
+gem 'obscenity'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
