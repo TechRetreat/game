@@ -35,10 +35,7 @@ _Explosion.prototype = {
         this.age++;
         if (this.age >= Explosion.PARTICLE_LIFE) {
             this.alive = false;
-            if (this.flash) this.flash.remove();
-            this.particles.forEach(function(particle) {
-                particle.shape.remove();
-            });
+            this.remove();
         } else {
             if (this.flash) this.flash.setOpacity((Explosion.PARTICLE_LIFE-this.age)/Explosion.PARTICLE_LIFE);
             var ageScale = map(this.age, 0, Explosion.PARTICLE_LIFE, 1, 4);
@@ -62,6 +59,12 @@ _Explosion.prototype = {
         this.flash.transform();
         this.particles.forEach(function(particle) {
             particle.shape.transform();
+        });
+    },
+    remove: function() {
+        if (this.flash) this.flash.remove();
+        this.particles.forEach(function(particle) {
+            particle.shape.remove();
         });
     }
 }

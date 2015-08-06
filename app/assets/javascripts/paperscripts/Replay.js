@@ -219,6 +219,10 @@ window.Replay = (function() {
     };
 
     r.clear = function() {
+        if (r.channel) r.dispatcher.unbind(r.channel);
+
+        r.running = false;
+        view.off("frame");
         for (shell in r.shells) {
             r.shells[shell].die();
             delete r.shells[shell];
@@ -227,6 +231,10 @@ window.Replay = (function() {
             r.tanks[tank].object.remove();
             delete r.tanks[tank];
         }
+        r.explosions.forEach(function(explosion) {
+            explosion.remove();
+        });
+        r.explosions = [];
         r.lastTick = 0;
         view.update();
     };
@@ -266,7 +274,8 @@ window.Replay = (function() {
                 r.addNotice("Sending simulation data...");
                 r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
                 r.dispatcher.on_open = function() {
-                    r.channel = r.dispatcher.subscribe_private("match."+data.id);
+                    r.channel = "match."+data.id;
+                    r.channel = r.dispatcher.subscribe_private(r.channel);
                     r.channel.bind("start", r.init);
                     r.channel.bind("stop", r.end);
                     r.channel.bind("batch", r.batch);
