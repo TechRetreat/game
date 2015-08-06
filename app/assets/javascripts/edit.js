@@ -3,16 +3,21 @@
  */
 var unsaved = false;
 
-window.addEventListener("beforeunload", function (e) {
-    if(unsaved){
+function handleLeaveEvent(e) {
+    if (unsaved) {
         var confirmationMessage = 'It looks like you have unsaved code.';
         confirmationMessage += 'If you leave before saving, your changes will be lost.';
 
         (e || window.event).returnValue = confirmationMessage; //Gecko + IE
         return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
     }
-});
+}
 
+//Refresh
+window.addEventListener("beforeunload", handleLeaveEvent());
+$(document).on('page:before-change', function(){
+    return confirm(handleLeaveEvent())
+});
 
 function setVisibleLeft(id){
     $('#editor').css("display", "none");
