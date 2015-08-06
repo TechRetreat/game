@@ -37,7 +37,7 @@ class GameService
 
     match.entries.each do |entry|
       # Check syntax
-      code_to_check = entry.tank.code.gsub("^#!.+$", "") # Make sure the script doesn't actually get executed from a shebang line
+      code_to_check = entry.tank.code.gsub("^#\!.+$", "\n") # Make sure the script doesn't actually get executed from a shebang line
       check_result = ""
       Open3.popen2e("ruby", "-c", "-e", code_to_check) { |i,o|
         check_result = o.read()

@@ -253,9 +253,9 @@ window.Replay = (function() {
             type: "POST",
             data: {
                 match: {
-                    tanks: window.MATCH_TANKS
-                },
-                test: true
+                    tanks: window.MATCH_TANKS,
+                    test: true
+                }
             },
             dataType: "json",
             success: function(data) {

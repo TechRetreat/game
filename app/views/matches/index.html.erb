@@ -7,7 +7,7 @@
   <%
     my_matches = []
     other_matches = []
-    @matches.sort_by(&:created_at).reverse.each do |match|
+    @matches.select{|match| !match.test}.sort_by(&:created_at).reverse.each do |match|
       if user_owns_match match
         my_matches << match
       else
