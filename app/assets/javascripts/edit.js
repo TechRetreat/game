@@ -24,12 +24,14 @@ function setVisibleLeft(id){
     $('#edit').css("display", "none");
 
     $(id).css("display", "block");
+    $(id).addClass('animated fadeIn');
 }
 function setVisibleRight(id){
     $('#play').css("display", "none");
     $('#info').css("display", "none");
 
     $(id).css("display", "block");
+    $(id).addClass('animated fadeIn');
 }
 function setTab(id){
     $('#open_editor').removeClass("selected");
