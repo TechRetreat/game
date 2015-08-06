@@ -519,3 +519,25 @@ a#open-menu {
 .label{
   font-size: 1em;
 }
+
+.panel {
+  border: none;
+  background-color: #576e75;
+  border-radius: 8px !important;
+  .panel-heading {
+    background-color: #576e75;
+    border-radius: 8px !important;
+  }
+  div {
+    color: #FFFFFF;
+  }
+  pre {
+    margin-bottom: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  code {
+    border-radius: 0;
+  }
+  margin-bottom: 10px;
+}

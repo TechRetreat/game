@@ -8,9 +8,12 @@
     <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque" target="_blank">RTanque Documentation</a></p>
 
 
-  <h3 data-toggle="collapse" data-target="#bot-structure-code">Bot Structure</h3>
-  <div id="bot-structure-code" class="collapse">
-    <pre ><code>class Sample < RTanque::Bot::Brain
+  <div class="panel-group" role="tablist" aria-multiselectable="true">
+
+
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#structure-code">Bot Structure</div>
+      <pre id="structure-code" class="panel-collapse collapse out"><code>class Sample < RTanque::Bot::Brain
     # The tick! function gets executed every tick.
     # This is where you read your sensors and control your bot.
     def tick!
@@ -21,11 +24,11 @@
         self.command.fire(5)
     end
 end</code></pre>
-  </div>
+    </div>
 
-  <h3 data-toggle="collapse" data-target="#sensor-code">Sensors</h3>
-  <div id="sensor-code" class="collapse">
-    <pre><code># Sensors contains information about your bot, and the enemies
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#sensors-code">Sensors</div>
+      <pre id="sensors-code" class="panel-collapse collapse"><code># Sensors contains information about your bot, and the enemies
 
 self.sensors.ticks      # Integer: Ticks since the match began
 
@@ -41,11 +44,12 @@ self.sensors.radar_heading  # Heading:  Direction of your Radar
 
 enemy_bots = self.sensors.radar
     # Well go over this in the 'Enemies' section</code></pre>
-  </div>
+    </div>
 
-  <h3 data-toggle="collapse" data-target="#commands-code">Commands</h3>
-  <div id="commands-code" class="collapse">
-    <pre><code># Command allows you to tell your bot what to do
+
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#commands-code">Commands</div>
+      <pre id="commands-code" class="panel-collapse collapse"><code># Command allows you to tell your bot what to do
 
 self.command.fire_power = power  # Float: sets Bots fire power
 self.command.speed = speed       # Float: sets Bots speed
@@ -56,11 +60,11 @@ self.command.turret_heading = heading  # Heading: sets Turrets heading
 
 self.command.fire(power)
     # Float: Shoots with given power (Defaults to fire_power)</code></pre>
-  </div>
+    </div>
 
-  <h3 data-toggle="collapse" data-target="#enemies-code">Enemies</h3>
-  <div id="enemies-code" class="collapse">
-    <pre><code># Enemy information is found through the radar
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#enemies-code">Enemies</div>
+      <pre id="enemies-code" class="panel-collapse collapse"><code># Enemy information is found through the radar
 enemies = self.sensors.radar
 
 # self.sensors.radar gives an Enumerator holding Reflections
@@ -70,6 +74,7 @@ enemies = self.sensors.radar
 # http://ruby-doc.org/core-2.2.0/Enumerator.html
 
 enemies.min { |a,b| a.distance <=> b.distance }
-    # This returns the closest enemy</code></pre>
+# This returns the closest enemy</code></pre>
+    </div>
   </div>
 </div>
