@@ -11,6 +11,11 @@
       </li>
       <li><a href="/tanks/"><i class="fa fa-pencil"></i><div class="label">Edit Tanks</div></a></li>
       <li><a href="/matches/"><i class="fa fa-trophy"></i><div class="label">Matches</div></a></li>
+      <%- if user_signed_in? -%>
+          <li>
+            <%= link_to '<i class="fa fa-user"></i><div class="label">Profile</div>'.html_safe, edit_user_registration_path, method: :get %>
+          </li>
+      <%- end -%>
       <%= render 'devise/shared/login_links' %>
     </ul>
   </div>
