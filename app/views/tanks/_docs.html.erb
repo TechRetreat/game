@@ -13,7 +13,7 @@
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#structure-code">Bot Structure</div>
-      <pre id="structure-code" class="panel-collapse collapse out"><code>class Sample < RTanque::Bot::Brain
+      <pre id="structure-code" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
     # The tick! function gets executed every tick.
     # This is where you read your sensors and control your bot.
     def tick!
@@ -28,7 +28,7 @@ end</code></pre>
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#sensors-code">Sensors</div>
-      <pre id="sensors-code" class="panel-collapse collapse"><code># Sensors contains information about your bot, and the enemies
+      <pre id="sensors-code" class="panel-collapse collapse"><code class="ruby"># Sensors contains information about your bot, and the enemies
 
 self.sensors.ticks      # Integer: Ticks since the match began
 
@@ -49,7 +49,7 @@ enemy_bots = self.sensors.radar
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#commands-code">Commands</div>
-      <pre id="commands-code" class="panel-collapse collapse"><code># Command allows you to tell your bot what to do
+      <pre id="commands-code" class="panel-collapse collapse"><code class="ruby"># Command allows you to tell your bot what to do
 
 self.command.fire_power = power  # Float: sets Bots fire power
 self.command.speed = speed       # Float: sets Bots speed
@@ -64,7 +64,7 @@ self.command.fire(power)
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#enemies-code">Enemies</div>
-      <pre id="enemies-code" class="panel-collapse collapse"><code># Enemy information is found through the radar
+      <pre id="enemies-code" class="panel-collapse collapse"><code class="ruby"># Enemy information is found through the radar
 enemies = self.sensors.radar
 
 # self.sensors.radar gives an Enumerator holding Reflections
