@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: 32923ebbe3ab5941d258daedd05cde3d3cbb8482
+  revision: f77a32fef8cabca16faa8f5f2e54d138d8ef1675
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
@@ -207,7 +207,7 @@ GEM
     ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
-    ruby_parser (3.7.0)
+    ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
     sass (3.4.15)
     sass-rails (5.0.3)
