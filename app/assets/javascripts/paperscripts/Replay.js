@@ -166,6 +166,10 @@ window.Replay = (function() {
     };
 
     r.init = function(setup) {
+
+        //Hide loading spinner
+        $(".spinner").hide();
+
         setup = setup || {};
         if (r.loadingText) {
             r.loadingText.remove();
@@ -270,6 +274,8 @@ window.Replay = (function() {
             dataType: "json",
             success: function(data) {
                 r.addNotice("Sending simulation data...");
+                //Show loading spinner
+                $(".spinner").show();
                 r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
                 r.dispatcher.on_open = function() {
                     r.channel = r.dispatcher.subscribe_private("match."+data.id);
