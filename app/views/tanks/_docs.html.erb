@@ -90,6 +90,22 @@ self.arena.width   # ..?: Width of arena
 self.arena.height   # ..?: Height of arena</code></pre>
     </div>
 
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#heading-code">Heading</div>
+      <pre id="heading-code" class="panel-collapse collapse"><code class="ruby"># A Heading is basically a wrapper around an angle (in Radians), 0 is up
+
+heading.radians # Float: Radian representation of angle
+
+# Headings can be created from Radians or Degrees, or even between points
+heading_radians = RTanque::Heading.new(Math::PI / 2)
+heading_degrees = RTanque::Heading.new_from_degrees(180.0)
+heading_points = RTanque::Heading.new_between_points(RTanque::Point.new(0,0), RTanque::Point.new(2,3))
+
+# Headings can be added together or with radian values
+heading_combined = RTanque::Heading.new(Math::PI) + RTanque::Heading.new(Math::PI)
+heading_added = RTanque::Heading.new(Math::PI / 2.0) + Math::PI</code></pre>
+    </div>
+
     <%= render 'docs_sample_tanks' %>
   </div>
 
