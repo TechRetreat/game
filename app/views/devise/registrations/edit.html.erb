@@ -25,22 +25,21 @@
         <% end %>
 
         <div class="field">
-          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-          <%= f.password_field :password, autocomplete: "off" , class: "form-control form-auth-input-flat-bottom" %>
+          <%= f.label :password, "Change Password" %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, autocomplete: "off" , class: "change-password form-control form-auth-input-flat-bottom", id: "change-password" %>
+          <div id="confirm-password">
+            <%= f.label :password_confirmation, "Confirm Password" %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off" , class: "form-control form-auth-input-flat-bottom" %>
+          </div>
         </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off" , class: "form-control form-auth-input-flat-bottom" %>
-        </div>
-
-        <div class="field">
+        <div class="field separated">
           <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
           <%= f.password_field :current_password, autocomplete: "off" , class: "form-control form-auth-input-flat-bottom" %>
         </div>
 
         <div class="actions">
-          <%= f.submit "Update" , class: "btn btn-lg btn-primary btn-block form-auth-button"%>
+          <%= f.submit "Update" , class: "btn primary btn-lg btn-primary btn-block form-auth-button"%>
         </div>
     <% end %>
 
@@ -48,6 +47,16 @@
 
     <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete , class: "btn btn-lg btn-primary btn-block form-auth-button" %></p>
 
-    <%= link_to "Back", :back , class: "btn btn-lg btn-primary btn-block form-auth-button"%>
+    <%= link_to "Back", :back , class: "button btn btn-lg btn-primary btn-block form-auth-button"%>
   </div>
 </div>
+
+<script>
+$("#change-password").on("input", function() {
+    if (!$(this).val()) {
+        $("#confirm-password").removeClass("visible");
+    } else {
+        $("#confirm-password").addClass("visible");
+    }
+});
+</script>

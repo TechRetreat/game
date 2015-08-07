@@ -307,6 +307,20 @@ img.full {
 
 
 /* Login/signup form styles */
+#confirm-password {
+    max-height:0;
+    overflow:hidden;
+    margin:0;
+    transition: all ease 0.3s;
+    &.visible {
+        max-height:400px;
+        margin-top:10px;
+        padding-bottom:5px;
+    }
+}
+.field.separated {
+    margin-top:40px;
+}
 .field_with_errors{
   display:block;
 }
@@ -321,11 +335,9 @@ img.full {
 .form-auth-button {
     margin-top: 15px;
     border:0 !important;
-    background-color: $button_color !important;
 }
 .form-auth-button:hover {
     border: 0 !important;
-    background-color: $button_hover_color !important;
 }
 .form-auth-button:focus,.form-auth-button:active {
    outline: none !important;
