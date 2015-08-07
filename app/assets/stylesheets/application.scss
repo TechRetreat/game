@@ -537,9 +537,14 @@ a#open-menu {
   border: none;
   background-color: #576e75;
   border-radius: 8px !important;
+  cursor:pointer;
+  transition: all ease 0.3s;
   .panel-heading {
     background-color: #576e75;
     border-radius: 8px !important;
+    &:hover {
+      background-color: #657b83;
+    }
   }
   div {
     color: #FFFFFF;
@@ -554,7 +559,10 @@ a#open-menu {
   }
   .collapse {
     .panel-heading {
-      background-color: #5bc0de;
+      background-color: #657b83;
+      &:hover {
+        background-color:##839496;
+      }
     }
   }
   margin-bottom: 10px;
