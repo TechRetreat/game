@@ -1,4 +1,4 @@
-# T(ech)R(etreat)anque
+# TechTanks
 
 An online AI game using RTanque
 
