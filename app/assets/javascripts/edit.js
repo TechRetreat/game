@@ -110,6 +110,8 @@ $(function () {
     handle.on('mousedown', function (e) {
         isResizing = true;
         lastDownX = e.clientX;
+        left.addClass('hide-selection');
+        right.addClass('hide-selection');
     });
 
     $(document).on('mousemove', function (e) {
@@ -127,5 +129,7 @@ $(function () {
     }).on('mouseup', function (e) {
         // stop resizing
         isResizing = false;
+        left.removeClass('hide-selection');
+        right.removeClass('hide-selection');
     });
 });

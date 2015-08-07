@@ -589,6 +589,13 @@ a#open-menu {
   bottom:0;
 }
 
+.hide-selection{
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* COOL LOADING SPINNER from SpinKit */
 
 .spinner {
