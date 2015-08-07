@@ -16,7 +16,9 @@ function handleLeaveEvent(e) {
 //Refresh
 window.addEventListener("beforeunload", handleLeaveEvent());
 $(document).on('page:before-change', function(){
-    return confirm(handleLeaveEvent())
+    if (unsaved) {
+        return confirm(handleLeaveEvent());
+    }
 });
 
 function setVisibleLeft(id){
