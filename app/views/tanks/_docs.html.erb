@@ -106,6 +106,27 @@ heading_combined = RTanque::Heading.new(Math::PI) + RTanque::Heading.new(Math::P
 heading_added = RTanque::Heading.new(Math::PI / 2.0) + Math::PI</code></pre>
     </div>
 
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#point-code">Point</div>
+      <pre id="point-code" class="panel-collapse collapse"><code class="ruby"># A Point is an X, Y coordinate, in an Arena
+
+# Points are created from an X, Y pair, and an Arena reference
+point = RTanque::Point.new(1, 1, self.arena)
+
+# Points are accessed through x and y values
+point.x     # Horizontal position
+point.y     # Vertical position
+
+# Points have a few built in helper functions
+point.within_radius?(other_point, distance)  # Boolean: Are the points within distance
+point.distance(other_point)                  # Float: Distance between points
+point.heading(other_point)                   # Heading: Heading to other point
+
+point.on_wall?      # Boolean: Whether the point is near a wall
+point.on_top_wall?  # Boolean: Whether the point is near the top wall
+# Repeated for on_bottom_wall?, on_right_wall?, and on_left_wall?</code></pre>
+    </div>
+
     <%= render 'docs_sample_tanks' %>
   </div>
 
