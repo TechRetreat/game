@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   root to: 'site#index'
   resources :matches
 
+  get '/about' => 'site#about'
+
   # resque-web config
   resque_web_constraint = lambda do |request|
     current_user = request.env['warden'].user
