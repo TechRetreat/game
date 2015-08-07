@@ -100,10 +100,13 @@ window.Replay = (function() {
     };
 
     r.animate = function() {
-        if (r.running == false && r.explosions.length == 0) {
-            view.off("frame");
-            r.addNotice("End of simulation - press play again to run another!");
-            return;
+        if (!r.running) {
+            if (r.explosions.length == 0 && Object.keys(r.shells).length == 0) {
+                view.off("frame");
+                r.addNotice("End of simulation - press play again to run another!");
+                return;
+            }
+            r.interpolateObjects();
         }
 
         var lastTickUsed = 0;
@@ -196,7 +199,6 @@ window.Replay = (function() {
     };
 
     r.end = function(data) {
-        console.log(data);
         r.incoming = r.incoming.concat(data);
     };
 
@@ -210,7 +212,10 @@ window.Replay = (function() {
     };
 
     r.clear = function() {
-        if (r.channel) r.dispatcher.unbind(r.channel);
+        if (r.channel) {
+            r.channel.destroy();
+            r.channel = undefined;
+        }
 
         r.running = false;
         view.off("frame");
@@ -226,6 +231,7 @@ window.Replay = (function() {
             explosion.remove();
         });
         r.explosions = [];
+        r.incoming = [];
         r.lastTick = 0;
         view.update();
     };
@@ -265,8 +271,7 @@ window.Replay = (function() {
                 r.addNotice("Sending simulation data...");
                 r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
                 r.dispatcher.on_open = function() {
-                    r.channel = "match."+data.id;
-                    r.channel = r.dispatcher.subscribe_private(r.channel);
+                    r.channel = r.dispatcher.subscribe_private("match."+data.id);
                     r.channel.bind("start", r.init);
                     r.channel.bind("stop", r.end);
                     r.channel.bind("batch", r.batch);
