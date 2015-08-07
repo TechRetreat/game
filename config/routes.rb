@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  # THIS IS TO TEST CUSTOM ERROR ROUTES, PLEASE REMOVE LATER
+  get '/errortest' => "errors#show", :code => 400
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

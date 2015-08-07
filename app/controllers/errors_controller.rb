@@ -1,5 +1,6 @@
 class ErrorsController < ApplicationController
   def show
+    @code = status_code.to_s
     render :error, :status => status_code
   end
 
