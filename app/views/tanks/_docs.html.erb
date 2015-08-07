@@ -14,21 +14,21 @@
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#structure-code">Bot Structure</div>
       <pre id="structure-code" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
-    # The tick! function gets executed every tick.
-    # This is where you read your sensors and control your bot.
-    def tick!
-        # Use self.sensors to detect things
-        health = self.sensors.health
+  # The tick! function gets executed every tick.
+  # This is where you read your sensors and control your bot.
+  def tick!
+    # Use self.sensors to detect things
+    health = self.sensors.health
 
-        # and self.command to control tank
-        self.command.fire(5)
-    end
+    # and self.command to control tank
+    self.command.fire(5)
+  end
 end</code></pre>
     </div>
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#sensors-code">Sensors</div>
-      <pre id="sensors-code" class="panel-collapse collapse"><code class="ruby"># Sensors contains information about your bot, and the enemies
+      <pre id="sensors-code" class="panel-collapse collapse"><code class="ruby"># Sensors contain information about your own and enemy bots
 
 self.sensors.ticks      # Integer: Ticks since the match began
 
@@ -42,39 +42,45 @@ self.sensors.turret_heading    # Heading:  Direction of your Turret
 
 self.sensors.radar_heading  # Heading:  Direction of your Radar
 
-enemy_bots = self.sensors.radar
-    # Well go over this in the 'Enemies' section</code></pre>
+enemy_bots = self.sensors.radar # Explained in the 'Enemies' section</code></pre>
     </div>
 
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#commands-code">Commands</div>
-      <pre id="commands-code" class="panel-collapse collapse"><code class="ruby"># Command allows you to tell your bot what to do
+      <pre id="commands-code" class="panel-collapse collapse"><code class="ruby"># Commands tell your bot what to do
 
-self.command.fire_power = power  # Float: sets Bots fire power
-self.command.speed = speed       # Float: sets Bots speed
+self.command.fire_power = power  # Float: Sets Bots fire power
+self.command.speed = speed       # Float: Sets Bots speed
 
-self.command.heading = heading         # Heading: sets Bots heading
-self.command.radar_heading = heading   # Heading: sets Radars heading
-self.command.turret_heading = heading  # Heading: sets Turrets heading
+self.command.heading = heading         # Heading: Sets Bots heading
+self.command.radar_heading = heading   # Heading: Sets Radars heading
+self.command.turret_heading = heading  # Heading: Sets Turrets heading
 
-self.command.fire(power)
-    # Float: Shoots with given power (Defaults to fire_power)</code></pre>
+self.command.fire(power) # Float: Shoots with given power (Default: fire_power)</code></pre>
     </div>
 
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#enemies-code">Enemies</div>
-      <pre id="enemies-code" class="panel-collapse collapse"><code class="ruby"># Enemy information is found through the radar
-enemies = self.sensors.radar
+      <pre id="enemies-code" class="panel-collapse collapse"><code class="ruby"># Enemy information is obtained through the radar
+enemy_reflections = self.sensors.radar
 
-# self.sensors.radar gives an Enumerator holding Reflections
-# An Enumerator is an object that allows you to iterate through a list of
-# objects, in this case reflections, which hold locations, headings, and
-# names of visible enemy tanks
-# http://ruby-doc.org/core-2.2.0/Enumerator.html
+# enemy_reflections is an Enumerator (List) of 'Reflections' of all visible tanks
 
-enemies.min { |a,b| a.distance <=> b.distance }
-# This returns the closest enemy</code></pre>
+# You can do some cool things with Enumerators, for example to get the closest enemy
+closest_reflection = enemies.min { |a,b| a.distance <=> b.distance }
+
+# Learn more about Enumerators at http://ruby-doc.org/core-2.2.0/Enumerator.html
+
+# A Reflection contains some information about an enemy
+closest_reflection.distance      # Float: Distance to Enemy
+closest_reflection.heading       # Heading: Direction to Enemy
+closest_reflection.enemy_health     # Float: Enemy health
+closest_reflection.enemy_heading    # Heading: Enemy direction
+closest_reflection.enemy_speed      # Float: Enemy speed
+closest_reflection.enemy_name       # String: Enemy name
+
+      </code></pre>
     </div>
 
     <div class="panel">
