@@ -70,7 +70,10 @@ end<% else %><%= @tank.code %><% end %></div>
         return $.ajax({
             url: "/tanks/" + <%= @tank.id %> + '.json',
             data: {tank: {published_code: publishedCode}},
-            type: 'PUT'
+            type: 'PUT',
+            complete: function(a, status){
+                unsaved = false;
+            }
         });
     };
 </script>
