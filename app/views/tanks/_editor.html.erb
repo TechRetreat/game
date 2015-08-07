@@ -32,8 +32,13 @@ end<% else %><%= @tank.code %><% end %></div>
 
 <div id="published">
   <div class="container">
-    <h1>Published Code</h1>
-    <pre><code class="ruby"><%= if @tank.published_code then @tank.published_code.html_safe end %></code></pre>
+    <% if @tank.published_code %>
+        <h1>Published Code</h1>
+        <pre><code class="ruby"><%=@tank.published_code.html_safe%></code></pre>
+    <% else %>
+        <h1>No Published Code</h1>
+        <button id="publish-btn">Publish Current Code</button>
+    <% end %>
   </div>
 </div>
 

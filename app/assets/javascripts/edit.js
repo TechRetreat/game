@@ -75,7 +75,7 @@ $('#save').click(function(){
         });
 });
 
-$('#publish').click(function(){
+$('#publish', '#publish-btn').click(function(){
     publishCode()
         .done(function() {
             Replay.addNotice("Code published!");
