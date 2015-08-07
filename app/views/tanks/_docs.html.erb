@@ -23,6 +23,10 @@
     # and self.command to control tank
     self.command.fire(5)
   end
+
+  def at_tick_interval(num_of_ticks)
+    # this block executes every num_of_ticks
+  end
 end</code></pre>
     </div>
 
@@ -127,9 +131,23 @@ point.on_top_wall?  # Boolean: Whether the point is near the top wall
 # Repeated for on_bottom_wall?, on_right_wall?, and on_left_wall?</code></pre>
     </div>
 
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#constants-code">Helper Constants</div>
+      <pre id="constants-code" class="panel-collapse collapse"><code class="ruby"># A set of constants that define your bot
+
+BOT_RADIUS              # Radius of Bot
+MAX_FIRE_POWER          # Maximum turret fire power
+MAX_HEALTH              # Maximum Bot health
+MAX_BOT_SPEED           # Maximum Bot speed
+MAX_BOT_ROTATION        # Maximum Bot rotation per tick
+MAX_TURRET_ROTATION     # Maximum Turret rotation per tick
+MAX_RADAR_ROTATION      # Maximum Radar rotation per tick
+SHELL_SPEED_FACTOR      # Speed = Power * SHELL_SPEED_FACTOR</code></pre>
+    </div>
+
     <%= render 'docs_sample_tanks' %>
   </div>
-
+  
   <h1>Published Code</h1>
   <p>The code in the editor is used for testing against the sample tanks while your published code is used for real matches against other users' tanks. This lets you test out little changes while still having a fully working AI to fight against other tanks with.</p>
 </div>
