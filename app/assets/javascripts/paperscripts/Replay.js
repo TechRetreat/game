@@ -107,10 +107,10 @@ window.Replay = (function() {
         }
 
         var lastTickUsed = 0;
-        while (r.incoming.length > 0 && (!r.incoming[0].tick || r.incoming[0].tick <= r.lastTick+1)) {
+        if (r.incoming.length > 0 && (!r.incoming[0].tick || r.incoming[0].tick <= r.lastTick+1)) {
             data = r.incoming.shift();
             lastTickUsed = data.tick;
-            if (lastTickUsed >= r.lastTick) r.interpolateObjects();
+            r.interpolateObjects();
             if (data.hasOwnProperty("created")) {
                 data.created.forEach(function(shell) {
                     Replay.addShell(Shell.new({
@@ -158,15 +158,6 @@ window.Replay = (function() {
         }
         if (lastTickUsed > r.lastTick) {
             r.lastTick = data.tick;
-        } else {
-
-            r.lastTick++;
-
-            r.interpolateObjects();
-
-            for (tank in r.tanks) {
-                r.tanks[tank].move();
-            }
         }
     };
 
