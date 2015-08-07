@@ -51,6 +51,7 @@ window.Replay = (function() {
     };
 
     r.adjustSize = function() {
+        if (!r.arena) return;
         view.viewSize.width = r.container.offsetWidth;
         view.viewSize.height = r.container.offsetHeight;
         r.arena.fitBounds(view.bounds);
