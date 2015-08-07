@@ -20,23 +20,25 @@ $(document).on('page:before-change', function(){
 });
 
 function setVisibleLeft(id){
-    $('#editor').css("display", "none");
-    $('#edit').css("display", "none");
+    $('#editor').hide();
+    $('#edit').hide();
+    $('#published').hide();
 
-    $(id).css("display", "block");
+    $(id).show();
     $(id).addClass('animated fadeIn');
 }
 function setVisibleRight(id){
-    $('#play').css("display", "none");
-    $('#info').css("display", "none");
+    $('#play').hide();
+    $('#info').hide();
 
-    $(id).css("display", "block");
+    $(id).show();
     $(id).addClass('animated fadeIn');
 }
 function setTab(id){
     $('#open_editor').removeClass("selected");
     $('#open_info').removeClass("selected");
     $('#open_edit').removeClass("selected");
+    $('#open_published').removeClass("selected");
 
     $(id).addClass("selected");
 }
@@ -52,6 +54,10 @@ $('#open_edit').click(function(){
     setVisibleLeft('#edit');
     setTab('#open_edit');
 });
+$('#open_published').click(function(){
+  setVisibleLeft('#published');
+  setTab('#open_published');
+});
 setVisibleLeft('#editor');
 setVisibleRight('#info');
 setTab('#open_editor');
@@ -64,6 +70,16 @@ $('#save').click(function(){
         })
         .fail(function() {
             Replay.addNotice("Error saving, try again later.");
+        });
+});
+
+$('#publish').click(function(){
+    publishCode()
+        .done(function() {
+            Replay.addNotice("Code published!");
+        })
+        .fail(function() {
+            Replay.addNotice("Error publishing, try again later.");
         });
 });
 

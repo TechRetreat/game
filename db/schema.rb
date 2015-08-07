@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806033322) do
+ActiveRecord::Schema.define(version: 20150806234132) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150806033322) do
     t.boolean  "public"
     t.integer  "forked_from_id"
     t.string   "color",          default: "#BADA55"
+    t.text     "published_code"
   end
 
   add_index "tanks", ["forked_from_id"], name: "index_tanks_on_forked_from_id"

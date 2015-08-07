@@ -3,6 +3,8 @@
     <li id="open_edit"><i class="fa fa-cogs"></i><div class="label">Tank Settings</div></li>
     <li id="save"><i class="fa fa-floppy-o"></i><div class="label">Save</div></li>
     <li id="open_editor"><i class="fa fa-terminal"></i><div class="label">Edit Code</div></li>
+    <li id="publish"><i class="fa fa-share"></i><div class="label">Publish</div></li>
+    <li id="open_published"><i class="fa fa-file-code-o"></i><div class="label">View Published Code</div></li>
   </ul>
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code
@@ -25,6 +27,13 @@ end<% else %><%= @tank.code %><% end %></div>
   <div class="container">
     <h1>Editing Tank</h1>
     <%= render 'form' %>
+  </div>
+</div>
+
+<div id="published">
+  <div class="container">
+    <h1>Published Code</h1>
+    <pre><code class="ruby"><%= if @tank.published_code then @tank.published_code.html_safe end %></code></pre>
   </div>
 </div>
 
@@ -51,5 +60,17 @@ end<% else %><%= @tank.code %><% end %></div>
                 unsaved = false;
             }
         })
+    };
+
+    var publishCode = function() {
+        var publishedCode = editor.getValue();
+        $('#published code').text(publishedCode);
+        hljs.highlightBlock($('#published code')[0]);
+
+        return $.ajax({
+            url: "/tanks/" + <%= @tank.id %> + '.json',
+            data: {tank: {published_code: publishedCode}},
+            type: 'PUT'
+        });
     };
 </script>

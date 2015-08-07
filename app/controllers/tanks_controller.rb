@@ -85,6 +85,6 @@ class TanksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tank_params
-      params.require(:tank).permit(:name, :code, :color)
+      params.require(:tank).permit(:name, :code, :published_code, :color)
     end
 end

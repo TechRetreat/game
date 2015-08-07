@@ -37,7 +37,13 @@ class GameService
 
     match.entries.each do |entry|
       # Check syntax
-      code_to_check = entry.tank.code.gsub("^#\!.+$", "\n") # Make sure the script doesn't actually get executed from a shebang line
+      if match.test
+        code = entry.tank.code
+      else
+        code = entry.tank.published_code || entry.tank.code
+      end
+
+      code_to_check = code.gsub("^#\!.+$", "\n") # Make sure the script doesn't actually get executed from a shebang line
       check_result = ""
       Open3.popen2e("ruby", "-c", "-e", code_to_check) { |i,o|
         check_result = o.read()
@@ -52,7 +58,7 @@ class GameService
         return
       end
 
-      tank = runner.add_brain_code(entry.tank.code, 1, entry.tank.name)[0]
+      tank = runner.add_brain_code(code, 1, entry.tank.name)[0]
       entry_map[tank.__id__] = entry
     end
 
