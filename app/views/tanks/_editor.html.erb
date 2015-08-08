@@ -42,13 +42,22 @@ end<% else %><%= @tank.code %><% end %></div>
   </div>
 </div>
 
+<div id="set_theme">
+  <i id="set_light" class="fa fa-2x fa-sun-o" style="color: #fff;"></i>
+  <i id="set_dark" class="fa fa-2x fa-moon-o"></i>
+</div>
+
 <script>
 
     var editor = ace.edit("editor");
     <% if current_user.dark_theme %>
-    editor.setTheme("ace/theme/solarized_dark");
+      editor.setTheme("ace/theme/solarized_dark");
+      $('#set_light').show();
+      $('#set_dark').hide();
     <% else %>
-    editor.setTheme("ace/theme/solarized_light");
+      editor.setTheme("ace/theme/solarized_light");
+      $('#set_light').hide();
+      $('#set_dark').show();
     <% end %>
     editor.getSession().setMode("ace/mode/ruby");
     editor.getSession().setOptions({useSoftTabs: true, tabSize: 2});

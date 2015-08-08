@@ -108,6 +108,18 @@ $('#play-btn').click(function(){
         });
 });
 
+$('#set_light').click(function(){
+    editor.setTheme("ace/theme/solarized_light");
+    $('#set_light').hide();
+    $('#set_dark').show();
+});
+
+$('#set_dark').click(function(){
+    editor.setTheme("ace/theme/solarized_dark");
+    $('#set_light').show();
+    $('#set_dark').hide();
+});
+
 //resize editor width
 
 var isResizing = false,
