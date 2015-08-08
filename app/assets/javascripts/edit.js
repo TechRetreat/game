@@ -50,6 +50,12 @@ function setTabLeft(id){
         $('#replay-notices').show();
     }
 
+    if(id == '#open_editor') {
+        $('#set_theme').show();
+    } else {
+        $('#set_theme').hide();
+    }
+
     $(id).addClass("selected");
 }
 function setTabRight(id){
