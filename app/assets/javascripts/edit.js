@@ -45,6 +45,14 @@ function setTabLeft(id){
     $(id).addClass("selected");
 }
 function setTabRight(id){
+    if(!$(id).hasClass("selected")) {
+        if(id == '#play-btn') {
+            $("#replay-notices").addClass("visible");
+        } else {
+            $("#replay-notices").removeClass("visible");
+        }
+    }
+
     $('#open_docs').removeClass("selected");
     $('#open_start').removeClass("selected");
     $('#play-btn').removeClass("selected");
