@@ -571,7 +571,9 @@ a#open-menu {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     .list-group {
-      padding: 7px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      padding-left: 20px;
       border-radius: 0px;
       background-color: #2c4d56;
       &:hover {
