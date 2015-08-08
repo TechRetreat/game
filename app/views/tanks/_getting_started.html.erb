@@ -86,12 +86,11 @@ end</code></pre></div>
     # To get the radar reflections use self.sensors.radar
     enemy_reflections = self.sensors.radar
 
-    # This gives us an Enumarator of enemy Reflections
-    # Reflections hold distance, heading, enemy_health, enemy_heading, enemy_speed, and enemy_name
+    # Radar gives us an Enumerator of enemy Reflections, which hold distance (to enemy), heading (to enemy), enemy_health, enemy_heading, enemy_speed, and enemy_name
 
-    # You can do some cool things with Enumerators, for example to get the closest enemy
+    # Enumerators can do some cool things, for example to get the closest enemy
     closest_reflection = enemies.min { |a,b| a.distance <=> b.distance }
-    # Learn more about Enumerators at http://ruby-doc.org/core-2.2.0/Enumerator.html
+    # Learn about Enumerators at http://ruby-doc.org/core-2.2.0/Enumerator.html
   end
 end</code></pre></div>
 
