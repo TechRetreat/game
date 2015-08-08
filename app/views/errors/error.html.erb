@@ -6,8 +6,14 @@
     </h3>
     <div class="example">
       <pre><code class="ruby">
-        puts 'error'
-        <%= @code %>
+        state = :sorry
+        begin
+            puts 'Error <%= @code %>'
+        rescue
+            puts "Go back to " + <%= link_to '@home', '/' %>
+        else
+            puts "or " + @<%= mail_to 'hello@techretreat.ca', 'report' %> + " the issue."
+        end
       </code></pre>
       <div class="player" style="background:url(/assets/images/tank1.gif)"></div>
     </div>
