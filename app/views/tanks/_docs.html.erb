@@ -1,12 +1,10 @@
-<div class="container" id="documentation">
-  <h1>Getting started</h1>
-  <p>If you havent worked with ruby before, you may want to take a look at
-    <a href="http://www.codecademy.com/tracks/ruby" target="_blank">Codecademy</a> or
-    <a href="http://tryruby.org" target="_blank">TryRuby</a> for a quick start.</p>
+<div class="container" id="documentation-body">
+  <h1>TechTanks Documentation</h1>
 
   <p>For full RTanque reference you can take a look at
     <a href="http://www.rubydoc.info/github/awilliams/RTanque/master/RTanque" target="_blank">RTanque Documentation</a></p>
 
+  <p>Note that BrainHelper does not need to be included as it is built into our Brain structure</p>
 
   <div class="panel-group" role="tablist" aria-multiselectable="true">
 
@@ -14,18 +12,14 @@
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#structure-code">Bot Structure</div>
       <pre id="structure-code" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
-  # The tick! function gets executed every tick.
-  # This is where you read your sensors and control your bot.
+  # The tick! function gets executed every tick
+  # This is where you get information and execute commands
   def tick!
     # Use self.sensors to detect things
     health = self.sensors.health
 
     # and self.command to control tank
     self.command.fire(5)
-  end
-
-  def at_tick_interval(num_of_ticks)
-    # this block executes every num_of_ticks
   end
 end</code></pre>
     </div>
@@ -147,7 +141,6 @@ SHELL_SPEED_FACTOR      # Speed = Power * SHELL_SPEED_FACTOR</code></pre>
 
     <%= render 'docs_sample_tanks' %>
   </div>
-  
   <h1>Published Code</h1>
   <p>The code in the editor is used for testing against the sample tanks while your published code is used for real matches against other users' tanks. This lets you test out little changes while still having a fully working AI to fight against other tanks with.</p>
 </div>

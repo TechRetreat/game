@@ -1,0 +1,84 @@
+<div class="container" id="getting-started-body">
+  <h1>Getting started</h1>
+  <p>If you haven't worked with ruby, you may want to look at
+    <a href="http://www.codecademy.com/tracks/ruby" target="_blank">Codecademy</a> or
+    <a href="http://tryruby.org" target="_blank">TryRuby</a> quickly.</p>
+
+  <p>A more in depth starting guide can be found <a href="http://awilliams.github.io/articles/rtanque-getting-started/" target="_blank">Here</a>, you can skip the set up section as you will be running your code in the browser</p>
+
+  <div class="panel-group" role="tablist" aria-multiselectable="true">
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#bot-start">Bot Basics</div>
+      <pre id="bot-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
+  # The tick! function is where you will control your bot
+  # This code gets called every tick (or frame)
+  def tick!
+    # Use self.sensors to get information about your own, and enemy bots
+    # We will go over all the information you have access to later
+    health = self.sensors.health
+
+    # Enemy information is obtained through the radar
+    enemy_reflections = self.sensors.radar
+
+
+    # Use self.command to control your tank
+    # Your bot has three main physical components that you can control
+    # The body moves your tank, the radar scans for enemies, and the turret shoots
+    self.command.fire(5)
+  end
+end</code></pre></div>
+
+  <div class="panel">
+    <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#movement-start">Movement</div>
+    <pre id="movement-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
+  def tick!
+    # Move your tank by changing its speed and direction (Heading)
+
+    # For example if we want to go forward we can do something like
+    self.command.speed = 5
+
+    # Tanks have a few built in constants, if you want to go max speed
+    self.command.speed = MAX_BOT_SPEED
+
+
+    # If we want to turn our tank we have to set our tanks heading (direction)
+    # For this we use the Heading class, which basically holds an angle
+    new_heading = RTanque::Heading.new(Math::PI)
+
+    # To turn our tank to a given heading we set self.command.heading
+    self.command.heading = new_heading
+    # Our tank will now turn towards new_heading at MAX_BOT_ROTATION radians each tick
+
+
+    # Locations in TechTanks are held in instances of Point
+    # Points are created from an (X, Y) pair, and an Arena reference
+    new_point = RTanque::Point.new(1, 1, self.arena)
+    my_point = self.sensors.position
+
+    # Points contain point.x, and point.y values, and have helper functions built in
+    new_point.on_wall?			# true of point is near a wall
+    my_point.distance(new_point)	# returns distance between points
+
+
+    # We can also create headings from Points
+    heading_points = RTanque::Heading.new_between_points(my_point, new_point)
+  end
+end</code></pre></div>
+
+  <div class="panel">
+    <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#movement-example">Movement Example</div>
+    <pre id="movement-example" class="panel-collapse collapse"><code class="ruby">class SampleMovement < RTanque::Bot::Brain
+  # This code will move tank close to (0, 0)
+  def tick!
+    my_position = self.sensors.position
+    my_destination = RTanque::Point.new(0, 0, self.arena)
+
+    # If our tank is further away from destination than ten pixels
+    if my_position.distance(my_destination) > 10
+      command.heading = my_position.heading(my_destination) # Heading towards destination
+      command.speed = MAX_BOT_SPEED # Move as fast as possible in direction just set
+    end
+  end
+end</code></pre></div>
+    </div>
+  </div>

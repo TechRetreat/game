@@ -1,6 +1,7 @@
 <div class="toolbar toolbar-editor right">
   <ul>
-    <li id="open_info"><i class="fa fa-question"></i><div class="label">Help</div></li>
+    <li id="open_docs"><i class="fa fa-question"></i><div class="label">Documentation</div></li>
+    <li id="open_start"><i class="fa fa-question"></i><div class="label">Get Started</div></li>
     <li id="play-btn"><i class="fa fa-play"></i><div class="label">Run Code</div></li>
   </ul>
 </div>
@@ -10,9 +11,15 @@
   <canvas id="tranque-replay"></canvas>
   <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
 </div>
-<div id="info">
+
+<div id="getting-started">
+  <%= render 'getting_started' %>
+</div>
+
+<div id="docs">
   <%= render 'docs' %>
 </div>
+
 <script>
   //Env variables
   window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";

@@ -174,7 +174,7 @@ pre {
     }
 }
 
-#documentation, .section {
+#documentation-body, #getting-started-body, .section {
     code {
         padding: 20px !important;
     }
@@ -521,12 +521,13 @@ a#open-menu {
     }
 }
 
-#documentation {
+#documentation-body, #getting-started-body {
   width:100%;
+  overflow-y: scroll !important;
 }
 
-#info {
-  overflow-y: scroll;
+#getting-started, #docs {
+  overflow-y: scroll !important;
 }
 
 .label{

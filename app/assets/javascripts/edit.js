@@ -31,14 +31,16 @@ function setVisibleLeft(id){
 }
 function setVisibleRight(id){
     $('#play').hide();
-    $('#info').hide();
+    $('#docs').hide();
+    $('#getting-started').hide();
 
     $(id).show();
     $(id).addClass('animated fadeIn');
 }
 function setTab(id){
     $('#open_editor').removeClass("selected");
-    $('#open_info').removeClass("selected");
+    $('#open_docs').removeClass("selected");
+    $('#open_start').removeClass("selected");
     $('#open_edit').removeClass("selected");
     $('#open_published').removeClass("selected");
 
@@ -48,9 +50,13 @@ $('#open_editor').click(function(){
     setVisibleLeft('#editor');
     setTab('#open_editor');
 });
-$('#open_info').click(function(){
-    setVisibleRight('#info');
-    setTab('#open_info');
+$('#open_docs').click(function(){
+    setVisibleRight('#docs');
+    setTab('#open_docs');
+});
+$('#open_start').click(function(){
+    setVisibleRight('#getting-started');
+    setTab('#open_start');
 });
 $('#open_edit').click(function(){
     setVisibleLeft('#edit');
@@ -61,7 +67,7 @@ $('#open_published').click(function(){
   setTab('#open_published');
 });
 setVisibleLeft('#editor');
-setVisibleRight('#info');
+setVisibleRight('#getting-started');
 setTab('#open_editor');
 
 
