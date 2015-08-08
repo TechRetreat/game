@@ -41,7 +41,6 @@ window.Replay = (function() {
             var pre = $("<pre></pre>").text(output);
             notice = notice.append(pre);
         }
-        $("#replay-notices").addClass("visible")
         notice.appendTo("#replay-notices #console")
         $("#replay-notices #console").scrollTop($("#replay-notices #console")[0].scrollHeight);
     };
