@@ -21,10 +21,38 @@
     enemy_reflections = self.sensors.radar
 
 
-    # Use self.command to control your tank
-    # Your bot has three main physical components that you can control
+    # Use self.command to control your tank, your bot has three components
     # The body moves your tank, the radar scans for enemies, and the turret shoots
     self.command.fire(5)
+  end
+end</code></pre></div>
+
+  <div class="panel">
+    <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#headings-and-points-start">Headings and Points</div>
+    <pre id="headings-and-points-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
+  def tick!
+    # Locations in TechTanks are held in instances of Point
+    # Points are created from an (X, Y) pair, and an Arena reference (self.arena)
+    new_point = RTanque::Point.new(0, 0, self.arena) # Top left corner
+
+    # Most objects also have Point positions
+    my_point = self.sensors.position
+
+    # Points have a few built in helper functions
+    my_point.within_radius?(new_point, 10)  # Boolean: Are the points within 10px
+    my_point.distance(new_point)            # Float: Distance between points
+    my_point.on_wall?      # Boolean: Is the point is near a wall?
+    my_point.on_top_wall?  # Boolean: Is it near the top? Same for bottom/left/right
+
+
+    # Angles and directions in TechTanks are held in Header objects
+    new_heading = RTanque::Heading.new(Math::PI)
+
+    # Your tanks body, radar and turret all have headings
+    turret_heading = self.sensors.turret_heading
+
+    # We can also create headings between Points
+    heading_points = RTanque::Heading.new_between_points(my_point, new_point)
   end
 end</code></pre></div>
 
@@ -32,53 +60,59 @@ end</code></pre></div>
     <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#movement-start">Movement</div>
     <pre id="movement-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
   def tick!
-    # Move your tank by changing its speed and direction (Heading)
+    # Move your tank by changing its speed and heading
 
-    # For example if we want to go forward we can do something like
-    self.command.speed = 5
-
-    # Tanks have a few built in constants, if you want to go max speed
-    self.command.speed = MAX_BOT_SPEED
+    # For example to go forward we can do something like
+    self.command.speed = MAX_BOT_SPEED # MAX_BOT_SPEED is a bot constant
 
 
-    # If we want to turn our tank we have to set our tanks heading (direction)
-    # For this we use the Heading class, which basically holds an angle
-    new_heading = RTanque::Heading.new(Math::PI)
-
-    # To turn our tank to a given heading we set self.command.heading
-    self.command.heading = new_heading
-    # Our tank will now turn towards new_heading at MAX_BOT_ROTATION radians each tick
-
-
-    # Locations in TechTanks are held in instances of Point
-    # Points are created from an (X, Y) pair, and an Arena reference
-    new_point = RTanque::Point.new(1, 1, self.arena)
+    # To turn our tank we set our tanks heading (direction)
     my_point = self.sensors.position
-
-    # Points contain point.x, and point.y values, and have helper functions built in
-    new_point.on_wall?			# true of point is near a wall
-    my_point.distance(new_point)	# returns distance between points
-
-
-    # We can also create headings from Points
-    heading_points = RTanque::Heading.new_between_points(my_point, new_point)
+    new_point = RTanque::Point.new(100, 100, self.arena)
+    self.command.heading = RTanque::Heading.new_between_points(my_point, new_point)
   end
 end</code></pre></div>
 
-  <div class="panel">
-    <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#movement-example">Movement Example</div>
-    <pre id="movement-example" class="panel-collapse collapse"><code class="ruby">class SampleMovement < RTanque::Bot::Brain
-  # This code will move tank close to (0, 0)
-  def tick!
-    my_position = self.sensors.position
-    my_destination = RTanque::Point.new(0, 0, self.arena)
 
-    # If our tank is further away from destination than ten pixels
-    if my_position.distance(my_destination) > 10
-      command.heading = my_position.heading(my_destination) # Heading towards destination
-      command.speed = MAX_BOT_SPEED # Move as fast as possible in direction just set
+  <div class="panel">
+    <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#finding-enemies-start">Finding Enemies</div>
+    <pre id="finding-enemies-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
+  def tick!
+    # Enemy information is obtained through the radar
+
+    # To set radar direction, set self.command.radar_heading
+    self.command.turret_heading = RTanque::Heading.new(Math::PI)
+
+    # To get the radar reflections use self.sensors.radar
+    enemy_reflections = self.sensors.radar
+
+    # This gives us an Enumarator of enemy Reflections
+    # Reflections hold distance, heading, enemy_health, enemy_heading, enemy_speed, and enemy_name
+
+    # You can do some cool things with Enumerators, for example to get the closest enemy
+    closest_reflection = enemies.min { |a,b| a.distance <=> b.distance }
+    # Learn more about Enumerators at http://ruby-doc.org/core-2.2.0/Enumerator.html
+  end
+end</code></pre></div>
+
+<div class="panel">
+  <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#shooting-start">Shooting</div>
+  <pre id="shooting-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
+  def tick!
+    # Shoot by turning and firing your turret
+
+    # Turn turret by setting self.command.turret_heading
+    self.command.turret_heading = target.heading
+
+    # If our turret is within one degree of target
+    if self.sensors.turret_heading.delta(target.heading).abs < RTanque::Heading::ONE_DEGREE
+    # Fire our turret with maximum power, MAX_FIRE_POWER is a bot constant
+      self.command.fire(MAX_FIRE_POWER)
     end
   end
 end</code></pre></div>
-    </div>
+    <%= render 'docs_sample_tanks' %>
   </div>
+  <h1>Published Code</h1>
+  <p>The code in the editor is used for testing against the sample tanks while your published code is used for real matches against other users' tanks. This lets you test out little changes while still having a fully working AI to fight against other tanks with.</p>
+</div>
