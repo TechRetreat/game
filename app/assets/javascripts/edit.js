@@ -37,39 +37,44 @@ function setVisibleRight(id){
     $(id).show();
     $(id).addClass('animated fadeIn');
 }
-function setTab(id){
+function setTabLeft(id){
     $('#open_editor').removeClass("selected");
-    $('#open_docs').removeClass("selected");
-    $('#open_start').removeClass("selected");
     $('#open_edit').removeClass("selected");
     $('#open_published').removeClass("selected");
 
     $(id).addClass("selected");
 }
+function setTabRight(id){
+    $('#open_docs').removeClass("selected");
+    $('#open_start').removeClass("selected");
+    $('#play-btn').removeClass("selected");
+
+    $(id).addClass("selected");
+}
 $('#open_editor').click(function(){
     setVisibleLeft('#editor');
-    setTab('#open_editor');
+    setTabLeft('#open_editor');
 });
 $('#open_docs').click(function(){
     setVisibleRight('#docs');
-    setTab('#open_docs');
+    setTabRight('#open_docs');
 });
 $('#open_start').click(function(){
     setVisibleRight('#getting-started');
-    setTab('#open_start');
+    setTabRight('#open_start');
 });
 $('#open_edit').click(function(){
     setVisibleLeft('#edit');
-    setTab('#open_edit');
+    setTabLeft('#open_edit');
 });
 $('#open_published').click(function(){
   setVisibleLeft('#published');
-  setTab('#open_published');
+  setTabLeft('#open_published');
 });
 setVisibleLeft('#editor');
 setVisibleRight('#getting-started');
-setTab('#open_editor');
-
+setTabLeft('#open_editor');
+setTabRight('#open_start');
 
 $('#save').click(function(){
     saveCode()
@@ -93,6 +98,7 @@ $('#publish', '#publish-btn').click(function(){
 
 $('#play-btn').click(function(){
     setVisibleRight('#play');
+    setTabRight('#play-btn');
     saveCode()
         .done(function() {
             Replay.simulate();
