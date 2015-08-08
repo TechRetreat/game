@@ -41,8 +41,11 @@ window.Replay = (function() {
             var pre = $("<pre></pre>").text(output);
             notice = notice.append(pre);
         }
-        notice.appendTo("#replay-notices #console")
+        notice.appendTo("#replay-notices #console");
         $("#replay-notices #console").scrollTop($("#replay-notices #console")[0].scrollHeight);
+
+        var logNotice = $("<div class='log-notice'></div>").text(text)
+        logNotice.appendTo("#log-console");
     };
 
     r.clearNotices = function() {

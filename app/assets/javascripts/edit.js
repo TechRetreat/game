@@ -25,6 +25,7 @@ function setVisibleLeft(id){
     $('#editor').hide();
     $('#edit').hide();
     $('#published').hide();
+    $('#logs').hide();
 
     $(id).show();
     $(id).addClass('animated fadeIn');
@@ -41,6 +42,13 @@ function setTabLeft(id){
     $('#open_editor').removeClass("selected");
     $('#open_edit').removeClass("selected");
     $('#open_published').removeClass("selected");
+    $('#open_logs').removeClass("selected");
+
+    if(id == '#open_logs') {
+        $('#replay-notices').hide();
+    } else {
+        $('#replay-notices').show();
+    }
 
     $(id).addClass("selected");
 }
@@ -78,6 +86,10 @@ $('#open_edit').click(function(){
 $('#open_published').click(function(){
   setVisibleLeft('#published');
   setTabLeft('#open_published');
+});
+$('#open_logs').click(function(){
+    setVisibleLeft('#logs');
+    setTabLeft('#open_logs');
 });
 setVisibleLeft('#editor');
 setVisibleRight('#getting-started');

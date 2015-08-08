@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#getting-started, #docs, #edit, #published {
+#getting-started, #docs, #edit, #published, #logs {
     position: absolute;
     top: 50px;
     left: 0;
@@ -116,6 +116,12 @@
     left:0;
     right:0;
     bottom:0;
+}
+
+#logs {
+  overflow-y: scroll;
+
+  .container { width: 100%; }
 }
 
 #published {
