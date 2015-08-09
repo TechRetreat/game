@@ -1,26 +1,29 @@
-<%= form_for(@tank) do |f| %>
-  <% if @tank.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tank.errors.count, "error") %> prohibited this tank from being saved:</h2>
+<div class="row">
+  <div class="col-md-5 form-auth">
+    <%= form_for(@tank) do |f| %>
+      <% if @tank.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@tank.errors.count, "error") %> prohibited this tank from being saved:</h2>
 
-      <ul>
-      <% @tank.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @tank.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name  %>
-    <br/><br/>
-    <%= f.label :color %>
-    <br/>
-    <%= f.color_field :color %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control form-auth-input"  %>
+        <br/><br/>
+        <%= f.label :color %>
+        <%= f.color_field :color %>
+      </div>
+      <div class="actions">
+        <%= f.submit class:"primary" %>
+        <%= link_to 'Tank List', tanks_path, class:"button" %>
+      </div>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit class:"primary" %>
-    <%= link_to 'Tank List', tanks_path, class:"button" %>
-  </div>
-<% end %>
+</div>
