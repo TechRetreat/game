@@ -21,6 +21,11 @@
     <%= f.select :tanks, options_for_select(Tank.all.collect {|t| [t.name, t.id]}), {}, multiple: true, style: 'width: 300px;' %>
   </div>
 
+  <div class="field">
+    <%= f.label :public, 'Make public' %>
+    <%= f.check_box :public, data:{toggle: 'toggle'} %>
+  </div>
+
   <div class="actions">
     <%= f.submit class:"primary" %>
     <%= link_to 'Match List', matches_path, class:"button" %>
