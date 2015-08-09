@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806234132) do
+ActiveRecord::Schema.define(version: 20150809172400) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
