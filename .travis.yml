@@ -1,0 +1,8 @@
+sudo: false
+cache: bundler
+bundler_args: --retry=3 --jobs=3
+language: ruby
+rvm:
+  - 2.2.2
+matrix:
+  fast_finish: true
