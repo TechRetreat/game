@@ -53,8 +53,13 @@
     #unread {
       position:fixed;
       right:16px;
-      color: rgba(233, 1, 0, 0.71);
+      color: #fff;
       pointer-events: none !important;
+    }
+
+    .bold-unread{
+      font-weight: bold;
+      color: rgba(233, 233, 0, 0.79) !important;
     }
 
     &.visible {

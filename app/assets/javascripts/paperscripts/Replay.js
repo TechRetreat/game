@@ -57,6 +57,7 @@ window.Replay = (function() {
         if(!$("#replay-notices").hasClass("visible")) {
             r.unread ++;
             $("#unread").text(r.unread);
+            $("#unread").addClass("bold-unread");
         }
     };
 
@@ -266,6 +267,7 @@ window.Replay = (function() {
             $("#replay-notices").toggleClass("visible");
             r.unread = 0;
             $("#unread").text(r.unread);
+            $("#unread").removeClass("bold-unread");
         });
         $("#replay-notices #clear-console").click(function() {
             $("#replay-notices #console .replay-notice").remove();
