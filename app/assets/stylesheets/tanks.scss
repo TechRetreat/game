@@ -218,6 +218,33 @@
   text-align: right;
 }
 
+/* docs */
+
+#docs .panel, #getting-started .panel {
+  &:hover {
+    background-color:#657b83;
+  }
+  cursor:pointer;
+  transition: all ease 0.3s;
+  .panel-heading {
+    &:hover {
+      background-color: #657b83;
+    }
+  }
+  .panel-collapse {
+    background-color: #2c4d56;
+    &:hover {
+      background-color:#345b66;
+    }
+    .list-group {
+      background-color: #2c4d56;
+      &:hover {
+        background-color:#345b66;
+      }
+    }
+  }
+}
+
 /* resizing editor */
 
 #main #handle {

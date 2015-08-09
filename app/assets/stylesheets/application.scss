@@ -537,18 +537,11 @@ a#open-menu {
 .panel {
   border: none;
   background-color: #576e75;
-  &:hover {
-    background-color:#657b83;
-  }
   border-radius: 8px !important;
-  cursor:pointer;
   transition: all ease 0.3s;
   .panel-heading {
     background-color: #576e75;
     border-radius: 8px !important;
-    &:hover {
-      background-color: #657b83;
-    }
   }
   div {
     color: #FFFFFF;
@@ -565,9 +558,6 @@ a#open-menu {
 
   .panel-collapse {
     background-color: #2c4d56;
-    &:hover {
-      background-color:#345b66;
-    }
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     .list-group {
@@ -576,9 +566,6 @@ a#open-menu {
       padding-left: 20px;
       border-radius: 0px;
       background-color: #2c4d56;
-      &:hover {
-        background-color:#345b66;
-      }
     }
     .list-group-bottom {
       border-bottom-left-radius: 8px;
