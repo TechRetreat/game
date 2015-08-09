@@ -69,16 +69,17 @@ function _Tank(options) {
     this.nameTag.fontSize = 18;
     this.nameTag.content = this.name;
 
-    this.healthBar = new Path.Line(new Point(-50, 40), new Point(50, 40));
-    this.healthBar.pivot = this.healthBar.bounds.leftCenter;
-    this.healthBar.strokeColor = "#0F0";
-    this.healthBar.strokeWidth = 3;
+    this.healthTag = new PointText(new Point(0, 45));
+    this.healthTag.justification = "center";
+    this.healthTag.fillColor = "#0F0";
+    this.healthTag.fontSize = 15;
+    this.healthTag.content = "100%";
 
     var obj = new Group({
         transformContent: false,
         children: []
     });
-    obj.addChildren([this.radar, this.body, this.gun, this.healthBar, this.nameTag]);
+    obj.addChildren([this.radar, this.body, this.gun, this.healthTag, this.nameTag]);
     obj.pivot = new Point(0, 0);
 
     this.object = Scalable.new(obj);
@@ -106,13 +107,12 @@ _Tank.prototype = {
         if (this.object.shape.position.isInside(Replay.arena.bounds)) this.object.addPosition(toCartesian(this.speed, this.heading));
     },
     setHealth: function(h) {
-        this.healthBar.scale(1/this.health);
-        this.healthBar.scale(h);
         if (h > 0.5) {
-            this.healthBar.strokeColor = lerpColor("#FFFF00", "#00FF00", map(h, 0.5, 1, 0, 1));
+            this.healthTag.fillColor = lerpColor("#FFFF00", "#00FF00", map(h, 0.5, 1, 0, 1));
         } else {
-            this.healthBar.strokeColor = lerpColor("#FF0000", "#FFFF00", map(h, 0, 0.5, 0, 1));
+            this.healthTag.fillColor = lerpColor("#FF0000", "#FFFF00", map(h, 0, 0.5, 0, 1));
         }
+        this.healthTag.content = "" + twoDecimals(h*100) + "%";
 
         if (h <= 0) {
             this.alive = false;

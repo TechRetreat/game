@@ -19,11 +19,15 @@ window.throttle = function(fn, threshhold, scope) {
             fn.apply(context, args);
         }
     };
-}
+};
+
+window.twoDecimals = function(n) {
+    return Math.round(n*100)/100;
+};
 
 window.fixAngle = function(rads) {
     return -rads + Math.PI/2; //but why? :(
-}
+};
 
 window.toDegrees = function(angle) {
     return angle / Math.PI * 180;
