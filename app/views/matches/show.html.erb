@@ -1,16 +1,24 @@
 <% if @match.status == "done" && @match.replay_data %>
-  <div class="toolbar toolbar-editor right">
+  <div class="toolbar toolbar-editor left">
     <ul>
+      <li id="restart"><i class="fa fa-refresh"></i><div class="label">Replay</div></li>
     </ul>
   </div>
   <div id="play">
     <canvas id="tranque-replay"></canvas>
+    <div id="replay-notices">
+      <div id="toolbar">TechTanks Console <a id="clear-console">Clear</a></div>
+      <div id="console"></div>
+    </div>
     <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
   </div>
   <script>
     //Env variables
     window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
     window.REPLAY_DATA = <%= @match.replay_data.html_safe %>;
+    $("#restart").click(function() {
+      Replay.rerun();
+    });
   </script>
 <% else %>
   <div class="tr-container">
