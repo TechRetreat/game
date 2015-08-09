@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150809201935) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
-    t.string   "username"
+    t.string   "username",               default: ""
     t.boolean  "dark_theme",             default: true
   end
 

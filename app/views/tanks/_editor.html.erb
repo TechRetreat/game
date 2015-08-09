@@ -47,9 +47,9 @@ end<% else %><%= @tank.code %><% end %></div>
   </div>
 </div>
 
-<i id="set-theme" title="Toggle Color Theme" class="fa fa-2x <% if current_user.dark_theme %>fa-sun-o white-icon<% else %>black-icon fa-moon-o<% end %>"></i>
-<i id="publish" title="Publish Code" class="fa fa-2x fa-cloud-upload <% if current_user.dark_theme %>white-icon<% else %>black-icon<% end %>"></i>
-<i id="save" title="Save Code" class="fa fa-2x fa-floppy-o <% if current_user.dark_theme %>white-icon<% else %>black-icon<% end %>"></i>
+<i id="set-theme" title="Toggle Color Theme" class="fa fa-2x <% if current_user.dark_theme %>fa-sun-o white-icon<% else %>black-icon fa-moon-o<% end %>" data-toggle="tooltip" data-placement="right"></i>
+<i id="publish" title="Publish Code" class="fa fa-2x fa-cloud-upload <% if current_user.dark_theme %>white-icon<% else %>black-icon<% end %>" data-toggle="tooltip" data-placement="right"></i>
+<i id="save" title="Save Code" class="fa fa-2x fa-floppy-o <% if current_user.dark_theme %>white-icon<% else %>black-icon<% end %>" data-toggle="tooltip" data-placement="right"></i>
 
 <script>
 
@@ -120,4 +120,8 @@ end<% else %><%= @tank.code %><% end %></div>
             }
         });
     };
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
