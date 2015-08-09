@@ -143,20 +143,15 @@ $('#play-btn').click(function(){
 
 $('#set-theme').click(function(){
     if($('#set-theme').hasClass('white-icon')) {
-        $('#set-theme').removeClass('white-icon');
-        $('#set-theme').removeClass('fa-sun-o');
-        $('#set-theme').addClass('fa-moon-o');
-        $('#publish').removeClass('white-icon');
-        $('#save').removeClass('white-icon');
         editor.setTheme("ace/theme/solarized_light");
     } else {
-        $('#set-theme').addClass('white-icon');
-        $('#set-theme').addClass('fa-sun-o');
-        $('#set-theme').removeClass('fa-moon-o');
-        $('#publish').addClass('white-icon');
-        $('#save').addClass('white-icon');
         editor.setTheme("ace/theme/solarized_dark");
     }
+    $("#set-theme").toggleClass('white-icon');
+    $("#set-theme").toggleClass('fa-sun-o');
+    $('#set-theme').toggleClass('fa-moon-o');
+    $('#publish').toggleClass('white-icon');
+    $('#save').toggleClass('white-icon');
 });
 
 //resize editor width
