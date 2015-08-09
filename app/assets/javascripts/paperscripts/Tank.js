@@ -63,17 +63,17 @@ function _Tank(options) {
     this.gun.pivot = new Point(0, 0);
     this.gun.addChildren([hatch, barrel]);
 
-    this.nameTag = new PointText(new Point(0, 65));
+    this.nameTag = new PointText(new Point(0, 45));
     this.nameTag.justification = "center";
     this.nameTag.fillColor = "#FFF";
     this.nameTag.fontSize = 18;
     this.nameTag.content = this.name;
 
-    this.healthTag = new PointText(new Point(0, 45));
+    this.healthTag = new PointText(new Point(0, -35));
     this.healthTag.justification = "center";
     this.healthTag.fillColor = "#0F0";
     this.healthTag.fontSize = 15;
-    this.healthTag.content = "100%";
+    this.healthTag.content = "100";
 
     var obj = new Group({
         transformContent: false,
@@ -112,7 +112,7 @@ _Tank.prototype = {
         } else {
             this.healthTag.fillColor = lerpColor("#FF0000", "#FFFF00", map(h, 0, 0.5, 0, 1));
         }
-        this.healthTag.content = "" + twoDecimals(h*100) + "%";
+        this.healthTag.content = roundTo(h*100, 1);
 
         if (h <= 0) {
             this.alive = false;
