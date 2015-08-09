@@ -619,6 +619,7 @@ a#open-menu {
 }
 
 #set-theme {
+  z-index: 20;
   position: absolute;
   top:70px;
   right:20px;
@@ -630,6 +631,7 @@ a#open-menu {
 }
 
 #save {
+  z-index: 20;
   position: absolute;
   top:110px;
   right:20px;
@@ -637,6 +639,7 @@ a#open-menu {
 }
 
 #publish {
+  z-index: 20;
   position: absolute;
   top:150px;
   right:17px;
