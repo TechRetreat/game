@@ -118,6 +118,7 @@ window.Replay = (function() {
         if (!r.running) {
             if (r.explosions.length == 0 && Object.keys(r.shells).length == 0) {
                 view.off("frame");
+                $("#endgame").show();
                 r.addNotice("End of simulation - press play again to run another!", false);
                 return;
             }
@@ -163,7 +164,7 @@ window.Replay = (function() {
                   });
                 }
                 if (tankData.hasOwnProperty("error") && tankData.error !== null) {
-                  r.addNotice(tankData.name + ": Health penalty from error '" + tankData.error.message + "'", tankData.error.backtrace, true);
+                  r.addNotice(tankData.name + ": Health penalty from error '" + tankData.error.message + "'", true, tankData.error.backtrace);
                 }
             });
             for (tank in r.tanks) {
@@ -238,6 +239,7 @@ window.Replay = (function() {
 
         r.running = false;
         view.off("frame");
+        $("#endgame").hide();
         for (shell in r.shells) {
             r.shells[shell].die();
             delete r.shells[shell];
