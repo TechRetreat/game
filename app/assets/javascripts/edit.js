@@ -15,6 +15,9 @@ function handleLeaveEvent(e) {
 
 //Refresh
 window.addEventListener("beforeunload", handleLeaveEvent());
+$(window).on('beforeunload', function(){
+    return handleLeaveEvent();
+});
 $(document).on('page:before-change', function(){
     if (unsaved) {
         return confirm(handleLeaveEvent());
