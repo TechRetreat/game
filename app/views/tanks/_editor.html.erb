@@ -31,12 +31,15 @@ end<% else %><%= @tank.code %><% end %></div>
 
 <div id="published">
   <div class="container">
-    <% if @tank.published_code %>
-        <h1>Published Code</h1>
-        <pre><code class="ruby"><%=@tank.published_code.html_safe%></code></pre>
-    <% else %>
+    <div id="published-content" style="display: <%= if @tank.published_code then 'block' else 'none' end %>;">
+      <h1>Published Code</h1>
+      <pre><code class="ruby"><%= @tank.published_code.html_safe if @tank.published_code %></code></pre>
+    </div>
+    <% unless @tank.published_code %>
+      <div id="published-empty">
         <h1>No Published Code</h1>
         <button id="publish-btn">Publish Current Code</button>
+      </div>
     <% end %>
   </div>
 </div>
@@ -108,6 +111,8 @@ end<% else %><%= @tank.code %><% end %></div>
 
     var publishCode = function() {
         var publishedCode = editor.getValue();
+        $('#published-empty').hide();
+        $('#published-content').show();
         $('#published code').text(publishedCode);
         hljs.highlightBlock($('#published code')[0]);
 

@@ -110,6 +110,7 @@ setTabLeft('#open_editor');
 setTabRight('#open_start');
 
 $('#save').click(function(){
+    console.log('umwhat');
     saveCode()
         .done(function() {
             Replay.addNotice("Code saved!");
@@ -118,8 +119,7 @@ $('#save').click(function(){
             Replay.addNotice("Error saving, try again later.");
         });
 });
-
-$('#publish', '#publish-btn').click(function(){
+$('#publish, #publish-btn').click(function(){
     publishCode()
         .done(function() {
             Replay.addNotice("Code published!");
