@@ -106,18 +106,24 @@ class GameService
 
       remaining_tanks = []
 
+      match.duration = rmatch.ticks
+
       rmatch.bots.each do |tank|
         remaining_tanks.push name: tank.name if tank.health > 0
         entry = entry_map[tank.__id__]
         entry.health = tank.health
-      end
-
-      match.entries.sort_by { |e| [-e.health, e.killed_at] }.each_with_index do |entry, index|
-        entry.place = index + 1
         entry.save
       end
 
-      match.duration = rmatch.ticks
+      match.entries.each do |entry| # Need to save them in the last step so relations work here
+        ticks_lasted = entry.killed_at || match.duration
+        entry.score = (ticks_lasted / match.duration.to_f) * 100 + entry.health + (entry.kills.count / (match.entries.length.to_f - 1)) * 100
+      end
+
+      match.entries.sort_by { |e| -e.score }.each_with_index do |entry, index|
+        entry.place = index + 1
+        entry.save
+      end
 
       if match.test
         channel.trigger :stop, tanks: remaining_tanks, ended: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809172400) do
+ActiveRecord::Schema.define(version: 20150809201935) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "tank_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150809172400) do
     t.datetime "updated_at",               null: false
     t.integer  "killed_at"
     t.integer  "killer_id"
+    t.integer  "score"
   end
 
   add_index "entries", ["killer_id"], name: "index_entries_on_killer_id"
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 20150809172400) do
     t.integer  "forked_from_id"
     t.string   "color",          default: "#BADA55"
     t.text     "published_code"
+    t.integer  "average_score"
   end
 
   add_index "tanks", ["forked_from_id"], name: "index_tanks_on_forked_from_id"

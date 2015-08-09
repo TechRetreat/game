@@ -7,4 +7,6 @@ class Entry < ActiveRecord::Base
 
   validates :tank, presence: true
   validates :match, presence: true
+
+  after_save { tank.update_averages if score_changed? }
 end

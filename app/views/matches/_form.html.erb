@@ -14,8 +14,9 @@
   <div class="field">
     <%= f.label :name, 'Match Name' %>
     <%= f.text_field :name %>
-    <br/>
-    <br/>
+  </div>
+
+  <div class="field">
     <%= f.label :tanks, 'Tanks Competing (at least two)' %>
     <br/>
     <%= f.select :tanks, options_for_select(Tank.all.collect {|t| [t.name, t.id]}), {}, multiple: true, style: 'width: 300px;' %>
@@ -25,6 +26,13 @@
     <%= f.label :public, 'Make public' %>
     <%= f.check_box :public, data:{toggle: 'toggle'} %>
   </div>
+
+  <% if current_user.admin? %>
+    <div class="field">
+      <%= f.label :max_ticks %>
+      <%= f.number_field :max_ticks, value: 5000 %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit class:"primary" %>

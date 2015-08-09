@@ -8,6 +8,18 @@ class Tank < ActiveRecord::Base
   has_many :matches, through: :entries
 
   validates :name, presence: true, obscenity: true
-  validates_format_of :name, :with => /\A\w+\z/
-  validates_format_of :color, :with => /\A#?([a-f\d]{3})|([a-f\d]{6})\z/i
+  validates_format_of :name, with: /\A\w+\z/
+  validates_format_of :color, with: /\A#?([a-f\d]{3})|([a-f\d]{6})\z/i
+
+  def update_averages
+    sum = 0
+    total = 0
+
+    entries.joins(:match).where('score IS NOT NULL').where(matches: { public: true }).order(created_at: 'DESC').limit(10).each do |entry|
+      total += 1
+      sum += entry.score
+    end
+
+    update_attributes average_score: sum / total if total > 0
+  end
 end

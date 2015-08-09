@@ -101,7 +101,9 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params[:match].permit :name, :public if params[:match]
+      param_list = [:name, :public]
+      param_list << :max_ticks if current_user.admin?
+      params[:match].permit param_list if params[:match]
     end
 
     def check_permissions
