@@ -15,6 +15,7 @@ An online AI game using RTanque
 ### Next steps
 - install dependencies with `bundle install`
 - setup the database with `rake db:create` and `rake db:migrate`
+- setup seed tanks with `rake db:seed`
 - on *nix, run `rake server` to start everything, or manually:
   - run redis `redis-server`
   - run the server with `rails c`
