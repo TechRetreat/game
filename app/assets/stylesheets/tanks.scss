@@ -50,7 +50,18 @@
     background-color: #93a1a1;
     opacity:0.7;
 
+    #unread {
+      position:fixed;
+      right:16px;
+      color: #fff;
+      pointer-events: none !important;
+    }
+
     &.visible {
+        #unread {
+          opacity:0;
+        }
+
         width:60%;
         opacity:1;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);

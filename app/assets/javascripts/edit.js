@@ -15,6 +15,9 @@ function handleLeaveEvent(e) {
 
 //Refresh
 window.addEventListener("beforeunload", handleLeaveEvent());
+$(window).on('beforeunload', function(){
+    return handleLeaveEvent();
+});
 $(document).on('page:before-change', function(){
     if (unsaved) {
         return confirm(handleLeaveEvent());
@@ -146,6 +149,8 @@ $('#set-theme').click(function(){
         $('#save').removeClass('white-icon');
 
         $('#set-theme').addClass('black-icon fa-moon-o');
+        $('#publish').addClass('black-icon');
+        $('#save').addClass('black-icon');
         editor.setTheme("ace/theme/solarized_light");
     } else {
         $('#set-theme').removeClass('black-icon');

@@ -68,6 +68,32 @@ end<% else %><%= @tank.code %><% end %></div>
     editor.on("change", function(e){
         unsaved = true;
     });
+    editor.commands.addCommand({
+        name: 'save',
+        bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
+        exec: function(editor) {
+            saveCode().done(function() {
+                Replay.addNotice("Code saved!");
+            })
+            .fail(function() {
+                Replay.addNotice("Error saving, try again later.");
+            });
+        },
+        readOnly: true
+    });
+    editor.commands.addCommand({
+        name: 'publish',
+        bindKey: {win: 'Ctrl-P', mac: 'Command-P'},
+        exec: function(editor) {
+            publishCode().done(function() {
+                Replay.addNotice("Code published!");
+            })
+            .fail(function() {
+                Replay.addNotice("Error publishing, try again later.");
+            });
+        },
+        readOnly: true
+    });
 
     var saveCode = function() {
         return $.ajax({

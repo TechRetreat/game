@@ -19,6 +19,8 @@ window.Replay = (function() {
     r.explosions = [];
     r.shells = {};
 
+    r.unread = 0;
+
     r.transformPoint = function(point) {
         return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
     };
@@ -27,7 +29,7 @@ window.Replay = (function() {
         return l*r.scale;
     };
 
-    r.addNotice = function(text, backtrace, output) {
+    r.addNotice = function(text, showConsole, backtrace, output) {
         var notice = $("<div class='replay-notice'></div>").text(text)
         if (backtrace) {
             var stack = $("<ol></ol>");
@@ -41,11 +43,21 @@ window.Replay = (function() {
             var pre = $("<pre></pre>").text(output);
             notice = notice.append(pre);
         }
+        if(showConsole) {
+            $("#replay-notices").addClass("visible");
+            r.unread = 0;
+            $("#unread").text(r.unread);
+        }
         notice.appendTo("#replay-notices #console");
         $("#replay-notices #console").scrollTop($("#replay-notices #console")[0].scrollHeight);
 
         var logNotice = $("<div class='log-notice'></div>").text(text)
         logNotice.appendTo("#log-console");
+
+        if(!$("#replay-notices").hasClass("visible")) {
+            r.unread ++;
+            $("#unread").text(r.unread);
+        }
     };
 
     r.clearNotices = function() {
@@ -106,7 +118,7 @@ window.Replay = (function() {
         if (!r.running) {
             if (r.explosions.length == 0 && Object.keys(r.shells).length == 0) {
                 view.off("frame");
-                r.addNotice("End of simulation - press play again to run another!");
+                r.addNotice("End of simulation - press play again to run another!", false);
                 return;
             }
             r.interpolateObjects();
@@ -147,11 +159,11 @@ window.Replay = (function() {
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) tank.setPosition(new Point(tankData.x, tankData.y));
                 if (tankData.hasOwnProperty("logs") && tankData.logs.length > 0) {
                   tankData.logs.forEach(function(log){
-                    r.addNotice(tankData.name + ": " + log);
+                    r.addNotice(tankData.name + ": " + log, false);
                   });
                 }
                 if (tankData.hasOwnProperty("error") && tankData.error !== null) {
-                  r.addNotice(tankData.name + ": Health penalty from error '" + tankData.error.message + "'", tankData.error.backtrace);
+                  r.addNotice(tankData.name + ": Health penalty from error '" + tankData.error.message + "'", tankData.error.backtrace, true);
                 }
             });
             for (tank in r.tanks) {
@@ -211,7 +223,7 @@ window.Replay = (function() {
 
     r.die = function(data) {
         r.running = false;
-        r.addNotice("Simulation aborted: " + data.error, data.backtrace, data.output);
+        r.addNotice("Simulation aborted: " + data.error, true, data.backtrace, data.output);
     }
 
     r.batch = function(data) {
@@ -250,6 +262,8 @@ window.Replay = (function() {
 
         $("#replay-notices #toolbar").click(function() {
             $("#replay-notices").toggleClass("visible");
+            r.unread = 0;
+            $("#unread").text(r.unread);
         });
         $("#replay-notices #clear-console").click(function() {
             $("#replay-notices #console .replay-notice").remove();
@@ -258,13 +272,13 @@ window.Replay = (function() {
         if (window.REPLAY_DATA) {
             r.rerun();
         } else {
-            r.addNotice("Press the play button to start a simulation!");
+            r.addNotice("Press the play button to start a simulation!", false);
         }
     };
 
     r.simulate = function() {
         r.clear();
-        r.addNotice("Running simulation...");
+        r.addNotice("Running simulation...", false);
         $.ajax("/matches.json", {
             type: "POST",
             data: {
@@ -275,7 +289,7 @@ window.Replay = (function() {
             },
             dataType: "json",
             success: function(data) {
-                r.addNotice("Sending simulation data...");
+                r.addNotice("Sending simulation data...", false);
                 //Show loading spinner
                 $(".spinner").show();
                 r.dispatcher = new WebSocketRails(window.WEBSOCKETS_HOST);
@@ -292,7 +306,7 @@ window.Replay = (function() {
 
     r.rerun = function() {
         r.clear();
-        r.addNotice("Running simulation...");
+        r.addNotice("Running simulation...", false);
         r.init(window.REPLAY_DATA.start);
         r.batch(window.REPLAY_DATA);
     };

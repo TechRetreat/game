@@ -625,6 +625,10 @@ a#open-menu {
   transition: color 0.5s ease;
 }
 
+.fa-sun-o {
+  right:18px !important;
+}
+
 #save {
   position: absolute;
   top:110px;
@@ -635,7 +639,7 @@ a#open-menu {
 #publish {
   position: absolute;
   top:150px;
-  right:18px;
+  right:17px;
   transition: color 0.5s ease;
 }
 

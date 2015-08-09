@@ -21,8 +21,9 @@ window.throttle = function(fn, threshhold, scope) {
     };
 };
 
-window.twoDecimals = function(n) {
-    return Math.round(n*100)/100;
+window.roundTo = function(n, decimals) {
+    var factor = Math.pow(10, decimals);
+    return Math.round(n*factor)/factor;
 };
 
 window.fixAngle = function(rads) {
