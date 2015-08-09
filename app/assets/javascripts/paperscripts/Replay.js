@@ -19,6 +19,8 @@ window.Replay = (function() {
     r.explosions = [];
     r.shells = {};
 
+    r.unread = 0;
+
     r.transformPoint = function(point) {
         return new Point(point.x*r.scale + r.arena.bounds.left, point.y*r.scale + r.arena.bounds.top);
     };
@@ -43,12 +45,19 @@ window.Replay = (function() {
         }
         if(showConsole) {
             $("#replay-notices").addClass("visible");
+            r.unread = 0;
+            $("#unread").text(r.unread);
         }
         notice.appendTo("#replay-notices #console");
         $("#replay-notices #console").scrollTop($("#replay-notices #console")[0].scrollHeight);
 
         var logNotice = $("<div class='log-notice'></div>").text(text)
         logNotice.appendTo("#log-console");
+
+        if(!$("#replay-notices").hasClass("visible")) {
+            r.unread ++;
+            $("#unread").text(r.unread);
+        }
     };
 
     r.clearNotices = function() {
@@ -253,6 +262,8 @@ window.Replay = (function() {
 
         $("#replay-notices #toolbar").click(function() {
             $("#replay-notices").toggleClass("visible");
+            r.unread = 0;
+            $("#unread").text(r.unread);
         });
         $("#replay-notices #clear-console").click(function() {
             $("#replay-notices #console .replay-notice").remove();
@@ -261,7 +272,7 @@ window.Replay = (function() {
         if (window.REPLAY_DATA) {
             r.rerun();
         } else {
-            r.addNotice("Press the play button to start a simulation!", true);
+            r.addNotice("Press the play button to start a simulation!", false);
         }
     };
 

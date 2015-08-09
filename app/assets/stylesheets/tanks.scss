@@ -50,7 +50,15 @@
     background-color: #93a1a1;
     opacity:0.7;
 
+    #unread {
+      margin-left: 17px;
+    }
+
     &.visible {
+        #unread {
+          visibility: hidden;
+        }
+
         width:60%;
         opacity:1;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
