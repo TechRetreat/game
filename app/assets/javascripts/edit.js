@@ -142,14 +142,18 @@ $('#set-theme').click(function(){
     if($('#set-theme').hasClass('white-icon')) {
         $('#set-theme').removeClass('white-icon');
         $('#set-theme').removeClass('fa-sun-o');
-        $('#set-theme').addClass('fa-moon-o');
         $('#publish').removeClass('white-icon');
         $('#save').removeClass('white-icon');
+
+        $('#set-theme').addClass('black-icon fa-moon-o');
         editor.setTheme("ace/theme/solarized_light");
     } else {
-        $('#set-theme').addClass('white-icon');
-        $('#set-theme').addClass('fa-sun-o');
+        $('#set-theme').removeClass('black-icon');
         $('#set-theme').removeClass('fa-moon-o');
+        $('#publish').removeClass('black-icon');
+        $('#save').removeClass('black-icon');
+
+        $('#set-theme').addClass('fa-sun-o white-icon');
         $('#publish').addClass('white-icon');
         $('#save').addClass('white-icon');
         editor.setTheme("ace/theme/solarized_dark");

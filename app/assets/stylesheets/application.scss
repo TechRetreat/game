@@ -605,26 +605,38 @@ a#open-menu {
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 
+.white-icon {
+  color: #fff;
+  &:hover {
+    color: #586e75;
+  }
+}
+
+.black-icon {
+  &:hover {
+    color: #586e75;
+  }
+}
+
 #set-theme {
   position: absolute;
   top:70px;
   right:20px;
+  transition: color 0.5s ease;
 }
 
 #save {
   position: absolute;
   top:110px;
   right:20px;
+  transition: color 0.5s ease;
 }
 
 #publish {
   position: absolute;
   top:150px;
   right:18px;
-}
-
-.white-icon {
-  color: #fff;
+  transition: color 0.5s ease;
 }
 
 @-webkit-keyframes sk-rotateplane {
