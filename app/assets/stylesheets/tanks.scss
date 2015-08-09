@@ -51,12 +51,15 @@
     opacity:0.7;
 
     #unread {
-      margin-left: 17px;
+      position:fixed;
+      right:16px;
+      color: #fff;
+      pointer-events: none !important;
     }
 
     &.visible {
         #unread {
-          visibility: hidden;
+          opacity:0;
         }
 
         width:60%;
