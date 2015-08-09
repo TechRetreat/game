@@ -9,6 +9,29 @@
 <div id="play">
   <div class="spinner"></div>
   <canvas id="tranque-replay"></canvas>
+  <div id="endgame" style="display:none">
+    <div id="stats">
+      <h2>Game Over</h2>
+      <table id="tanks">
+          <tr>
+            <th>Tank</th>
+            <th>Points</th>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>42</td>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>42</td>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>42</td>
+          </tr>
+      </table>
+    </div>
+  </div>
   <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
 </div>
 

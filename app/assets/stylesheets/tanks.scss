@@ -296,3 +296,46 @@
         top:0;
     }
 }
+
+/* Game over screen */
+#endgame {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(0,0,0,0.3);
+    color:#FFF;
+    text-align:center;
+    padding:40px;
+    line-height:100%;
+
+    #stats {
+        display:inline-block;
+        padding:20px;
+        border-radius:8px;
+        vertical-align:middle;
+    }
+
+    #tanks {
+        display:inline-block;
+        tr:nth-of-type(1) {
+            height:30px;
+            border-bottom: 1px solid #FFF;
+        }
+        td, th {
+            padding:8px;
+            min-width:75px;
+            text-align:right;
+        }
+        th {
+            font-size:15px;
+        }
+        td:nth-of-type(1), th:nth-of-type(1) {
+            text-align:left;
+            font-weight:bold;
+            padding-right: 0;
+        }
+    }
+}
+
