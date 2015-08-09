@@ -110,7 +110,6 @@ setTabLeft('#open_editor');
 setTabRight('#open_start');
 
 $('#save').click(function(){
-    console.log('umwhat');
     saveCode()
         .done(function() {
             Replay.addNotice("Code saved!");
