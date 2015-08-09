@@ -51,9 +51,13 @@ function setTabLeft(id){
     }
 
     if(id == '#open_editor') {
-        $('#set_theme').show();
+        $('#set-theme').show();
+        $('#save').show();
+        $('#publish').show();
     } else {
-        $('#set_theme').hide();
+        $('#set-theme').hide();
+        $('#save').hide();
+        $('#publish').hide();
     }
 
     $(id).addClass("selected");
