@@ -1,9 +1,7 @@
 <div class="toolbar toolbar-editor left">
   <ul>
     <li id="open_edit"><i class="fa fa-cogs"></i><div class="label">Tank Settings</div></li>
-    <li id="save"><i class="fa fa-floppy-o"></i><div class="label">Save</div></li>
     <li id="open_editor"><i class="fa fa-terminal"></i><div class="label">Edit Code</div></li>
-    <li id="publish"><i class="fa fa-cloud-upload"></i><div class="label">Publish</div></li>
     <li id="open_published"><i class="fa fa-file-code-o"></i><div class="label">View Published Code</div></li>
     <li id="open_logs"><i class="fa fa-list-alt"></i><div class="label">View Logs</div></li>
   </ul>
@@ -49,10 +47,15 @@ end<% else %><%= @tank.code %><% end %></div>
   </div>
 </div>
 
+
 <div id="set_theme">
-  <i id="set_light" class="fa fa-2x fa-sun-o" style="color: #fff;"></i>
+  <i id="set_light" class="fa fa-2x fa-sun-o"></i>
   <i id="set_dark" class="fa fa-2x fa-moon-o"></i>
 </div>
+
+<i id="set-theme" class="fa fa-2x <% if current_user.dark_theme %>fa-sun-o white-icon<% else %>fa-moon-o<% end %>"></i>
+<i id="publish" class="fa fa-2x fa-cloud-upload <% if current_user.dark_theme %>white-icon<% end %>"></i>
+<i id="save" class="fa fa-2x fa-floppy-o <% if current_user.dark_theme %>white-icon<% end %>"></i>
 
 <script>
 

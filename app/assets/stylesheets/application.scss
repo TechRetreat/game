@@ -605,10 +605,26 @@ a#open-menu {
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 
-#set_theme {
+#set-theme {
   position: absolute;
   top:70px;
   right:20px;
+}
+
+#save {
+  position: absolute;
+  top:110px;
+  right:20px;
+}
+
+#publish {
+  position: absolute;
+  top:150px;
+  right:18px;
+}
+
+.white-icon {
+  color: #fff;
 }
 
 @-webkit-keyframes sk-rotateplane {
