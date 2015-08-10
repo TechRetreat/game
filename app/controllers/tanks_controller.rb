@@ -7,7 +7,7 @@ class TanksController < ApplicationController
   # GET /tanks
   # GET /tanks.json
   def index
-    @tanks = Tank.order(:name).page(params[:page]).per(10000)
+    @tanks = Tank.order(:name).page(params[:page])
     @title = 'Listing tanks'
   end
 
