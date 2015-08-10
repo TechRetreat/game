@@ -11,9 +11,11 @@
             <div class="tank-data">
               <h3><%= tank.name %></h3>
               <p>
-                <%= link_to 'Code', edit_tank_path(tank), class:"button primary" %>
                 <%= link_to 'Info', tank, class:"button" %>
-                <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+                <% if user_owns_tank tank %>
+                    <%= link_to 'Code', edit_tank_path(tank), class:"button primary" %>
+                    <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+                <% end %>
               </p>
             </div>
             <div class="rank">
