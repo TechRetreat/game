@@ -168,6 +168,7 @@ $('#set-theme').click(function(){
 
 var isResizing = false,
     lastDownX = 0;
+var minimumSize = 250;
 
 $(function () {
     var container = $('#main'),
@@ -188,7 +189,11 @@ $(function () {
             return;
 
         var offsetRight = container.width() - (e.clientX - container.offset().left);
-
+        if(offsetRight < minimumSize) {
+            offsetRight = minimumSize;
+        } else if(offsetRight > container.width() - minimumSize) {
+            offsetRight = container.width() - minimumSize;
+        }
         left.css('right', offsetRight);
         right.css('width', offsetRight);
         Replay.adjustSize();
