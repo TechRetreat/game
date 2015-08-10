@@ -78,6 +78,7 @@ end
 
 group :test do
   gem 'factory_girl'
+  gem 'coveralls', require: false
 end
 
 source 'https://rails-assets.org' do

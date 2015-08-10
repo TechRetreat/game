@@ -6,6 +6,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  # Test Suite coverage check
+  require 'coveralls'
+  Coveralls.wear!
+
   # Add more helper methods to be used by all tests here...
   FactoryGirl.define do
     factory :user do
