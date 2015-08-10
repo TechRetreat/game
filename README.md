@@ -1,4 +1,4 @@
-# TechTanks [![Build Status](https://travis-ci.org/TechRetreat/game.svg?branch=master)](https://travis-ci.org/TechRetreat/game)
+# TechTanks [![Build Status](https://travis-ci.org/TechRetreat/game.svg?branch=master)](https://travis-ci.org/TechRetreat/game) [![Coverage Status](https://coveralls.io/repos/TechRetreat/game/badge.svg?branch=master&service=github)](https://coveralls.io/github/TechRetreat/game?branch=master)
 
 An online AI game using RTanque
 
