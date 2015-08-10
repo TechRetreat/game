@@ -1,6 +1,13 @@
 require 'test_helper'
 
-class TanksControllerTest < ActionController::TestCase
+class TanksControllerTest < ActionController::TestCase include Devise::TestHelpers
+  def setup
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    user = FactoryGirl.create(:admin)
+    user.confirm!
+    sign_in user
+  end
+
   setup do
     @tank = tanks(:one)
   end

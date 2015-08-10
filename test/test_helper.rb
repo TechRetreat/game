@@ -7,4 +7,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  FactoryGirl.define do
+    factory :account do
+      email { "fake@account.com" }
+      password "password"
+      password_confirmation "password"
+      confirmed_at Date.today
+    end
+  end
 end

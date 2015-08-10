@@ -1,6 +1,14 @@
 require 'test_helper'
 
-class MatchesControllerTest < ActionController::TestCase
+class MatchesControllerTest < ActionController::TestCase include Devise::TestHelpers
+
+  def setup
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    user = FactoryGirl.create(:admin)
+    user.confirm!
+    sign_in user
+  end
+
   setup do
     @match = matches(:one)
   end
