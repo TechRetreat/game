@@ -21,3 +21,6 @@ An online AI game using RTanque
   - run the server with `rails c`
   - run resque with `QUEUE=* rake environment resque:work`
 - run `rake stop` to kill background Rails or Redis processes left running
+
+###Profiling
+- To profile, run `rails server -r profile`

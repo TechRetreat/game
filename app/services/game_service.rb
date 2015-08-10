@@ -8,6 +8,7 @@ class GameService
   @queue = :match_runner
 
   def perform
+
     match_id = options['match_id'].to_i
 
     puts match_id
@@ -132,7 +133,6 @@ class GameService
         match.replay_data = replay_data.to_json
         match.status = "done"
       end
-
       match.save
     end
 
@@ -148,7 +148,6 @@ class GameService
       entry.killed_at = match.ticks
       entry.killer = entry_map[tank.killer.__id__] if tank.killer
     end
-
     runner.start false
   end
 

@@ -6,6 +6,10 @@ test:
   :host: localhost
   :port: 6379
 
+profile:
+  :host: localhost
+  :port: 6379
+
 production:
   :host: <%= ENV['REDIS_IP'] %>
   :port: <%= ENV['REDIS_PORT'] %>
