@@ -32,10 +32,12 @@ class TanksController < ApplicationController
   def edit
     id = params[:id]
     tank = Tank.find(id)
-    unless user_can_edit current_user, tank
-      render text: 'permission error'
+    if user_can_edit current_user, tank
+      @title = 'Editing ' + tank.name
+    else
+      @code = 'Permission error'
+      render :template => 'errors/error'
     end
-    @title = 'Editing ' + tank.name
   end
 
   # POST /tanks
@@ -74,12 +76,14 @@ class TanksController < ApplicationController
   # DELETE /tanks/1.json
   def destroy
     if @tank.owner.nil? or !@tank.owner.id.equal? current_user.id
-      render text: 'permission error'
-    end
-    @tank.destroy
-    respond_to do |format|
-      format.html { redirect_to tanks_url, notice: 'Tank was successfully destroyed.' }
-      format.json { head :no_content }
+      @code = 'Permission error'
+      render :template => 'errors/error'
+    else
+      @tank.destroy
+      respond_to do |format|
+        format.html { redirect_to tanks_url, notice: 'Tank was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

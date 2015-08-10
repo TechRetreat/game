@@ -8,7 +8,5 @@ matrix:
   fast_finish: true
 services:
   - redis-server
-addons:
-  postgresql: "9.3"
 after_script:
   - "rake db:seed"

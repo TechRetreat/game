@@ -1,6 +1,7 @@
 require 'test_helper'
 
-class SiteControllerTest < ActionController::TestCase include Devise::TestHelpers
+class SiteControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   def setup
     @request.env["devise.mapping"] = Devise.mappings[:admin]
     user = FactoryGirl.create(:admin)

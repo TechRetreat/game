@@ -1,6 +1,7 @@
 require 'test_helper'
 
-class MatchesControllerTest < ActionController::TestCase include Devise::TestHelpers
+class MatchesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
 
   def setup
     @request.env["devise.mapping"] = Devise.mappings[:admin]
