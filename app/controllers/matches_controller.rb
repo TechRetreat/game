@@ -71,17 +71,17 @@ class MatchesController < ApplicationController
 
   # PATCH/PUT /matches/1
   # PATCH/PUT /matches/1.json
-  def update
-    respond_to do |format|
-      if @match.update(match_params)
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
-        format.json { render :show, status: :ok, location: @match }
-      else
-        format.html { render :edit }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #  respond_to do |format|
+  #    if @match.update(match_params)
+  #      format.html { redirect_to @match, notice: 'Match was successfully updated.' }
+  #      format.json { render :show, status: :ok, location: @match }
+  #    else
+  #      format.html { render :edit }
+  #      format.json { render json: @match.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  # end
 
   # DELETE /matches/1
   # DELETE /matches/1.json
@@ -107,7 +107,7 @@ class MatchesController < ApplicationController
     end
 
     def check_permissions
-      unless @match.public or user_can_view(current_user, @match)
+      unless @match.public or user_can_view(current_user, @match) or current_user.admin?
         respond_to do |format|
           format.html { redirect_to :back, notice: 'You are not allowed to do that.' }
           format.json { render json: { error: 'You are not allowed to do that.' }, status: :forbidden }

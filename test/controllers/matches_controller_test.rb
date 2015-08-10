@@ -12,6 +12,8 @@ class MatchesControllerTest < ActionController::TestCase
 
   setup do
     @match = matches(:one)
+    port = `lsof -p #{Process.pid} -ai TCP -as TCP:LISTEN -Fn | grep ^n | cut -c 4- | uniq`.strip
+    @request.env['HTTP_REFERER'] = 'localhost:' + port
   end
 
   test "should get index" do
@@ -27,7 +29,7 @@ class MatchesControllerTest < ActionController::TestCase
 
   test "should create match" do
     assert_difference('Match.count') do
-      post :create, match: {  }
+      post :create, match: {:tanks => Tank.where(owner: nil, public: true), :test =>true}
     end
 
     assert_redirected_to match_path(assigns(:match))

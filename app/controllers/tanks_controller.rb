@@ -75,15 +75,15 @@ class TanksController < ApplicationController
   # DELETE /tanks/1
   # DELETE /tanks/1.json
   def destroy
-    if @tank.owner.nil? or !@tank.owner.id.equal? current_user.id
-      @code = 'Permission error'
-      render :template => 'errors/error'
-    else
+    if !@tank.owner.nil? and @tank.owner.id.equal? current_user.id or current_user.admin?
       @tank.destroy
       respond_to do |format|
         format.html { redirect_to tanks_url, notice: 'Tank was successfully destroyed.' }
         format.json { head :no_content }
       end
+    else
+      @code = 'Permission error'
+      render :template => 'errors/error'
     end
   end
 
