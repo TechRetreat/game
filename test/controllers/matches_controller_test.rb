@@ -29,7 +29,7 @@ class MatchesControllerTest < ActionController::TestCase
 
   test "should create match" do
     assert_difference('Match.count') do
-      post :create, match: {:tanks => Tank.where(owner: nil, public: true), :test =>true}
+      post :create, match: {tanks: Tank.where(owner: nil, public: true).pluck(:id), test: true}
     end
 
     assert_redirected_to match_path(assigns(:match))
@@ -43,11 +43,6 @@ class MatchesControllerTest < ActionController::TestCase
   test "should get edit" do
     get :edit, id: @match
     assert_response :success
-  end
-
-  test "should update match" do
-    patch :update, id: @match, match: {  }
-    assert_redirected_to match_path(assigns(:match))
   end
 
   test "should destroy match" do

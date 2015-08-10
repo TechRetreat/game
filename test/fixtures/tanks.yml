@@ -1,7 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+camper:
+  name: 'camper'
+  public: true
+  code: ""
+circle:
+  name: 'circle'
+  public: true
+  code: ""
+dank:
+  name: 'circle'
+  public: true
+  code: ""
 one:
-  name: cooltank
-
+  name: 'one'
+  public: false
+  code: ""
 two:
-  name: anothertank
+  name: 'two'
+  public: false
+  code: ""
