@@ -76,6 +76,10 @@ group :production, :test do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'factory_girl'
+end
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-paper'

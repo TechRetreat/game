@@ -10,7 +10,5 @@ services:
   - redis-server
 addons:
   postgresql: "9.3"
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - "rake db:schema:load"
+after_script:
   - "rake db:seed"

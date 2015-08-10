@@ -96,6 +96,8 @@ GEM
       sexp_processor (~> 4.0)
     eventmachine (1.0.8)
     execjs (2.5.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faye-websocket (0.10.0)
@@ -283,6 +285,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise
+  factory_girl
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
