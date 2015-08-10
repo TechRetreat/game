@@ -13,7 +13,7 @@ class TanksController < ApplicationController
 
   #GET /my_tanks
   def my_tanks
-    @tanks = Tank.mine(current_user).order(:created_at).page params[:page]
+    @tanks = Tank.mine(current_user).order(:updated_at).page params[:page]
     @title = 'My tanks'
   end
 
