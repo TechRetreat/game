@@ -11,6 +11,12 @@ class TanksController < ApplicationController
     @title = 'Listing tanks'
   end
 
+  #GET /my_tanks
+  def my_tanks
+    @tanks = Tank.mine(current_user).order(:created_at).page params[:page]
+    @title = 'My tanks'
+  end
+
   # GET /tanks/1
   # GET /tanks/1.json
   def show

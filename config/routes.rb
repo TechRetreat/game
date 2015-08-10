@@ -2,13 +2,20 @@ require "resque_web"
 
 Rails.application.routes.draw do
   resources :matches
-  resources :tanks
   devise_for :users
   #root 'site#index'
   root to: 'site#index'
   resources :matches
 
   get '/about' => 'site#about'
+
+  # Tanks
+  concern :paginatable do
+    get '(page/:page)', :action => :index, :on => :collection, :as => ''
+  end
+
+  resources :tanks, :concerns => :paginatable
+  get '/my_tanks' => "tanks#my_tanks", :concerns => :paginatable
 
   # resque-web config
   resque_web_constraint = lambda do |request|
@@ -25,9 +32,6 @@ Rails.application.routes.draw do
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
   end
-
-  # THIS IS TO TEST CUSTOM ERROR ROUTES, PLEASE REMOVE LATER
-  get '/errortest' => "errors#show", :code => 400
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

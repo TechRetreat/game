@@ -11,6 +11,8 @@ class Tank < ActiveRecord::Base
   validates_format_of :name, with: /\A\w+\z/
   validates_format_of :color, with: /\A#?([a-f\d]{3})|([a-f\d]{6})\z/i
 
+  scope :mine, -> (user) { where owner: user }
+
   def update_averages
     sum = 0
     total = 0
