@@ -70,7 +70,7 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-group :production do
+group :production, :test do
   # Use pg as the database for Active Record
   gem 'pg'
   gem 'rails_12factor'
