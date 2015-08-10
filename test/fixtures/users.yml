@@ -7,5 +7,5 @@
 yu:
   username: Yu Chen Hou
   email: knowhere@gmail.com
-  password: nicetry
+  encrypted_password: nicetry
 
