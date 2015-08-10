@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  robot_id: 
+  tank_id:
   match_id: 
   place: 1
   health: 1
 
 two:
-  robot_id: 
+  tank_id:
   match_id: 
   place: 1
   health: 1
