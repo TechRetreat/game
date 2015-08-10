@@ -43,7 +43,7 @@ Rails.application.configure do
   config.middleware.delete Rack::Lock
 
   # Sendgrid config
-  # config.action_mailer.default_url_options = { :host => 'staging.techtanks.techretreat.ca' }
+  # config.action_mailer.default_url_options = { :host => 'techtanks.techretreat.ca' }
   # ActionMailer::Base.delivery_method = :smtp
   # ActionMailer::Base.smtp_settings = {
   #    :address        => "smtp.sendgrid.net",

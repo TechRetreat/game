@@ -37,7 +37,7 @@
   </div>
   <script>
     //Env variables
-    window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'staging.techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
+    window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
     window.REPLAY_DATA = <%= @match.replay_data.html_safe %>;
     $("#restart").click(function() {
       Replay.rerun();
