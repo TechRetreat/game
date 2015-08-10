@@ -13,8 +13,11 @@ class ActiveSupport::TestCase
       password "password"
       password_confirmation "password"
       confirmed_at Date.today
+      username "user"
       factory :admin do
           admin true
+          email { "admin@account.com" }
+          username "admin"
         end
     end
   end

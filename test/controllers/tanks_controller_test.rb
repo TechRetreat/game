@@ -4,13 +4,14 @@ class TanksControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   def setup
     @request.env["devise.mapping"] = Devise.mappings[:admin]
-    user = FactoryGirl.create(:admin)
-    user.confirm!
-    sign_in user
+    admin = FactoryGirl.create(:admin)
+    admin.confirm!
+    sign_in admin
   end
 
   setup do
     @tank = tanks(:one)
+    @public = tanks(:camper)
   end
 
   test "should get index" do
@@ -53,5 +54,25 @@ class TanksControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to tanks_path
+  end
+
+  test "should not destroy tank" do
+    user = FactoryGirl.create(:user)
+    user.confirm!
+    sign_in user
+
+    assert_difference('Tank.count', 0) do
+      delete :destroy, id: @tank
+    end
+  end
+
+  test "should not destroy public tank" do
+    user = FactoryGirl.create(:user)
+    user.confirm!
+    sign_in user
+
+    assert_difference('Tank.count', 0) do
+      delete :destroy, id: @public
+    end
   end
 end
