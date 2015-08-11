@@ -181,6 +181,17 @@ window.Replay = (function() {
         }
     };
 
+    r.setRanks = function(ranks) {
+        $("#tanks").empty();
+        var header = $("<tr><th>Tank</th><th>Points</th></tr>").appendTo("#tanks");
+        ranks.forEach(function(entry) {
+            var row = $("<tr></tr>");
+            var name = $("<td></td>").text(entry.name).appendTo(row);
+            var name = $("<td></td>").text(entry.score).appendTo(row);
+            row.appendTo("#tanks");
+        });
+    };
+
     r.init = function(setup) {
 
         //Hide loading spinner
@@ -230,6 +241,10 @@ window.Replay = (function() {
 
     r.batch = function(data) {
         r.incoming = r.incoming.concat(data.batch);
+    };
+
+    r.ranks = function(data) {
+        r.setRanks(data.ranks);
     };
 
     r.clear = function() {
@@ -301,6 +316,7 @@ window.Replay = (function() {
                     r.channel = r.dispatcher.subscribe_private("match."+data.id);
                     r.channel.bind("start", r.init);
                     r.channel.bind("stop", r.end);
+                    r.channel.bind("ranks", r.ranks);
                     r.channel.bind("batch", r.batch);
                     r.channel.bind("error", r.die);
                 };
@@ -310,6 +326,7 @@ window.Replay = (function() {
 
     r.rerun = function() {
         r.clear();
+        r.setRanks(window.REPLAY_DATA.ranks);
         r.addNotice("Running simulation...", false);
         r.init(window.REPLAY_DATA.start);
         r.batch(window.REPLAY_DATA);

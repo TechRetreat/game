@@ -126,9 +126,16 @@ class GameService
         entry.save
       end
 
+      ranks = match.entries.sort_by{ |e| -e.score }.map do |e|
+        {name: e.tank.name, score: e.score}
+      end
+
       if match.test
+        channel.trigger :ranks, ranks: ranks
         channel.trigger :stop, tanks: remaining_tanks, ended: true
       else
+        replay_data["ranks"] = ranks
+        tick_data_array.push({tanks: remaining_tanks, ended: true})
         replay_data["batch"] = tick_data_array
         match.replay_data = replay_data.to_json
         match.status = "done"
