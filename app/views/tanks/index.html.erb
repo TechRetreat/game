@@ -19,7 +19,7 @@
             </p>
           </div>
           <div class="rank">
-            #42
+              <%= tank.average_score || "<span class='unranked'>Unranked</span>".html_safe %>
           </div>
         </div>
       <% end %>
