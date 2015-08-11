@@ -18,7 +18,7 @@
               <% end %>
 
             </p>
-            Last Updated on <%= distance_of_time_in_words(tank.updated_at, Time.now) %>
+            Last Updated <%= distance_of_time_in_words(tank.updated_at, Time.now) %> ago
           </div>
           <div class="rank">
             <%= tank.average_score || "<span class='unranked'>-</span>".html_safe %>
