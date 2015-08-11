@@ -6,22 +6,24 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <% @tanks.each do |tank| %>
-          <div class="row list-item" data-no-turbolink>
-            <div class="tank-color" style="background-color:<%= tank.color.html_safe %>"></div>
-            <div class="tank-data">
-              <h3><%= tank.name %></h3>
-              <p>
-                <%= link_to 'Info', tank, class:"button" %>
-                <% if user_owns_tank tank %>
-                    <%= link_to 'Code', edit_tank_path(tank), class:"button primary" %>
-                    <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
-                <% end %>
-              </p>
-            </div>
-            <div class="rank">
-              #42
-            </div>
+        <div class="row list-item" data-no-turbolink>
+          <div class="tank-color" style="background-color:<%= tank.color.html_safe %>"></div>
+          <div class="tank-data">
+            <h3><%= tank.name %></h3>
+            <p>
+              <%= link_to 'Info', tank, class:"button" %>
+              <% if user_owns_tank tank %>
+                  <%= link_to 'Code', edit_tank_path(tank), class:"button primary" %>
+                  <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button" %>
+              <% end %>
+
+            </p>
+            Last Updated on <%= tank.updated_at.asctime %>
           </div>
+          <div class="rank">
+            #42
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
