@@ -27,6 +27,8 @@ $button_color: #6c71c4;
 $button_hover_color: #268bd2;
 $button_primary_color: #2aa198;
 $button_primary_hover_color: #3accc1;
+$button_danger_color: #a60b0b;
+$button_danger_hover_color: #ae2323;
 $button_text_color: #FFF;
 
 
@@ -54,6 +56,12 @@ $button_text_color: #FFF;
         background-color: $button_primary_color;
         &:hover {
             background-color: $button_primary_hover_color;
+        }
+    }
+    &.danger {
+        background-color: $button_danger_color;
+        &:hover {
+            background-color: $button_danger_hover_color;
         }
     }
 }
