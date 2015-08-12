@@ -3,13 +3,14 @@ require 'json'
 require 'open3'
 
 class GameService
-  include Resque::Plugins::Status
+  include Sidekiq::Worker
+  # include Resque::Plugins::Status
 
-  @queue = :match_runner
+  # @queue = :match_runner
 
-  def perform
+  def perform(match_id)
 
-    match_id = options['match_id'].to_i
+    # match_id = options['match_id'].to_i
 
     puts match_id
 
@@ -34,7 +35,8 @@ class GameService
     Kernel.srand match.seed || random_val
     runner = RTanque::Runner.new 800, 600, match.max_ticks || 5000
 
-    match.attributes = options.slice(:max_ticks, :seed)
+    match.max_ticks ||= 5000
+    match.seed ||= random_val
 
     match.entries.each do |entry|
       # Check syntax
@@ -158,18 +160,18 @@ class GameService
     runner.start false
   end
 
-  def self.on_failure(e, uuid, options)
-    match_id = options['match_id'].to_i
-    match = Match.find match_id
-    if match.test
-      channel = WebsocketRails["match.#{options[:match_id]}"]
-      channel.make_private
-      channel.trigger :error,
-        error: "#{e}",
-        backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
-    else
-      match.status = "runtime_error"
-      match.save
-    end
-  end
+  # def self.on_failure(e, uuid, options)
+  #   match_id = options['match_id'].to_i
+  #   match = Match.find match_id
+  #   if match.test
+  #     channel = WebsocketRails["match.#{options[:match_id]}"]
+  #     channel.make_private
+  #     channel.trigger :error,
+  #       error: "#{e}",
+  #       backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
+  #   else
+  #     match.status = "runtime_error"
+  #     match.save
+  #   end
+  # end
 end

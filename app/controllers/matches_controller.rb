@@ -49,16 +49,17 @@ class MatchesController < ApplicationController
 
         unless current_match_id.nil?
           # if yes kill it
-          Resque::Plugins::Status::Hash.kill(current_match_id)
+          # Resque::Plugins::Status::Hash.kill(current_match_id)
           puts 'killed match uuid: ' + current_match_id
         end
 
-        job_id = GameService.create(match_id:@match.id)
-        status = Resque::Plugins::Status::Hash.get(job_id)
+        # job_id = GameService.create(match_id:@match.id)
+        # status = Resque::Plugins::Status::Hash.get(job_id)
+        #
+        # $user_matches.set(current_user.id, status['uuid'])
 
-        $user_matches.set(current_user.id, status['uuid'])
-
-        puts 'saved match uuid: ' + status['uuid'] + ' to user ' + current_user.id.to_s
+        # puts 'saved match uuid: ' + status['uuid'] + ' to user ' + current_user.id.to_s
+        GameService.perform_async @match.id
 
         format.html { redirect_to @match, notice: 'Match was successfully created and queued.' }
         format.json { render :show, status: :created, location: @match }
