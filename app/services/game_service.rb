@@ -9,6 +9,10 @@ class GameService
 
   def perform
 
+    Resque.after_fork = Proc.new do
+      Rails.logger.auto_flushing = true
+    end
+
     match_id = options['match_id'].to_i
 
     puts match_id
@@ -155,7 +159,7 @@ class GameService
       entry.killed_at = match.ticks
       entry.killer = entry_map[tank.killer.__id__] if tank.killer
     end
-    runner.start false
+    runner.start
   end
 
   def self.on_failure(e, uuid, options)
