@@ -146,6 +146,8 @@ GEM
     obscenity (1.0.2)
     octokit (2.7.2)
       sawyer (~> 0.5.2)
+    oj (2.12.12)
+    oj_mimic_json (1.0.1)
     orm_adapter (0.5.0)
     partialruby (0.3.0)
       ruby2ruby (~> 2)
@@ -311,6 +313,8 @@ DEPENDENCIES
   jquery-turbolinks
   kaminari
   obscenity
+  oj
+  oj_mimic_json
   pg
   rails (= 4.2.3)
   rails-assets-bootstrap!
