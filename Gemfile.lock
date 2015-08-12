@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: 5656d32c22d19a96fad223a598de168e4e2d3b90
+  revision: d9bca0f4a4ac07249e9b90c3d46d6b1b7ccb3da6
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
@@ -87,7 +87,7 @@ GEM
       thor (= 0.18.1)
     daemons (1.2.3)
     debug_inspector (0.0.2)
-    devise (3.5.1)
+    devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
