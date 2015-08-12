@@ -35,7 +35,7 @@ class MatchesController < ApplicationController
     params[:match][:tanks].each do |tank_id|
       unless tank_id.empty? # get around strange rails thing with multi selects
         tank = Tank.find tank_id
-        if tank.public || user_can_view(current_user, tank)
+        if tank.public || user_can_view(current_user, tank) || current_user.admin?
           @match.tanks << tank
         end
       end
