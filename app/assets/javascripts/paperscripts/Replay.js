@@ -1,3 +1,4 @@
+//= skip
 //= require ./helpers
 //= require ./Scalable
 //= require ./Explosion
