@@ -44,7 +44,7 @@
     transition: all 0.3s ease;
     padding:0;
     bottom:0;
-    right:0;
+    //right:0;
     width: 200px;
     z-index: 2000;
     background-color: #93a1a1;
@@ -67,7 +67,7 @@
           opacity:0;
         }
 
-        width:60%;
+        width:50%;
         opacity:1;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
