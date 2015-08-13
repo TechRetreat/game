@@ -51,7 +51,7 @@ gem 'redis'
 gem 'redis-namespace'
 
 gem 'sweet-alert-confirm'
-gem 'shikashi', :git => 'git://github.com/xLegoz/shikashi.git', :branch => "master"
+
 # web interface to debug resque workers
 gem 'resque-web', require: 'resque_web'
 

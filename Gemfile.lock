@@ -1,11 +1,10 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: eb1a0b6febdd30a243551ec6d2da93ef6aeba9e1
+  revision: 5905a43e0a0718eae11ad8056b831f1779704802
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
       octokit (~> 2.7.0)
-      shikashi
       thor (~> 0.18.1)
 
 GIT
@@ -21,15 +20,6 @@ GIT
       redis
       redis-objects
       thin
-
-GIT
-  remote: git://github.com/xLegoz/shikashi.git
-  revision: 35517aa804db6d0194c7afe43d4b9c4dab830a85
-  branch: master
-  specs:
-    shikashi (0.1)
-      evalhook (~> 0.6.0)
-      getsource (~> 0.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -107,9 +97,6 @@ GEM
     em-synchrony (1.0.4)
       eventmachine (>= 1.0.0.beta.1)
     erubis (2.7.0)
-    evalhook (0.6.0)
-      partialruby (~> 0.3)
-      sexp_processor (~> 4.0)
     eventmachine (1.0.8)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -121,7 +108,6 @@ GEM
       websocket-driver (>= 0.5.1)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
-    getsource (0.2.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hiredis (0.6.0)
@@ -158,9 +144,6 @@ GEM
     oj (2.12.12)
     oj_mimic_json (1.0.1)
     orm_adapter (0.5.0)
-    partialruby (0.3.0)
-      ruby2ruby (~> 2)
-      ruby_parser (~> 3)
     pg (0.18.2)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -229,11 +212,6 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-prof (0.15.8)
-    ruby2ruby (2.2.0)
-      ruby_parser (~> 3.1)
-      sexp_processor (~> 4.0)
-    ruby_parser (3.7.1)
-      sexp_processor (~> 4.1)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -249,7 +227,6 @@ GEM
       rdoc (~> 4.0)
     sendgrid (1.2.0)
       json
-    sexp_processor (4.6.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -339,7 +316,6 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sendgrid
-  shikashi!
   spring
   sqlite3
   sweet-alert-confirm
