@@ -17,6 +17,7 @@
                 <%= link_to 'Destroy', tank, method: :delete, data: { confirm: 'Are you sure?' }, class:"button danger" %>
               <% end %>
             </p>
+            Last updated <%= distance_of_time_in_words(tank.updated_at, Time.now) %> ago
           </div>
           <div class="rank">
               <%= tank.average_score || "<span class='unranked'>-</span>".html_safe %>
