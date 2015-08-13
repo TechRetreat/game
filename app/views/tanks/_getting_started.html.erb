@@ -8,6 +8,42 @@
 
   <div class="panel-group" role="tablist" aria-multiselectable="true">
     <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#bot-syntax">Ruby Syntax</div>
+      <pre id="bot-syntax" class="panel-collapse collapse"><code class="ruby"># If statements are defined as follows
+if condition
+  action
+elsif condition-two
+  action-two
+else
+ action-three
+end
+# Or
+action if condition
+
+# While statements have very similar syntax
+while condition
+ action
+end
+
+# Functions are defined with
+def method_one(argument-one, argument-two)
+ action
+end
+# Or
+def method_two
+ action
+end
+# And are called as
+method_one(arg-one, arg-two)
+method_two
+
+# For enumerators, iterate with
+list.each { |item|
+  # Use item to get object at this position
+  action(item)
+}</code></pre></div>
+
+    <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#bot-start">Bot Basics</div>
       <pre id="bot-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
   # The tick! function is where you will control your bot
