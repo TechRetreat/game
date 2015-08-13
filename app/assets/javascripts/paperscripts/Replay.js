@@ -304,6 +304,7 @@ window.Replay = (function() {
             data: {
                 match: {
                     tanks: window.MATCH_TANKS,
+                    current_user_id: window.USER_ID,
                     test: true
                 }
             },

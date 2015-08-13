@@ -14,6 +14,9 @@ class GameService
     end
 
     match_id = options['match_id'].to_i
+    if options['current_user_id']
+      current_user_id = options['current_user_id'].to_i
+    end
 
     puts match_id
 
@@ -40,6 +43,8 @@ class GameService
 
     match.attributes = options.slice(:max_ticks, :seed)
 
+    owned_tank = nil
+
     match.entries.each do |entry|
       # Check syntax
       if match.test
@@ -65,6 +70,9 @@ class GameService
 
       tank = runner.add_brain_code(code, 1, entry.tank.name)[0]
       entry_map[tank.__id__] = entry
+      if !entry.tank.owner.nil? and entry.tank.owner.id == current_user_id
+        owned_tank = entry.tank
+      end
     end
 
     runner.match.before_start = proc do |rt_match|
@@ -90,11 +98,9 @@ class GameService
           e = bot.error
           error = {message: e.message, backtrace: e.backtrace.select{|line| line.starts_with?('sandbox')}.map{|line| line.gsub(/sandbox\-\d+:/, 'Line ')}}
         end
-
         bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
           turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs, error: error
       end
-
       tick_data_array.push tick: rt_match.ticks, tanks: bot_array, created: shells_created, destroyed: shells_destroyed
 
       if rt_match.ticks % 5 == 4 && match.test
@@ -104,6 +110,10 @@ class GameService
 
       shells_created = []
       shells_destroyed = []
+
+      if match.test and !owned_tank.nil? and owned_tank.dead
+        match.end
+      end
     end
 
     runner.match.after_stop = proc do |rmatch|
