@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: fdad62ed1eac9ab515135c1bc73f35e59e407d3f
+  revision: eb1a0b6febdd30a243551ec6d2da93ef6aeba9e1
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: git://github.com/xLegoz/shikashi.git
-  revision: e459dd53a9a4414aa3c1657d1d6506726c4527af
+  revision: 35517aa804db6d0194c7afe43d4b9c4dab830a85
   branch: master
   specs:
     shikashi (0.1)
