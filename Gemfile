@@ -34,8 +34,8 @@ gem 'oj_mimic_json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-gem 'rtanque', github: 'TechRetreat/RTanque'
+gem 'rtanque', :path => '/Users/yuchen.hou/Desktop/projects/RTanque'
+#gem 'rtanque', github: 'TechRetreat/RTanque'
 gem 'devise'
 gem 'websocket-rails', github: 'g3d/websocket-rails'
 gem 'resque'

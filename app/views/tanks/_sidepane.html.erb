@@ -7,6 +7,13 @@
 </div>
 
 <div id="play">
+  <div class="bot-selector">
+    <% @sample_tanks.each_with_index do |tank, index| %>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="tank_selector" class="tank_selector" value="<%= tank.id %>" <%= 'checked' if index==0%>> <%= tank.name %>
+        </label>
+    <% end %>
+  </div>
   <div class="spinner"></div>
   <canvas id="tranque-replay"></canvas>
   <div id="endgame" style="display:none">
@@ -46,7 +53,16 @@
 <script>
   //Env variables
   window.WEBSOCKETS_HOST = "<%= ENV['RAILS_ENV'] == 'production' ? 'techtanks.techretreat.ca' : 'localhost:3000' %>/websocket";
-  window.MATCH_TANKS = [
-      <%= Tank.where(owner: nil, public: true).push(@tank).map(&:id).join(", ").html_safe %>
-  ];
+  $('.tank_selector').click(function(){
+      generateTankList();
+  });
+  function generateTankList(){
+      var tankArray = $('input:checkbox:checked.tank_selector').map(function () {
+          return this.value;
+      }).get();
+      console.log(tankArray);
+      tankArray.push(<%=@tank.id%>);
+      window.MATCH_TANKS = tankArray;
+  }
+  generateTankList();
 </script>

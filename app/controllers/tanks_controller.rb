@@ -34,6 +34,7 @@ class TanksController < ApplicationController
     tank = Tank.find(id)
     if user_can_edit current_user, tank
       @title = 'Editing ' + tank.name
+      @sample_tanks = Tank.where(owner: nil, public: true)
     else
       @code = 'Permission error'
       render :template => 'errors/error'
