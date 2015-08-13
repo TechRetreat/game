@@ -22,6 +22,15 @@ GIT
       redis-objects
       thin
 
+GIT
+  remote: git://github.com/xLegoz/shikashi.git
+  revision: e459dd53a9a4414aa3c1657d1d6506726c4527af
+  branch: master
+  specs:
+    shikashi (0.1)
+      evalhook (~> 0.6.0)
+      getsource (~> 0.2.2)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -241,9 +250,6 @@ GEM
     sendgrid (1.2.0)
       json
     sexp_processor (4.6.0)
-    shikashi (0.6.0)
-      evalhook (>= 0.6.0)
-      getsource (>= 0.1.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -333,6 +339,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sendgrid
+  shikashi!
   spring
   sqlite3
   sweet-alert-confirm
