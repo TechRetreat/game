@@ -12,6 +12,7 @@ window.Replay = (function() {
     r.height = 700;
     r.center = new Point(r.width/2, r.height/2);
     r.lastTick = 0;
+    r.playFrame = true
     r.incoming = [];
     r.running = false;
 
@@ -117,6 +118,11 @@ window.Replay = (function() {
     };
 
     r.animate = function() {
+        r.playFrame = !r.playFrame;
+        if(r.playFrame) {
+            return;
+        }
+
         if (!r.running) {
             if (r.explosions.length == 0 && Object.keys(r.shells).length == 0) {
                 view.off("frame");
