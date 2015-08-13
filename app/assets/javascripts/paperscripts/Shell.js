@@ -32,7 +32,7 @@ _Shell.prototype = {
 window.Shell = (function() {
     var s = {};
 
-    s.SPEED_FACTOR = 4.5;
+    s.SPEED_FACTOR = 4.5 * 2;
 
     var path = new Path({
         segments: [
