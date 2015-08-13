@@ -27,7 +27,7 @@ window.roundTo = function(n, decimals) {
 };
 
 window.fixAngle = function(rads) {
-    return -rads + Math.PI/2; //but why? :(
+    return -rads - Math.PI/2; //but why? :(
 };
 
 window.toDegrees = function(angle) {

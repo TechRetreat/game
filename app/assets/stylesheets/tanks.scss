@@ -283,7 +283,7 @@
 #left {
   position: absolute;
   top: 0;
-  left: 75px;
+  left: 0;
   right: 50%;
   bottom: 0;
 }
@@ -318,6 +318,10 @@
     padding:40px;
     line-height:100%;
 
+    &.test {
+        top:50px;
+    }
+
     #stats {
         display:inline-block;
         padding:20px;
@@ -351,5 +355,7 @@
   width:100%;
   background: #839496;
   padding: 15px;
+  height:50px;
+  line-height:20px;
 }
 
