@@ -49,9 +49,12 @@ list.each { |item|
   # The tick! function is where you will control your bot
   # This code gets called every tick (or frame)
   def tick!
-    # Use self.sensors to get information about your own, and enemy bots
+    # Use self.sensors to get information about your own, or enemy bots
     # We will go over all the information you have access to later
-    health = self.sensors.health
+    if self.sensors.ticks == 1
+      # Log to the console using puts
+      puts 'Running'
+    end
 
     # Enemy information is obtained through the radar
     enemy_reflections = self.sensors.radar
