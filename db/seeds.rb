@@ -119,7 +119,7 @@ class CircleBot < RTanque::Bot::Brain
 end
 }
 
-Tank.create name: 'search-and-destroy', public: true, code: %{
+Tank.create name: 'SeekAndDestroy', public: true, code: '
 # Seek&Destroy: Sample Bot
 #
 # Enjoys following and target and firing many shots
@@ -172,4 +172,4 @@ class SeekAndDestroy < RTanque::Bot::Brain
     lock
   end
 end
-}
+'
