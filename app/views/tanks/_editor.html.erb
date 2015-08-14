@@ -8,20 +8,26 @@
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code
 class Circle &lt; RTanque::Bot::Brain
-   # the tick! function is called every frame. This is the heart of your tank.
+   # The tick! function is called every frame. (30x per second)
+   # This is the heart of your tank.
    def tick!
-      #This calls the make_circles function
+      # This calls the make_circles function below
       make_circles
-      #tells the tank to fire with a fire power of 0.25
-      command.fire 0.25
-      # The higher the fire power, the stronger and faster your bullets are, but they fire at a slower rate.
+
+      # Tells the tank to fire with a power of 2
+      # Power must be between 1 and 5
+      command.fire 2
+      # The higher the power, the stronger/faster your bullets are
+      # Higher power shots take more energy, and need to recharge
    end
 
    def make_circles
       #Tells the tank to move at the maximum speed
       command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+
       #Tells the tank to move 85 degrees clockwise. (0 is top)
       command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
+
       #Tells the turret to move 85 degrees counterclockwise. (0 is top)
       command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
    end
