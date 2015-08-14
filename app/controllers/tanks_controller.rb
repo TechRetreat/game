@@ -50,7 +50,7 @@ class TanksController < ApplicationController
 
     respond_to do |format|
       if @tank.save
-        format.html { redirect_to @tank, notice: 'Tank was successfully created.' }
+        format.html { redirect_to edit_tank_url(id: @tank.id), notice: 'Tank was successfully created.' }
         format.json { render :show, status: :created, location: @tank }
       else
         format.html { render :new }
