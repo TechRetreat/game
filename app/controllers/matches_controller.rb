@@ -22,7 +22,7 @@ class MatchesController < ApplicationController
     if current_user.admin?
       @tanks = Tank.all
     else
-      @tanks = Tank.where "public = 1 OR (owner_type = 'User' AND owner_id = '#{current_user.id}')"
+      @tanks = Tank.where "public = ? OR (owner_type = 'User' AND owner_id = ?)", true, current_user.id
     end
   end
 
