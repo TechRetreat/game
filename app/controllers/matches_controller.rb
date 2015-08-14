@@ -19,6 +19,11 @@ class MatchesController < ApplicationController
   # GET /matches/new
   def new
     @match = Match.new
+    if current_user.admin?
+      @tanks = Tank.all
+    else
+      @tanks = Tank.where "public = 1 OR (owner_type = 'User' AND owner_id = '#{current_user.id}')"
+    end
   end
 
   # GET /matches/1/edit
