@@ -7,17 +7,24 @@
   </ul>
 </div>
 <div id="editor"><% if @tank.code.nil? %>#Example code
-class <%= @tank.name.gsub(/\s+/, '_').camelize %> < RTanque::Bot::Brain
-  def tick!
-    make_circles
-    command.fire 0.25
-  end
+class Circle &lt; RTanque::Bot::Brain
+   # the tick! function is called every frame. This is the heart of your tank.
+   def tick!
+      #This calls the make_circles function
+      make_circles
+      #tells the tank to fire with a fire power of 0.25
+      command.fire 0.25
+      # The higher the fire power, the stronger and faster your bullets are, but they fire at a slower rate.
+   end
 
-  def make_circles
-    command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
-    command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
-    command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
-  end
+   def make_circles
+      #Tells the tank to move at the maximum speed
+      command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+      #Tells the tank to move 85 degrees clockwise. (0 is top)
+      command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
+      #Tells the turret to move 85 degrees counterclockwise. (0 is top)
+      command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
+   end
 end<% else %><%= @tank.code %><% end %></div>
 <%# Extra spacing above gets added to the code %>
 
