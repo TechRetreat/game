@@ -296,6 +296,9 @@ window.Replay = (function() {
         $("#replay-notices #clear-console").click(function() {
             $("#replay-notices #console .replay-notice").remove();
         });
+        $("#replay-notices #switch-sides").click(function() {
+            $("#replay-notices").toggleClass("notices-right");
+        });
 
         if (window.REPLAY_DATA) {
             r.rerun();
