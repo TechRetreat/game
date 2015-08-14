@@ -359,3 +359,16 @@
   line-height:20px;
 }
 
+.ace_scrollbar {
+    &::-webkit-scrollbar {
+        box-sizing:content-box;
+        width: 15px;
+        height:15px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-clip: padding-box;
+        border-radius: 10px;
+        border: 5px solid rgba(0, 0, 0, 0);
+        background-color: rgba(0,0,0,0.3);
+    }
+}
