@@ -20,6 +20,10 @@
         <%= f.label :color %>
         <%= f.color_field :color %>
       </div>
+        <div class="field">
+          <%= f.label :public %><br />
+          <%= f.check_box :public, data:{toggle: 'toggle'} %>
+        </div>
       <div class="actions">
         <%= f.submit class:"primary" %>
         <%= link_to 'Tank List', tanks_path, class:"button" %>
