@@ -138,5 +138,19 @@ MAX_TURRET_ROTATION     # Maximum Turret rotation per tick
 MAX_RADAR_ROTATION      # Maximum Radar rotation per tick
 SHELL_SPEED_FACTOR      # Speed = Power * SHELL_SPEED_FACTOR</code></pre>
     </div>
+
+    <div class="panel">
+      <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#constants-doc-changes">Changes from RTanque Documentation</div>
+      <pre id="constants-doc-changes" class="panel-collapse collapse"><code class="ruby"># A few changes have been made for TechTanks from RTanque
+
+# You no longer need to include BrainHelper to use constants or at_tick_interval
+
+# REFLECTIONS
+Reflection.name has been renamed to Reflection.enemy_name
+Reflection.enemy_health (Float) has been added
+Reflection.enemy_heading (Heading) has been added
+Reflection.enemy_speed (Float) has been added
+Reflection.enemy_position (Point) has been added</code></pre>
+    </div>
   </div>
 </div>
