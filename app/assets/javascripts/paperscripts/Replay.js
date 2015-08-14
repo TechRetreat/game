@@ -144,7 +144,7 @@ window.Replay = (function() {
                         id: shell.id,
                         heading: fixAngle(shell.heading),
                         speed: shell.speed,
-                        position: new Point(r.width-shell.x, r.height-shell.y)
+                        position: new Point(shell.x, r.height-shell.y)
                     }));
                 });
             }
@@ -166,7 +166,7 @@ window.Replay = (function() {
                 if (tankData.hasOwnProperty("turret_heading")) tank.setTurretHeading(fixAngle(tankData.turret_heading));
                 if (tankData.hasOwnProperty("radar_heading")) tank.setRadarHeading(fixAngle(tankData.radar_heading));
                 if (tankData.hasOwnProperty("x") && tankData.hasOwnProperty("y")) {
-                    tank.setPosition(new Point(r.width-tankData.x, r.height-tankData.y));
+                    tank.setPosition(new Point(tankData.x, r.height-tankData.y));
                 }
                 if (tankData.hasOwnProperty("logs") && tankData.logs.length > 0) {
                   tankData.logs.forEach(function(log){
