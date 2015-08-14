@@ -54,8 +54,8 @@ class MatchesController < ApplicationController
 
         unless current_match_id.nil?
           # if yes kill it
-          Resque::Plugins::Status::Hash.kill(current_match_id)
-          puts 'killed match uuid: ' + current_match_id
+          # Resque::Plugins::Status::Hash.kill(current_match_id)
+          # puts 'killed match uuid: ' + current_match_id
         end
 
         job_id = GameService.create(match_id:@match.id)
