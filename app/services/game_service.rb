@@ -96,7 +96,7 @@ class GameService
         error = nil
         if bot.error
           e = bot.error
-          error = {message: e.message, backtrace: e.backtrace.select{|line| line.starts_with?('sandbox')}.map{|line| line.gsub(/sandbox\-\d+:/, 'Line ')}}
+          error = {message: e.message, backtrace: e.backtrace.select{|line| line.starts_with?('(eval)')}.map{|line| line.gsub(/\(eval\):/, 'Line ')}}
         end
         bot_array.push name: bot.name, x: bot.position.x, y: bot.position.y, health: bot.health, heading: bot.heading.to_f,
           turret_heading: bot.turret.heading.to_f, radar_heading: bot.radar.heading.to_f, logs: bot.logs, error: error
@@ -180,7 +180,7 @@ class GameService
       channel.make_private
       channel.trigger :error,
         error: "#{e}",
-        backtrace: e.backtrace.select{|line| line.starts_with?("sandbox")}.map{|line| line.gsub(/sandbox\-\d+:/, "Line ")}
+        backtrace: e.backtrace.select{|line| line.starts_with?('(eval)')}.map{|line| line.gsub(/\(eval\):/, 'Line ')}
     else
       match.status = "runtime_error"
       match.save
