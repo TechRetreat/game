@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :tanks, 'Tanks Competing (at least two)' %>
+    <%= f.label :tanks, 'Tanks Competing (at least two). Hold cmd on Mac and ctrl on Windows to multi-select.' %>
     <br/>
     <%= f.select :tanks, options_for_select(Tank.all.collect {|t| [t.name, t.id]}), {}, multiple: true, style: 'width: 300px;' %>
   </div>
