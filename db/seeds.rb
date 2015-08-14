@@ -39,7 +39,7 @@ class Camper < RTanque::Bot::Brain
     self.command.radar_heading = target.heading
     self.command.turret_heading = target.heading
     if self.sensors.turret_heading.delta(target.heading).abs < turret_fire_range
-      self.command.fire(MAX_FIRE_POWER)
+      self.command.fire(RTanque::Bot::BrainHelper::MAX_FIRE_POWER)
     end
   end
 
@@ -65,7 +65,7 @@ class Camper < RTanque::Bot::Brain
   def move_to_corner
     if self.corner
       command.heading = self.sensors.position.heading(RTanque::Point.new(*self.corner, self.arena))
-      command.speed = MAX_BOT_SPEED
+      command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
     end
   end
 
@@ -115,6 +115,61 @@ class CircleBot < RTanque::Bot::Brain
     command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
     command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
     command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
+  end
+end
+}
+
+Tank.create name: 'search-and-destroy', public: true, code: %{
+# Seek&Destroy: Sample Bot
+#
+# Enjoys following and target and firing many shots
+class SeekAndDestroy < RTanque::Bot::Brain
+  include RTanque::Bot::BrainHelper
+
+  TURRET_FIRE_RANGE = RTanque::Heading::ONE_DEGREE * 5.0
+
+  def tick!
+    @desired_heading ||= nil
+
+    if (lock = self.get_radar_lock)
+      self.destroy_lock(lock)
+      @desired_heading = nil
+    else
+      self.seek_lock
+    end
+  end
+
+  def destroy_lock(reflection)
+    command.heading = reflection.heading
+    command.radar_heading = reflection.heading
+    command.turret_heading = reflection.heading
+    command.speed = reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_BOT_SPEED : RTanque::Bot::BrainHelper::MAX_BOT_SPEED / 2.0
+    if (reflection.heading.delta(sensors.turret_heading)).abs < TURRET_FIRE_RANGE
+      command.fire(reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_FIRE_POWER : RTanque::Bot::BrainHelper::MIN_FIRE_POWER)
+    end
+  end
+
+  def seek_lock
+    if sensors.position.on_wall?
+      @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
+    end
+    command.radar_heading = sensors.radar_heading + RTanque::Bot::BrainHelper::MAX_RADAR_ROTATION
+    command.speed = 1
+    if @desired_heading
+      command.heading = @desired_heading
+      command.turret_heading = @desired_heading
+    end
+  end
+
+  def get_radar_lock
+    @locked_on ||= nil
+    lock = if @locked_on
+      sensors.radar.find { |reflection| reflection.enemy_name == @locked_on } || sensors.radar.first
+    else
+      sensors.radar.first
+    end
+    @locked_on = lock.enemy_name if lock
+    lock
   end
 end
 }
