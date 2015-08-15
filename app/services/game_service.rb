@@ -53,6 +53,8 @@ class GameService
         code = entry.tank.published_code || entry.tank.code
       end
 
+      code = append_tank_id_to_code(code, entry.tank.id)
+
       code_to_check = code.gsub("^#\!.+$", "\n") # Make sure the script doesn't actually get executed from a shebang line
       check_result = ""
       Open3.popen2e("ruby", "-c", "-e", code_to_check) { |i,o|
@@ -185,5 +187,12 @@ class GameService
       match.status = "runtime_error"
       match.save
     end
+  end
+
+  def append_tank_id_to_code(code, tank_id)
+    tokens = code.split
+    class_location = tokens.find_index("class")
+    class_name = tokens[class_location + 1]
+    code.gsub(class_name, class_name + tank_id.to_s)
   end
 end
