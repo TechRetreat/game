@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: 56bc1efb2e7bb63a027fcfb25660bab71e6a2e94
+  revision: 85187384c1300737af85d37c06367972066bdda0
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
@@ -254,7 +254,7 @@ GEM
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     spring (1.3.6)
-    sprockets (3.3.0)
+    sprockets (3.3.1)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
       actionpack (>= 3.0)
