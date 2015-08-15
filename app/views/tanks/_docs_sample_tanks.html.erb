@@ -6,16 +6,20 @@
 #
 # Enjoys sitting in the corners and firing powerful shots
 class SampleCamper < RTanque::Bot::Brain
+  def name
+    'Camper'
+  end
+
   def corners
-      [:NE, :NE, :SE, :SW]
+    [:NE, :NE, :SE, :SW]
   end
 
   def turret_fire_range
-      RTanque::Heading::ONE_DEGREE * 1.0
+    RTanque::Heading::ONE_DEGREE * 1.0
   end
 
   def switch_corner_tick_range
-      (600..1000)
+    (600..1000)
   end
 
   def tick!
@@ -31,7 +35,7 @@ class SampleCamper < RTanque::Bot::Brain
     self.command.radar_heading = target.heading
     self.command.turret_heading = target.heading
     if self.sensors.turret_heading.delta(target.heading).abs < turret_fire_range
-      self.command.fire(MAX_FIRE_POWER)
+      self.command.fire(RTanque::Bot::BrainHelper::MAX_FIRE_POWER)
     end
   end
 
@@ -57,7 +61,7 @@ class SampleCamper < RTanque::Bot::Brain
   def move_to_corner
     if self.corner
       command.heading = self.sensors.position.heading(RTanque::Point.new(*self.corner, self.arena))
-      command.speed = MAX_BOT_SPEED
+      command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
     end
   end
 
@@ -92,10 +96,13 @@ end</code></pre>
 #
 # Enjoys following and target and firing many shots
 class SampleSeekAndDestroy < RTanque::Bot::Brain
+  include RTanque::Bot::BrainHelper
+
   TURRET_FIRE_RANGE = RTanque::Heading::ONE_DEGREE * 5.0
 
   def tick!
     @desired_heading ||= nil
+
     if (lock = self.get_radar_lock)
       self.destroy_lock(lock)
       @desired_heading = nil
@@ -108,9 +115,9 @@ class SampleSeekAndDestroy < RTanque::Bot::Brain
     command.heading = reflection.heading
     command.radar_heading = reflection.heading
     command.turret_heading = reflection.heading
-    command.speed = reflection.distance > 200 ? MAX_BOT_SPEED : MAX_BOT_SPEED / 2.0
+    command.speed = reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_BOT_SPEED : RTanque::Bot::BrainHelper::MAX_BOT_SPEED / 2.0
     if (reflection.heading.delta(sensors.turret_heading)).abs < TURRET_FIRE_RANGE
-      command.fire(reflection.distance > 200 ? MAX_FIRE_POWER : MIN_FIRE_POWER)
+      command.fire(reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_FIRE_POWER : RTanque::Bot::BrainHelper::MIN_FIRE_POWER)
     end
   end
 
@@ -118,7 +125,7 @@ class SampleSeekAndDestroy < RTanque::Bot::Brain
     if sensors.position.on_wall?
       @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
     end
-    command.radar_heading = sensors.radar_heading + MAX_RADAR_ROTATION
+    command.radar_heading = sensors.radar_heading + RTanque::Bot::BrainHelper::MAX_RADAR_ROTATION
     command.speed = 1
     if @desired_heading
       command.heading = @desired_heading
@@ -129,18 +136,24 @@ class SampleSeekAndDestroy < RTanque::Bot::Brain
   def get_radar_lock
     @locked_on ||= nil
     lock = if @locked_on
-      sensors.radar.find { |reflection| reflection.name == @locked_on } || sensors.radar.first
+      sensors.radar.find { |reflection| reflection.enemy_name == @locked_on } || sensors.radar.first
     else
       sensors.radar.first
     end
-    @locked_on = lock.name if lock
+    @locked_on = lock.enemy_name if lock
     lock
   end
 end</code></pre>
 
     <div class="list-group list-group-bottom" data-toggle="collapse" data-target="#circle-code"><i class="fa fa-caret-right"></i> Circle</div>
-    <pre id="circle-code" class="panel-collapse collapse"><code class="ruby">#Example code
-class SampleCircle < RTanque::Bot::Brain
+    <pre id="circle-code" class="panel-collapse collapse"><code class="ruby"># CircleBot
+#
+# Spins and shoots in circles
+class SampleCircleBot < RTanque::Bot::Brain
+  def name
+    'CircleBot'
+  end
+
   def tick!
     make_circles
     command.fire 0.25
