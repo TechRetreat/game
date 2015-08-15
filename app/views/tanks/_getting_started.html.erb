@@ -138,13 +138,16 @@ end</code></pre></div>
   <pre id="shooting-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
   def tick!
     # Shoot by turning and firing your turret
+    # Your turret has energy that slowly regenerates each tick -
+    # the more energy you use the more damage the shot does.
+    # You can either shoot faster with low power, or slower with high power.
 
     # Turn turret by setting self.command.turret_heading
     self.command.turret_heading = target.heading
 
     # If our turret is within one degree of target
     if self.sensors.turret_heading.delta(target.heading).abs < RTanque::Heading::ONE_DEGREE
-    # Fire our turret with maximum power, MAX_FIRE_POWER is a bot constant
+      # Fire our turret with maximum power, MAX_FIRE_POWER is a bot constant
       self.command.fire(MAX_FIRE_POWER)
     end
   end
