@@ -170,6 +170,7 @@ class GameService
       entry.health = 0
       entry.killed_at = match.ticks
       entry.killer = entry_map[tank.killer.__id__] if tank.killer
+      entry.save
     end
     runner.start
   end

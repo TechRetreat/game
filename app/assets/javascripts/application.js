@@ -26,6 +26,7 @@
 //= require paper
 //= require websocket_rails/main
 //= require highlightjs
+//= require select2
 
 $(document).ready(function() {
   $('pre code').each(function(i, block) {

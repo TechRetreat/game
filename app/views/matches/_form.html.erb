@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :tanks, 'Tanks Competing (at least two). Hold cmd on Mac and ctrl on Windows to multi-select.' %>
+    <%= f.label :tanks, 'Tanks Competing (at least two).' %>
     <br/>
     <%= f.select :tanks, options_for_select(@tanks.collect {|t| ["#{t.name} - #{t.owner_name}", t.id]}), {}, multiple: true, style: 'width: 300px;' %>
   </div>
@@ -39,3 +39,8 @@
     <%= link_to 'Match List', matches_path, class:"button" %>
   </div>
 <% end %>
+<script>
+  $(function(){
+    $('#match_tanks').select2();
+  });
+</script>

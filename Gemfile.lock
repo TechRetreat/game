@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/TechRetreat/RTanque.git
-  revision: a8cb35b1dcbbebf2ff697b3821b1221aee750321
+  revision: be72c14f36eb3aaa1a696296c0edda43cc5b7d02
   specs:
     rtanque (0.1.2)
       configuration (~> 1.3.2)
@@ -176,6 +176,7 @@ GEM
     rails-assets-highlightjs (8.7.0)
     rails-assets-jquery (2.1.4)
     rails-assets-paper (0.9.23)
+    rails-assets-select2 (4.0.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -322,6 +323,7 @@ DEPENDENCIES
   rails-assets-bootstrap-toggle!
   rails-assets-highlightjs
   rails-assets-paper!
+  rails-assets-select2
   rails_12factor
   redis
   redis-namespace
