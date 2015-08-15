@@ -31,7 +31,7 @@ while condition
  action
 end
 
-# Functions are defined with
+# Methods are defined with
 def method_one(argument-one, argument-two)
  action
 end
@@ -52,7 +52,7 @@ list.each { |item|
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#bot-start">Bot Basics</div>
       <pre id="bot-start" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
-  # The tick! function is where you will control your bot
+  # The tick! method is where you will control your bot
   # This code gets called every tick (or frame)
   def tick!
     # Use self.sensors to get information about your own, or enemy bots
@@ -83,7 +83,7 @@ end</code></pre></div>
     # Most objects also have Point positions
     my_point = self.sensors.position
 
-    # Points have a few built in helper functions
+    # Points have a few built in helper methods
     my_point.within_radius?(new_point, 10)  # Boolean: Are the points within 10px
     my_point.distance(new_point)            # Float: Distance between points
     my_point.on_wall?      # Boolean: Is the point is near a wall?

@@ -10,7 +10,7 @@
     <div class="panel">
       <div class="panel-heading" role="tab" data-toggle="collapse" data-target="#structure-code">Bot Structure</div>
       <pre id="structure-code" class="panel-collapse collapse"><code class="ruby">class Sample < RTanque::Bot::Brain
-  # The tick! function gets executed every tick
+  # The tick! methods gets executed every tick
   # This is where you get information and execute commands
   def tick!
     # Use self.sensors to detect things
@@ -113,7 +113,7 @@ point = RTanque::Point.new(1, 1, self.arena)
 point.x     # Horizontal position
 point.y     # Vertical position
 
-# Points have a few built in helper functions
+# Points have a few built in helper methods
 point.within_radius?(other_point, distance)  # Boolean: Are the points within distance
 point.distance(other_point)                  # Float: Distance between points
 point.heading(other_point)                   # Heading: Heading to other point

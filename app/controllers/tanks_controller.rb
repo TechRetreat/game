@@ -26,6 +26,7 @@ class TanksController < ApplicationController
   # GET /tanks/new
   def new
     @tank = Tank.new
+    @tank.color = '#%06x' % (rand * 0xffffff)
   end
 
   # GET /tanks/1/edit
