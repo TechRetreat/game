@@ -64,7 +64,8 @@ enemy_reflections = self.sensors.radar
 # enemy_reflections is an Enumerator (List) of 'Reflections' of all visible tanks
 
 # You can do some cool things with Enumerators, for example to get the closest enemy
-closest_reflection = enemies.min { |a,b| a.distance <=> b.distance }
+# These are the enemies in your radar, so if there's nothing in range it may return nil (empty)
+closest_reflection = enemy_reflections.min { |a,b| a.distance <=> b.distance }
 
 # Learn more about Enumerators at http://ruby-doc.org/core-2.2.0/Enumerator.html
 
