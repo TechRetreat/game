@@ -253,6 +253,9 @@ img.full {
 }
 
 .tank-color {
+    background-size:cover;
+    background-position:center;
+    background-image:url(/assets/images/tank-transparent.png);
     width:75px;
     height:75px;
     vertical-align:middle;
