@@ -24,4 +24,16 @@ class Tank < ActiveRecord::Base
 
     update_attributes average_score: sum / total if total > 0
   end
+
+  def owner_name
+    if owner
+      if owner.username
+        owner.username
+      else
+        'Anonymous'
+      end
+    else
+      'Sample'
+    end
+  end
 end
