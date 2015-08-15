@@ -30,7 +30,12 @@
       </div>
     </div>
     <div id="replay-notices">
-      <div id="toolbar">TechTanks Console <a id="clear-console">Clear</a></div>
+      <div id="toolbar">
+        <span id="unread">0</span>
+        TechTanks Console
+        <a id="clear-console">Clear</a>
+        <a id="switch-sides">Switch Sides</a>
+      </div>
       <div id="console"></div>
     </div>
     <%= javascript_include_tag 'paperscripts/Replay', 'data-turbolinks-track' => true, type: 'text/paperscript', canvas: 'tranque-replay' %>
