@@ -35,7 +35,7 @@ class SampleCamper < RTanque::Bot::Brain
     self.command.radar_heading = target.heading
     self.command.turret_heading = target.heading
     if self.sensors.turret_heading.delta(target.heading).abs < turret_fire_range
-      self.command.fire(RTanque::Bot::BrainHelper::MAX_FIRE_POWER)
+      self.command.fire(MAX_FIRE_POWER)
     end
   end
 
@@ -61,7 +61,7 @@ class SampleCamper < RTanque::Bot::Brain
   def move_to_corner
     if self.corner
       command.heading = self.sensors.position.heading(RTanque::Point.new(*self.corner, self.arena))
-      command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+      command.speed = MAX_BOT_SPEED
     end
   end
 
@@ -96,8 +96,6 @@ end</code></pre>
 #
 # Enjoys following and target and firing many shots
 class SampleSeekAndDestroy < RTanque::Bot::Brain
-  include RTanque::Bot::BrainHelper
-
   TURRET_FIRE_RANGE = RTanque::Heading::ONE_DEGREE * 5.0
 
   def tick!
@@ -115,9 +113,9 @@ class SampleSeekAndDestroy < RTanque::Bot::Brain
     command.heading = reflection.heading
     command.radar_heading = reflection.heading
     command.turret_heading = reflection.heading
-    command.speed = reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_BOT_SPEED : RTanque::Bot::BrainHelper::MAX_BOT_SPEED / 2.0
+    command.speed = reflection.distance > 200 ? MAX_BOT_SPEED : MAX_BOT_SPEED / 2.0
     if (reflection.heading.delta(sensors.turret_heading)).abs < TURRET_FIRE_RANGE
-      command.fire(reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_FIRE_POWER : RTanque::Bot::BrainHelper::MIN_FIRE_POWER)
+      command.fire(reflection.distance > 200 ? MAX_FIRE_POWER : MIN_FIRE_POWER)
     end
   end
 
@@ -125,7 +123,7 @@ class SampleSeekAndDestroy < RTanque::Bot::Brain
     if sensors.position.on_wall?
       @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
     end
-    command.radar_heading = sensors.radar_heading + RTanque::Bot::BrainHelper::MAX_RADAR_ROTATION
+    command.radar_heading = sensors.radar_heading + MAX_RADAR_ROTATION
     command.speed = 1
     if @desired_heading
       command.heading = @desired_heading
@@ -160,7 +158,7 @@ class SampleCircleBot < RTanque::Bot::Brain
   end
 
   def make_circles
-    command.speed = RTanque::Bot::BrainHelper::MAX_BOT_SPEED
+    command.speed = MAX_BOT_SPEED
     command.heading = sensors.heading + RTanque::Heading.new_from_degrees(85)
     command.turret_heading = sensors.turret_heading - RTanque::Heading.new_from_degrees(35)
   end
