@@ -70,7 +70,7 @@ class GameService
         return
       end
 
-      tank = runner.add_brain_code(code, 1, entry.tank.name)[0]
+      tank = runner.add_brain_code(code, 1, entry.tank.name, true)[0]
       entry_map[tank.__id__] = entry
       if !entry.tank.owner.nil? and entry.tank.owner.id == current_user_id
         owned_tank = entry.tank
