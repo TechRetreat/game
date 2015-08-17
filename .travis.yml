@@ -10,3 +10,5 @@ services:
   - redis-server
 after_script:
   - "rake db:seed"
+notifications:
+  slack: techtanks:UmnemLZcch3Y3dPAU8ghqMLb
