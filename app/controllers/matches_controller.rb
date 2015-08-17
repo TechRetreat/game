@@ -8,7 +8,7 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    @matches = Match.order(:name).page(params[:page]).per(10000)
+    @matches = Match.order(:name).page(params[:page])
   end
 
   # GET /matches/1
