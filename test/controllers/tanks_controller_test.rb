@@ -30,7 +30,7 @@ class TanksControllerTest < ActionController::TestCase
       post :create, tank: { name: @tank.name }
     end
 
-    assert_redirected_to tank_path(assigns(:tank))
+    assert_redirected_to edit_tank_url(assigns(:tank))
   end
 
   test "should show tank" do

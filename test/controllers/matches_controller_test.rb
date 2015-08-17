@@ -40,11 +40,6 @@ class MatchesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @match
-    assert_response :success
-  end
-
   test "should destroy match" do
     assert_difference('Match.count', -1) do
       delete :destroy, id: @match

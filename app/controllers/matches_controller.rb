@@ -27,8 +27,8 @@ class MatchesController < ApplicationController
   end
 
   # GET /matches/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /matches
   # POST /matches.json
