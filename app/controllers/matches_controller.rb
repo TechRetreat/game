@@ -91,10 +91,15 @@ class MatchesController < ApplicationController
   # DELETE /matches/1
   # DELETE /matches/1.json
   def destroy
-    @match.destroy
-    respond_to do |format|
-      format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
-      format.json { head :no_content }
+    if !@match.owner.nil? and @match.owner.id.equal? current_user.id or current_user.admin?
+      @match.destroy
+      respond_to do |format|
+        format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      @code = 'Permission error'
+      render :template => 'errors/error'
     end
   end
 
