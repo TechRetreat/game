@@ -95,52 +95,52 @@ end</code></pre>
     <pre id="seek-and-destroy-code" class="panel-collapse collapse"><code class="ruby"># Seek&Destroy: Sample Bot
 #
 # Enjoys following and target and firing many shots
-class SampleSeekAndDestroy < RTanque::Bot::Brain
-  TURRET_FIRE_RANGE = RTanque::Heading::ONE_DEGREE * 5.0
+class SeekAndDestroy < RTanque::Bot::Brain
+include RTanque::Bot::BrainHelper
 
-  def tick!
+def tick!
     @desired_heading ||= nil
 
     if (lock = self.get_radar_lock)
-      self.destroy_lock(lock)
-      @desired_heading = nil
-    else
-      self.seek_lock
+        self.destroy_lock(lock)
+        @desired_heading = nil
+      else
+        self.seek_lock
     end
-  end
+end
 
-  def destroy_lock(reflection)
+def destroy_lock(reflection)
     command.heading = reflection.heading
     command.radar_heading = reflection.heading
     command.turret_heading = reflection.heading
-    command.speed = reflection.distance > 200 ? MAX_BOT_SPEED : MAX_BOT_SPEED / 2.0
-    if (reflection.heading.delta(sensors.turret_heading)).abs < TURRET_FIRE_RANGE
-      command.fire(reflection.distance > 200 ? MAX_FIRE_POWER : MIN_FIRE_POWER)
+    command.speed = reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_BOT_SPEED : RTanque::Bot::BrainHelper::MAX_BOT_SPEED / 2.0
+    if (reflection.heading.delta(sensors.turret_heading)).abs < RTanque::Heading::ONE_DEGREE * 5.0
+        command.fire(reflection.distance > 200 ? RTanque::Bot::BrainHelper::MAX_FIRE_POWER : RTanque::Bot::BrainHelper::MIN_FIRE_POWER)
     end
-  end
+end
 
-  def seek_lock
+def seek_lock
     if sensors.position.on_wall?
-      @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
+        @desired_heading = sensors.heading + RTanque::Heading::HALF_ANGLE
     end
-    command.radar_heading = sensors.radar_heading + MAX_RADAR_ROTATION
+    command.radar_heading = sensors.radar_heading + RTanque::Bot::BrainHelper::MAX_RADAR_ROTATION
     command.speed = 1
     if @desired_heading
-      command.heading = @desired_heading
-      command.turret_heading = @desired_heading
+        command.heading = @desired_heading
+        command.turret_heading = @desired_heading
     end
-  end
+end
 
-  def get_radar_lock
+def get_radar_lock
     @locked_on ||= nil
     lock = if @locked_on
-      sensors.radar.find { |reflection| reflection.enemy_name == @locked_on } || sensors.radar.first
+        sensors.radar.find { |reflection| reflection.enemy_name == @locked_on } || sensors.radar.first
     else
-      sensors.radar.first
+        sensors.radar.first
     end
     @locked_on = lock.enemy_name if lock
-    lock
-  end
+        lock
+    end
 end</code></pre>
 
     <div class="list-group list-group-bottom" data-toggle="collapse" data-target="#circle-code"><i class="fa fa-caret-right"></i> Circle</div>
