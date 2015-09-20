@@ -63,14 +63,19 @@ class TanksController < ApplicationController
   # PATCH/PUT /tanks/1
   # PATCH/PUT /tanks/1.json
   def update
-    respond_to do |format|
-      if @tank.update(tank_params)
-        format.html { redirect_to @tank, notice: 'Tank was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tank }
-      else
-        format.html { render :edit }
-        format.json { render json: @tank.errors, status: :unprocessable_entity }
+    if !@tank.owner.nil? and @tank.owner.id.equal? current_user.id or current_user.admin?
+      respond_to do |format|
+        if @tank.update(tank_params)
+          format.html { redirect_to @tank, notice: 'Tank was successfully updated.' }
+          format.json { render :show, status: :ok, location: @tank }
+        else
+          format.html { render :edit }
+          format.json { render json: @tank.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      @code = 'Permission error'
+      render :template => 'errors/error'
     end
   end
 
