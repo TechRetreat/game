@@ -3,7 +3,7 @@ class MatchesController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index]
   before_filter :set_match, only: [:show, :edit, :update, :destroy]
-  before_filter :check_permissions, only: [:show, :edit, :update, :destroy]
+  before_filter :check_permissions, only: [:edit, :update, :destroy]
 
   # GET /matches
   # GET /matches.json
