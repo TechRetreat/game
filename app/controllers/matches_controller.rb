@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
   include AuthorizationHelper
 
-  before_filter :authenticate_user!, except: [:index]
+  before_filter :authenticate_user!, except: [:index, :show ]
   before_filter :set_match, only: [:show, :edit, :update, :destroy]
   before_filter :check_permissions, only: [:edit, :update, :destroy]
 
